@@ -1,5 +1,6 @@
 using digioz.Forum.Data;
 using digioz.Forum.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,6 +15,40 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddRazorPages();
+
+// Login Options
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    // Default Lockout settings.
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(120);
+    options.Lockout.MaxFailedAccessAttempts = 5;
+    options.Lockout.AllowedForNewUsers = false;
+    // Default Signin settings. 
+    options.SignIn.RequireConfirmedAccount = false;
+    options.SignIn.RequireConfirmedEmail = false;
+    // Default Password settings.
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireNonAlphanumeric = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequiredLength = 8;
+    options.Password.RequiredUniqueChars = 1;
+    // Default User settings.
+    options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+    options.User.RequireUniqueEmail = true;
+});
+
+// Configure Cookie Options
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+    options.Cookie.Name = "DigiOzForumCookie";
+    options.Cookie.HttpOnly = true;
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+    options.LoginPath = "/Identity/Account/Login";
+    options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
+    options.SlidingExpiration = true;
+});
 
 var app = builder.Build();
 
