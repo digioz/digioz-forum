@@ -1,3 +1,5 @@
+using digioz.Forum.Data;
+using digioz.Forum.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -14,7 +16,8 @@ namespace digioz.Forum.Pages
 
         public void OnGet()
         {
-
+            var context = new DigiozForumContext();
+            var users = context.AspNetUsers.ToList();
         }
     }
 }
