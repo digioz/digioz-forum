@@ -417,6 +417,293 @@ namespace digioz.Forum.Data.Migrations
                     table.PrimaryKey("PK_ForumGroup", x => x.GroupId);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "ForumIcon",
+                columns: table => new
+                {
+                    IconsId = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IconsUrl = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
+                    IconsWidth = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
+                    IconsHeight = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
+                    IconsAlt = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
+                    IconsOrder = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
+                    DisplayOnPosting = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 1)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ForumIcon", x => x.IconsId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ForumLang",
+                columns: table => new
+                {
+                    LangId = table.Column<byte>(type: "tinyint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    LangIso = table.Column<string>(type: "varchar(30)", nullable: false, defaultValue: ""),
+                    LangDir = table.Column<string>(type: "varchar(30)", nullable: false, defaultValue: ""),
+                    LangEnglishName = table.Column<string>(type: "varchar(100)", nullable: false, defaultValue: ""),
+                    LangLocalName = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
+                    LangAuthor = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: "")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ForumLang", x => x.LangId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ForumLog",
+                columns: table => new
+                {
+                    LogId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    LogType = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
+                    UserId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    ForumId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
+                    TopicId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    PostId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    ReporteeId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    LogIp = table.Column<string>(type: "varchar(40)", nullable: false, defaultValue: ""),
+                    LogTime = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    LogOperation = table.Column<string>(type: "text", nullable: false),
+                    LogData = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ForumLog", x => x.LogId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ForumLoginAttempt",
+                columns: table => new
+                {
+                    AttemptIp = table.Column<string>(type: "varchar(40)", nullable: false, defaultValue: ""),
+                    AttemptBrowser = table.Column<string>(type: "varchar(150)", nullable: false, defaultValue: ""),
+                    AttemptForwardedFor = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
+                    AttemptTime = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    UserId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    Username = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
+                    UsernameClean = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: "")
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ForumMigration",
+                columns: table => new
+                {
+                    MigrationName = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
+                    MigrationDependsOn = table.Column<string>(type: "text", nullable: false),
+                    MigrationSchemaDone = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
+                    MigrationDataDone = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
+                    MigrationDataState = table.Column<string>(type: "text", nullable: false),
+                    MigrationStartTime = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    MigrationEndTime = table.Column<int>(type: "int", nullable: false, defaultValue: 0)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ForumMigration", x => x.MigrationName);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ForumModeratorCache",
+                columns: table => new
+                {
+                    ForumId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
+                    UserId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    Username = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
+                    GroupId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
+                    GroupName = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
+                    DisplayOnIndex = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 1)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ForumModeratorCache", x => new { x.ForumId, x.UserId, x.GroupId });
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ForumModule",
+                columns: table => new
+                {
+                    ModuleId = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ModuleEnabled = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 1),
+                    ModuleDisplay = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 1),
+                    ModuleBasename = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
+                    ModuleClass = table.Column<string>(type: "varchar(10)", nullable: false, defaultValue: ""),
+                    ParentId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
+                    LeftId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
+                    RightId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
+                    ModuleLangname = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
+                    ModuleMode = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
+                    ModuleAuth = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: "")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ForumModule", x => x.ModuleId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ForumNotification",
+                columns: table => new
+                {
+                    NotificationId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    NotificationTypeId = table.Column<short>(type: "smallint", nullable: false, defaultValue: 0),
+                    ItemId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
+                    ItemParentId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
+                    UserId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    NotificationRead = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
+                    NotificationTime = table.Column<int>(type: "int", nullable: false, defaultValue: 1),
+                    NotificationData = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ForumNotification", x => x.NotificationId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ForumNotificationEmail",
+                columns: table => new
+                {
+                    NotificationTypeId = table.Column<short>(type: "smallint", nullable: false, defaultValue: 0),
+                    ItemId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    ItemParentId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    UserId = table.Column<int>(type: "int", nullable: false, defaultValue: 0)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ForumNotificationEmail", x => new { x.NotificationTypeId, x.ItemId, x.ItemParentId, x.UserId });
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ForumNotificationType",
+                columns: table => new
+                {
+                    NotificationTypeId = table.Column<short>(type: "smallint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    NotificationTypeName = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
+                    NotificationTypeEnabled = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 1)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ForumNotificationType", x => x.NotificationTypeId);
+                });
+
+                migrationBuilder.CreateIndex(
+                    name: "IX_ForumNotificationType_NotificationTypeName",
+                    table: "ForumNotificationType",
+                    column: "NotificationTypeName",
+                    unique: true);
+
+            migrationBuilder.CreateTable(
+                name: "ForumOauthAccount",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    Provider = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
+                    OauthProviderId = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ForumOauthAccount", x => new { x.UserId, x.Provider });
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ForumOauthState",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    SessionId = table.Column<string>(type: "char(32)", nullable: false, defaultValue: ""),
+                    Provider = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
+                    OauthState = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: "")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ForumOauthState", x => new { x.UserId, x.SessionId, x.Provider });
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ForumOauthToken",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    SessionId = table.Column<string>(type: "char(32)", nullable: false, defaultValue: ""),
+                    Provider = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
+                    OauthToken = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ForumOauthToken", x => new { x.UserId, x.SessionId, x.Provider });
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ForumPollOption",
+                columns: table => new
+                {
+                    PollOptionId = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
+                    TopicId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    PollOptionText = table.Column<string>(type: "text", nullable: false),
+                    PollOptionTotal = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ForumPollOption", x => new { x.PollOptionId, x.TopicId });
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ForumPollVote",
+                columns: table => new
+                {
+                    TopicId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    PollOptionId = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
+                    VoteUserId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    VoteUserIp = table.Column<string>(type: "varchar(40)", nullable: false, defaultValue: "")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ForumPollVote", x => new { x.TopicId, x.PollOptionId, x.VoteUserId });
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ForumPost",
+                columns: table => new
+                {
+                    PostId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TopicId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    ForumId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
+                    PosterId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    IconId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
+                    PosterIp = table.Column<string>(type: "varchar(40)", nullable: false, defaultValue: ""),
+                    PostTime = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    PostReported = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
+                    EnableBbcode = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 1),
+                    EnableSmilies = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 1),
+                    EnableMagicUrl = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 1),
+                    EnableSig = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 1),
+                    PostUsername = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
+                    PostSubject = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
+                    PostText = table.Column<string>(type: "text", nullable: false),
+                    PostChecksum = table.Column<string>(type: "varchar(32)", nullable: false, defaultValue: ""),
+                    PostAttachment = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
+                    BbcodeBitfield = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
+                    BbcodeUid = table.Column<string>(type: "varchar(8)", nullable: false, defaultValue: ""),
+                    PostCount = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 1),
+                    PostEditTime = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    PostEditReason = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
+                    PostEditUser = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    PostEditCount = table.Column<short>(type: "smallint", nullable: false, defaultValue: 0),
+                    PostEditLocked = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
+                    PostVisibility = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
+                    PostDeleteTime = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    PostDeleteReason = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
+                    PostDeleteUser = table.Column<int>(type: "int", nullable: false, defaultValue: 0)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ForumPost", x => x.PostId);
+                });
+
 
 
         }
@@ -425,6 +712,22 @@ namespace digioz.Forum.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
 
+            migrationBuilder.DropTable(name: "ForumPost");
+            migrationBuilder.DropTable(name: "ForumPollVote");
+            migrationBuilder.DropTable(name: "ForumPollOption");
+            migrationBuilder.DropTable(name: "ForumOauthToken");
+            migrationBuilder.DropTable(name: "ForumOauthState");
+            migrationBuilder.DropTable(name: "ForumOauthAccount");
+            migrationBuilder.DropTable(name: "ForumNotificationType");
+            migrationBuilder.DropTable(name: "ForumNotificationEmail");
+            migrationBuilder.DropTable(name: "ForumNotification");
+            migrationBuilder.DropTable(name: "ForumModule");
+            migrationBuilder.DropTable(name: "ForumModeratorCache");
+            migrationBuilder.DropTable(name: "ForumMigration");
+            migrationBuilder.DropTable(name: "ForumLoginAttempt");
+            migrationBuilder.DropTable(name: "ForumLog");
+            migrationBuilder.DropTable(name: "ForumLang");
+            migrationBuilder.DropTable(name: "ForumIcon");
             migrationBuilder.DropTable(name: "ForumGroup");
             migrationBuilder.DropTable(name: "ForumExtensionGroup");
             migrationBuilder.DropTable(name: "ForumExtension");
