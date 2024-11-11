@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace digioz.Forum.Models;
 
-public partial class ForumAclRoleDatum
+public partial class ForumAclRoleData
 {
     public long RoleId { get; set; }
 
