@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -572,6 +573,207 @@ namespace digioz.Forum.Data.Migrations
                     { "ROLE_FORUM_NEW_MEMBER", "ROLE_DESCRIPTION_FORUM_NEW_MEMBER", "f_", 10 }
                 });
 
+            migrationBuilder.InsertData(
+                table: "ForumStyle",
+                columns: new[] { "StyleName", "StyleCopyright", "StyleActive", "StylePath", "BbcodeBitField", "StyleParentId", "StyleParentTree" },
+                values: new object[,]
+                {
+                    { "prosilver", "&copy; phpBB Limited", 1, "prosilver", "//g=", 0, "" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Forum",
+                columns: new[] {
+                    "ForumName", "ForumDesc", "LeftId", "RightId", "ParentId", "ForumType",
+                    "ForumPostsApproved", "ForumPostsUnapproved", "ForumPostsSoftDeleted",
+                    "ForumTopicsApproved", "ForumTopicsUnapproved", "ForumTopicsSoftDeleted",
+                    "ForumLastPostId", "ForumLastPosterId", "ForumLastPosterName",
+                    "ForumLastPosterColour", "ForumLastPostSubject", "ForumLastPostTime",
+                    "ForumLink", "ForumPassword", "ForumImage", "ForumRules", "ForumRulesLink",
+                    "ForumRulesUid", "ForumDescUid", "PruneFreq", "PruneDays", "PruneViewed",
+                    "ForumParents", "ForumFlags"
+                },
+                values: new object[,]
+                {
+                    {
+                        "{L_FORUMS_FIRST_CATEGORY}", "", 1, 4, 0, 0,
+                        0, 0, 0, 0, 0, 0, 1, 2, "Admin", "AA0000", null, 972086460,
+                        "", "", "", "", "", "", "", null, 0, 0, "", null
+                    },
+                    {
+                        "{L_FORUMS_TEST_FORUM_TITLE}", "{L_FORUMS_TEST_FORUM_DESC}", 2, 3, 1, 1,
+                        1, 0, 0, 1, 0, 0, 1, 2, "Admin", "AA0000", "{L_TOPICS_TOPIC_TITLE}", 972086460,
+                        "", "", "", "", "", "", "", 1, 7, 7, "", 48
+                    }
+                });
+
+            // Create password hasher
+            var hasher = new PasswordHasher<IdentityUser>();
+
+            // Generate unique values
+            var userId = Guid.NewGuid().ToString();
+            var securityStamp = Guid.NewGuid().ToString();
+            var concurrencyStamp = Guid.NewGuid().ToString();
+
+            // Create admin user
+            var user = new
+            {
+                Id = userId,
+                UserName = "admin@yourdomain.com",
+                NormalizedUserName = "ADMIN@YOURDOMAIN.COM",
+                Email = "admin@yourdomain.com",
+                NormalizedEmail = "ADMIN@YOURDOMAIN.COM",
+                EmailConfirmed = true,
+                PasswordHash = hasher.HashPassword(null, "Pass@word1"),
+                SecurityStamp = securityStamp,
+                ConcurrencyStamp = concurrencyStamp,
+                PhoneNumber = (string)null,
+                PhoneNumberConfirmed = false,
+                TwoFactorEnabled = false,
+                LockoutEnd = (DateTimeOffset?)null,
+                LockoutEnabled = true,
+                AccessFailedCount = 0
+            };
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] {
+                "Id",
+                "UserName",
+                "NormalizedUserName",
+                "Email",
+                "NormalizedEmail",
+                "EmailConfirmed",
+                "PasswordHash",
+                "SecurityStamp",
+                "ConcurrencyStamp",
+                "PhoneNumber",
+                "PhoneNumberConfirmed",
+                "TwoFactorEnabled",
+                "LockoutEnd",
+                "LockoutEnabled",
+                "AccessFailedCount"
+                },
+                values: new object[] {
+                user.Id,
+                user.UserName,
+                user.NormalizedUserName,
+                user.Email,
+                user.NormalizedEmail,
+                user.EmailConfirmed,
+                user.PasswordHash,
+                user.SecurityStamp,
+                user.ConcurrencyStamp,
+                user.PhoneNumber,
+                user.PhoneNumberConfirmed,
+                user.TwoFactorEnabled,
+                user.LockoutEnd,
+                user.LockoutEnabled,
+                user.AccessFailedCount
+                });
+
+            // Create password hasher
+            hasher = new PasswordHasher<IdentityUser>();
+
+            // Generate unique values
+            userId = Guid.NewGuid().ToString();
+            securityStamp = Guid.NewGuid().ToString();
+            concurrencyStamp = Guid.NewGuid().ToString();
+
+            // Create anonymous user
+            user = new
+            {
+                Id = userId,
+                UserName = "anonymous@yourdomain.com",
+                NormalizedUserName = "ANONYMOUS@YOURDOMAIN.COM",
+                Email = "anonymous@yourdomain.com",
+                NormalizedEmail = "ANONYMOUS@YOURDOMAIN.COM",
+                EmailConfirmed = true,
+                PasswordHash = hasher.HashPassword(null, "z4T49~?1aG.l"),
+                SecurityStamp = securityStamp,
+                ConcurrencyStamp = concurrencyStamp,
+                PhoneNumber = (string)null,
+                PhoneNumberConfirmed = false,
+                TwoFactorEnabled = false,
+                LockoutEnd = (DateTimeOffset?)null,
+                LockoutEnabled = true,
+                AccessFailedCount = 0
+            };
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] {
+                "Id",
+                "UserName",
+                "NormalizedUserName",
+                "Email",
+                "NormalizedEmail",
+                "EmailConfirmed",
+                "PasswordHash",
+                "SecurityStamp",
+                "ConcurrencyStamp",
+                "PhoneNumber",
+                "PhoneNumberConfirmed",
+                "TwoFactorEnabled",
+                "LockoutEnd",
+                "LockoutEnabled",
+                "AccessFailedCount"
+                },
+                values: new object[] {
+                user.Id,
+                user.UserName,
+                user.NormalizedUserName,
+                user.Email,
+                user.NormalizedEmail,
+                user.EmailConfirmed,
+                user.PasswordHash,
+                user.SecurityStamp,
+                user.ConcurrencyStamp,
+                user.PhoneNumber,
+                user.PhoneNumberConfirmed,
+                user.TwoFactorEnabled,
+                user.LockoutEnd,
+                user.LockoutEnabled,
+                user.AccessFailedCount
+                });
+
+            migrationBuilder.InsertData(
+                table: "ForumUser",
+                columns: new[] {
+                    "UserType", "GroupId", "UserName", "UserNameClean", "UserRegdate",
+                    "UserEmail", "UserLang", "UserStyle", "UserRank", "UserColor",
+                    "UserPosts", "UserPermissions", "UserIp", "UserBirthday",
+                    "UserLastPage", "UserLastConfirmKey", "UserPostSortbyType",
+                    "UserPostSortbyDir", "UserTopicSortbyType", "UserTopicSortbyDir",
+                    "UserAvatar", "UserSig", "UserSigBbcodeUid", "UserJabber",
+                    "UserActkey", "UserActkeyExpiration", "UserNewpasswd", "UserAllowMassemail"
+                },
+                values: new object[,]
+                {
+                    {
+                        // Anonymous user
+                        2, 1, "Anonymous", "anonymous", 0,
+                        "", "en", 1, 0, "",
+                        0, "", "", "",
+                        "", "", "t",
+                        "a", "t", "d",
+                        "", "", "", "",
+                        "", 0, "", 0
+                    },
+                    {
+                        // Admin user
+                        3, 5, "Admin", "admin", 0,
+                        "admin@yourdomain.com", "en", 1, 1, "AA0000",
+                        1, "", "", "",
+                        "", "", "t",
+                        "a", "t", "d",
+                        "", "", "", "",
+                        "", 0, "", null
+                    }
+                });
+
+
+
 
         }
 
@@ -579,6 +781,43 @@ namespace digioz.Forum.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
 
+
+            migrationBuilder.DeleteData(
+                table: "ForumUser",
+                keyColumns: new[] { "UserName", "UserType" },
+                keyValues: new object[] { "Anonymous", 2 });
+
+            migrationBuilder.DeleteData(
+                table: "ForumUser",
+                keyColumns: new[] { "UserName", "UserType" },
+                keyValues: new object[] { "Admin", 3 });
+
+            migrationBuilder.DeleteData(
+                table: "AspNetUsers",
+                keyColumn: "Email",
+                keyValue: "anonymous@yourdomain.com");
+
+            migrationBuilder.DeleteData(
+                table: "AspNetUsers",
+                keyColumn: "Email",
+                keyValue: "admin@yourdomain.com");
+
+            // Delete the test forum first (child)
+            migrationBuilder.DeleteData(
+                table: "Forum",
+                keyColumns: new[] { "ForumName", "LeftId", "RightId", "ParentId" },
+                keyValues: new object[] { "{L_FORUMS_TEST_FORUM_TITLE}", 2, 3, 1 });
+
+            // Then delete the category (parent)
+            migrationBuilder.DeleteData(
+                table: "Forum",
+                keyColumns: new[] { "ForumName", "LeftId", "RightId", "ParentId" },
+                keyValues: new object[] { "{L_FORUMS_FIRST_CATEGORY}", 1, 4, 0 });
+
+            migrationBuilder.DeleteData(
+                table: "ForumStyle",
+                keyColumn: "StyleName",
+                keyValue: "prosilver");
 
             migrationBuilder.DeleteData(
                 table: "ForumAclRole",
