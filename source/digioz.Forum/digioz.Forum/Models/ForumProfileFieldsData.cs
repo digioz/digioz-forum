@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace digioz.Forum.Models;
 
-public partial class ForumProfileFieldsDatum
+public partial class ForumProfileFieldsData
 {
+    [Key]
     public int UserId { get; set; }
 
     public string PfForumInterests { get; set; } = null!;

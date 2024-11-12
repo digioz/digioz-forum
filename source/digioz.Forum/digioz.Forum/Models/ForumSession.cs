@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace digioz.Forum.Models;
 
 public partial class ForumSession
 {
+    [Key]
     public string SessionId { get; set; } = null!;
 
     public int SessionUserId { get; set; }

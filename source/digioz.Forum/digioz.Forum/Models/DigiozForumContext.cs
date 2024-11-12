@@ -52,7 +52,7 @@ public partial class DigiozForumContext : DbContext
 
     public virtual DbSet<ForumAclRole> ForumAclRoles { get; set; }
 
-    public virtual DbSet<ForumAclRoleDatum> ForumAclRoleData { get; set; }
+    public virtual DbSet<ForumAclRoleData> ForumAclRoleData { get; set; }
 
     public virtual DbSet<ForumAclUser> ForumAclUsers { get; set; }
 
@@ -126,7 +126,7 @@ public partial class DigiozForumContext : DbContext
 
     public virtual DbSet<ForumProfileField> ForumProfileFields { get; set; }
 
-    public virtual DbSet<ForumProfileFieldsDatum> ForumProfileFieldsData { get; set; }
+    public virtual DbSet<ForumProfileFieldsData> ForumProfileFieldsData { get; set; }
 
     public virtual DbSet<ForumProfileFieldsLang> ForumProfileFieldsLangs { get; set; }
 
@@ -379,7 +379,7 @@ public partial class DigiozForumContext : DbContext
                 .HasDefaultValue("");
         });
 
-        modelBuilder.Entity<ForumAclRoleDatum>(entity =>
+        modelBuilder.Entity<ForumAclRoleData>(entity =>
         {
             entity.HasKey(e => new { e.RoleId, e.AuthOptionId }).HasName("PK__ForumAcl__B29E5904197F6F57");
         });
@@ -1067,7 +1067,7 @@ public partial class DigiozForumContext : DbContext
                 .HasDefaultValue("");
         });
 
-        modelBuilder.Entity<ForumProfileFieldsDatum>(entity =>
+        modelBuilder.Entity<ForumProfileFieldsData>(entity =>
         {
             entity.HasKey(e => e.UserId).HasName("PK__ForumPro__1788CC4C534BC8FE");
 
