@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using digioz.Forum.Helpers;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
@@ -679,6 +680,8 @@ namespace digioz.Forum.Data.Migrations
             userId = Guid.NewGuid().ToString();
             securityStamp = Guid.NewGuid().ToString();
             concurrencyStamp = Guid.NewGuid().ToString();
+            var stringHelper = new StringHelper();
+            var passAnonymous = stringHelper.GenerateRandomPassword();
 
             // Create anonymous user
             user = new
@@ -689,7 +692,7 @@ namespace digioz.Forum.Data.Migrations
                 Email = "anonymous@yourdomain.com",
                 NormalizedEmail = "ANONYMOUS@YOURDOMAIN.COM",
                 EmailConfirmed = true,
-                PasswordHash = hasher.HashPassword(null, "z4T49~?1aG.l"),
+                PasswordHash = hasher.HashPassword(null, passAnonymous),
                 SecurityStamp = securityStamp,
                 ConcurrencyStamp = concurrencyStamp,
                 PhoneNumber = (string)null,
