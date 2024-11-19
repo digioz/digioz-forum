@@ -775,6 +775,706 @@ namespace digioz.Forum.Data.Migrations
                     }
                 });
 
+            migrationBuilder.InsertData(
+                table: "ForumGroup",
+                columns: new[] {
+                    "GroupName", "GroupType", "GroupFounderManage", "GroupColour",
+                    "GroupLegend", "GroupAvatar", "GroupDesc", "GroupDescUid",
+                    "GroupMaxRecipients"
+                },
+                values: new object[,]
+                {
+                    {
+                        "GUESTS", 3, 0, "",
+                        0, "", "", "",
+                        5
+                    },
+                    {
+                        "REGISTERED", 3, 0, "",
+                        0, "", "", "",
+                        5
+                    },
+                    {
+                        "REGISTERED_COPPA", 3, 0, "",
+                        0, "", "", "",
+                        5
+                    },
+                    {
+                        "GLOBAL_MODERATORS", 3, 0, "00AA00",
+                        2, "", "", "",
+                        0
+                    },
+                    {
+                        "ADMINISTRATORS", 3, 1, "AA0000",
+                        1, "", "", "",
+                        0
+                    },
+                    {
+                        "BOTS", 3, 0, "9E8DA7",
+                        0, "", "", "",
+                        5
+                    },
+                    {
+                        "NEWLY_REGISTERED", 3, 0, "",
+                        0, "", "", "",
+                        5
+                    }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ForumTeamPage",
+                columns: new[] {
+                    "GroupId",
+                    "TeamPageName",
+                    "TeamPagePosition",
+                    "TeamPageParent"
+                },
+                values: new object[,]
+                {
+                    {
+                        5,      // Administrators group
+                        "",
+                        1,
+                        0
+                    },
+                    {
+                        4,      // Global Moderators group
+                        "",
+                        2,
+                        0
+                    }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ForumUserGroup",
+                columns: new[] {
+                    "GroupId",
+                    "UserId",
+                    "UserPending",
+                    "GroupLeader"
+                },
+                values: new object[,]
+                {
+                    {
+                        1,      // GUESTS group
+                        1,      // Anonymous user
+                        0,
+                        0
+                    },
+                    {
+                        2,      // REGISTERED group
+                        2,      // Admin user
+                        0,
+                        0
+                    },
+                    {
+                        4,      // GLOBAL_MODERATORS group
+                        2,      // Admin user
+                        0,
+                        0
+                    },
+                    {
+                        5,      // ADMINISTRATORS group
+                        2,      // Admin user
+                        0,
+                        1       // Group leader
+                    }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ForumRank",
+                columns: new[] {
+                    "RankTitle",
+                    "RankMin",
+                    "RankSpecial",
+                    "RankImage"
+                },
+                values: new object[,]
+                {
+                    {
+                        "{L_RANKS_SITE_ADMIN_TITLE}",  // Site Admin rank title
+                        0,                             // Minimum posts
+                        1,                             // Special rank
+                        ""                             // No rank image
+                    }
+                });
+
+            // Standard Admin (RoleId: 1)
+            migrationBuilder.Sql(@"
+            INSERT INTO ForumAclRoleData (RoleId, AuthOptionId, AuthSetting)
+            SELECT 1, AuthOptionId, 1
+            FROM ForumAclOption 
+            WHERE AuthOption LIKE 'a_%'
+            AND AuthOption NOT IN (
+                'a_switchperm',
+                'a_jabber',
+                'a_phpinfo',
+                'a_server',
+                'a_backup',
+                'a_styles',
+                'a_clearlogs',
+                'a_modules',
+                'a_language',
+                'a_email',
+                'a_bots',
+                'a_search',
+                'a_aauth',
+                'a_roles'
+            )");
+
+            // Forum Admin (RoleId: 2)
+            migrationBuilder.Sql(@"
+            INSERT INTO ForumAclRoleData (RoleId, AuthOptionId, AuthSetting)
+            SELECT 2, AuthOptionId, 1
+            FROM ForumAclOption 
+            WHERE AuthOption LIKE 'a_%'
+            AND AuthOption IN (
+                'a_',
+                'a_authgroups',
+                'a_authusers',
+                'a_fauth',
+                'a_forum',
+                'a_forumadd',
+                'a_forumdel',
+                'a_mauth',
+                'a_prune',
+                'a_uauth',
+                'a_viewauth',
+                'a_viewlogs'
+            )");
+
+            // User and Groups Admin (RoleId: 3)
+            migrationBuilder.Sql(@"
+            INSERT INTO ForumAclRoleData (RoleId, AuthOptionId, AuthSetting)
+            SELECT 3, AuthOptionId, 1
+            FROM ForumAclOption 
+            WHERE AuthOption LIKE 'a_%'
+            AND AuthOption IN (
+                'a_',
+                'a_authgroups',
+                'a_authusers',
+                'a_ban',
+                'a_group',
+                'a_groupadd',
+                'a_groupdel',
+                'a_ranks',
+                'a_uauth',
+                'a_user',
+                'a_viewauth',
+                'a_viewlogs'
+            )");
+
+            // Full Admin (RoleId: 4)
+            migrationBuilder.Sql(@"
+            INSERT INTO ForumAclRoleData (RoleId, AuthOptionId, AuthSetting)
+            SELECT 4, AuthOptionId, 1
+            FROM ForumAclOption 
+            WHERE AuthOption LIKE 'a_%'");
+
+            // All Features (RoleId: 5)
+            migrationBuilder.Sql(@"
+            INSERT INTO ForumAclRoleData (RoleId, AuthOptionId, AuthSetting)
+            SELECT 5, AuthOptionId, 1
+            FROM ForumAclOption 
+            WHERE AuthOption LIKE 'u_%'");
+
+            // Standard Features (RoleId: 6)
+            migrationBuilder.Sql(@"
+            INSERT INTO ForumAclRoleData (RoleId, AuthOptionId, AuthSetting)
+            SELECT 6, AuthOptionId, 1
+            FROM ForumAclOption 
+            WHERE AuthOption LIKE 'u_%'
+            AND AuthOption NOT IN (
+                'u_viewonline',
+                'u_chggrp',
+                'u_chgname',
+                'u_ignoreflood',
+                'u_pm_flash',
+                'u_pm_forward'
+            )");
+
+            // Limited Features (RoleId: 7)
+            migrationBuilder.Sql(@"
+            INSERT INTO ForumAclRoleData (RoleId, AuthOptionId, AuthSetting)
+            SELECT 7, AuthOptionId, 1
+            FROM ForumAclOption 
+            WHERE AuthOption LIKE 'u_%'
+            AND AuthOption NOT IN (
+                'u_attach',
+                'u_viewonline',
+                'u_chggrp',
+                'u_chgname',
+                'u_ignoreflood',
+                'u_pm_attach',
+                'u_pm_emailpm',
+                'u_pm_flash',
+                'u_savedrafts',
+                'u_search',
+                'u_sendemail',
+                'u_sendim',
+                'u_masspm',
+                'u_masspm_group'
+            )");
+
+            // No Private Messages - Allowed Features (RoleId: 8, AuthSetting: 1)
+            migrationBuilder.Sql(@"
+            INSERT INTO ForumAclRoleData (RoleId, AuthOptionId, AuthSetting)
+            SELECT 8, AuthOptionId, 1
+            FROM ForumAclOption 
+            WHERE AuthOption LIKE 'u_%'
+            AND AuthOption IN (
+                'u_',
+                'u_chgavatar',
+                'u_chgcensors',
+                'u_chgemail',
+                'u_chgpasswd',
+                'u_download',
+                'u_hideonline',
+                'u_sig',
+                'u_viewprofile'
+            )");
+
+            // No Private Messages - Denied Features (RoleId: 8, AuthSetting: 0)
+            migrationBuilder.Sql(@"
+            INSERT INTO ForumAclRoleData (RoleId, AuthOptionId, AuthSetting)
+            SELECT 8, AuthOptionId, 0
+            FROM ForumAclOption 
+            WHERE AuthOption LIKE 'u_%'
+            AND AuthOption IN (
+                'u_readpm',
+                'u_sendpm',
+                'u_masspm',
+                'u_masspm_group'
+            )");
+
+            // No Avatar - Allowed Features (RoleId: 9, AuthSetting: 1)
+            migrationBuilder.Sql(@"
+            INSERT INTO ForumAclRoleData (RoleId, AuthOptionId, AuthSetting)
+            SELECT 9, AuthOptionId, 1
+            FROM ForumAclOption 
+            WHERE AuthOption LIKE 'u_%'
+            AND AuthOption NOT IN (
+                'u_attach',
+                'u_chgavatar',
+                'u_viewonline',
+                'u_chggrp',
+                'u_chgname',
+                'u_ignoreflood',
+                'u_pm_attach',
+                'u_pm_emailpm',
+                'u_pm_flash',
+                'u_savedrafts',
+                'u_search',
+                'u_sendemail',
+                'u_sendim',
+                'u_masspm',
+                'u_masspm_group'
+            )");
+
+            // No Avatar - Explicitly Denied Features (RoleId: 9, AuthSetting: 0)
+            migrationBuilder.Sql(@"
+            INSERT INTO ForumAclRoleData (RoleId, AuthOptionId, AuthSetting)
+            SELECT 9, AuthOptionId, 0
+            FROM ForumAclOption 
+            WHERE AuthOption LIKE 'u_%'
+            AND AuthOption IN (
+                'u_chgavatar'
+            )");
+
+            // Full Moderator (RoleId: 10)
+            migrationBuilder.Sql(@"
+            INSERT INTO ForumAclRoleData (RoleId, AuthOptionId, AuthSetting)
+            SELECT 10, AuthOptionId, 1
+            FROM ForumAclOption 
+            WHERE AuthOption LIKE 'm_%'");
+
+            // Standard Moderator (RoleId: 11)
+            migrationBuilder.Sql(@"
+            INSERT INTO ForumAclRoleData (RoleId, AuthOptionId, AuthSetting)
+            SELECT 11, AuthOptionId, 1
+            FROM ForumAclOption 
+            WHERE AuthOption LIKE 'm_%'
+            AND AuthOption NOT IN (
+                'm_ban',
+                'm_chgposter'
+            )");
+
+            // Simple Moderator (RoleId: 12)
+            migrationBuilder.Sql(@"
+            INSERT INTO ForumAclRoleData (RoleId, AuthOptionId, AuthSetting)
+            SELECT 12, AuthOptionId, 1
+            FROM ForumAclOption 
+            WHERE AuthOption LIKE 'm_%'
+            AND AuthOption IN (
+                'm_',
+                'm_delete',
+                'm_softdelete',
+                'm_edit',
+                'm_info',
+                'm_report',
+                'm_pm_report'
+            )");
+
+            // Queue Moderator (RoleId: 13)
+            migrationBuilder.Sql(@"
+            INSERT INTO ForumAclRoleData (RoleId, AuthOptionId, AuthSetting)
+            SELECT 13, AuthOptionId, 1
+            FROM ForumAclOption 
+            WHERE AuthOption LIKE 'm_%'
+            AND AuthOption IN (
+                'm_',
+                'm_approve',
+                'm_edit'
+            )");
+
+            // Full Access (RoleId: 14)
+            migrationBuilder.Sql(@"
+            INSERT INTO ForumAclRoleData (RoleId, AuthOptionId, AuthSetting)
+            SELECT 14, AuthOptionId, 1
+            FROM ForumAclOption 
+            WHERE AuthOption LIKE 'f_%'");
+
+            // Standard Access (RoleId: 15)
+            migrationBuilder.Sql(@"
+            INSERT INTO ForumAclRoleData (RoleId, AuthOptionId, AuthSetting)
+            SELECT 15, AuthOptionId, 1
+            FROM ForumAclOption 
+            WHERE AuthOption LIKE 'f_%'
+            AND AuthOption NOT IN (
+                'f_announce',
+                'f_announce_global',
+                'f_flash',
+                'f_ignoreflood',
+                'f_poll',
+                'f_sticky',
+                'f_user_lock'
+            )");
+
+            // No Access (RoleId: 16)
+            migrationBuilder.Sql(@"
+            INSERT INTO ForumAclRoleData (RoleId, AuthOptionId, AuthSetting)
+            SELECT 16, AuthOptionId, 0
+            FROM ForumAclOption 
+            WHERE AuthOption = 'f_'");
+
+            // Read Only Access (RoleId: 17)
+            migrationBuilder.Sql(@"
+            INSERT INTO ForumAclRoleData (RoleId, AuthOptionId, AuthSetting)
+            SELECT 17, AuthOptionId, 1
+            FROM ForumAclOption 
+            WHERE AuthOption LIKE 'f_%'
+            AND AuthOption IN (
+                'f_',
+                'f_download',
+                'f_list',
+                'f_list_topics',
+                'f_read',
+                'f_search',
+                'f_subscribe',
+                'f_print'
+            )");
+
+            // Limited Access (RoleId: 18)
+            migrationBuilder.Sql(@"
+            INSERT INTO ForumAclRoleData (RoleId, AuthOptionId, AuthSetting)
+            SELECT 18, AuthOptionId, 1
+            FROM ForumAclOption 
+            WHERE AuthOption LIKE 'f_%'
+            AND AuthOption NOT IN (
+                'f_announce',
+                'f_announce_global',
+                'f_attach',
+                'f_bump',
+                'f_delete',
+                'f_flash',
+                'f_icons',
+                'f_ignoreflood',
+                'f_poll',
+                'f_sticky',
+                'f_user_lock',
+                'f_votechg'
+            )");
+
+            // Bot Access (RoleId: 19)
+            migrationBuilder.Sql(@"
+            INSERT INTO ForumAclRoleData (RoleId, AuthOptionId, AuthSetting)
+            SELECT 19, AuthOptionId, 1
+            FROM ForumAclOption 
+            WHERE AuthOption LIKE 'f_%'
+            AND AuthOption IN (
+                'f_',
+                'f_download',
+                'f_list',
+                'f_list_topics',
+                'f_read',
+                'f_print'
+            )");
+
+            // On Moderation Queue - Allowed Features (RoleId: 20, AuthSetting: 1)
+            migrationBuilder.Sql(@"
+            INSERT INTO ForumAclRoleData (RoleId, AuthOptionId, AuthSetting)
+            SELECT 20, AuthOptionId, 1
+            FROM ForumAclOption 
+            WHERE AuthOption LIKE 'f_%'
+            AND AuthOption NOT IN (
+                'f_announce',
+                'f_announce_global',
+                'f_bump',
+                'f_delete',
+                'f_flash',
+                'f_icons',
+                'f_ignoreflood',
+                'f_poll',
+                'f_sticky',
+                'f_user_lock',
+                'f_votechg',
+                'f_noapprove'
+            )");
+
+            // On Moderation Queue - Denied Features (RoleId: 20, AuthSetting: 0)
+            migrationBuilder.Sql(@"
+            INSERT INTO ForumAclRoleData (RoleId, AuthOptionId, AuthSetting)
+            SELECT 20, AuthOptionId, 0
+            FROM ForumAclOption 
+            WHERE AuthOption LIKE 'f_%'
+            AND AuthOption IN (
+                'f_noapprove'
+            )");
+
+            // Standard Access + Polls (RoleId: 21)
+            migrationBuilder.Sql(@"
+            INSERT INTO ForumAclRoleData (RoleId, AuthOptionId, AuthSetting)
+            SELECT 21, AuthOptionId, 1
+            FROM ForumAclOption 
+            WHERE AuthOption LIKE 'f_%'
+            AND AuthOption NOT IN (
+                'f_announce',
+                'f_announce_global',
+                'f_flash',
+                'f_ignoreflood',
+                'f_sticky',
+                'f_user_lock'
+            )");
+
+            // Limited Access + Polls (RoleId: 22)
+            migrationBuilder.Sql(@"
+            INSERT INTO ForumAclRoleData (RoleId, AuthOptionId, AuthSetting)
+            SELECT 22, AuthOptionId, 1
+            FROM ForumAclOption 
+            WHERE AuthOption LIKE 'f_%'
+            AND AuthOption NOT IN (
+                'f_announce',
+                'f_announce_global',
+                'f_attach',
+                'f_bump',
+                'f_delete',
+                'f_flash',
+                'f_icons',
+                'f_ignoreflood',
+                'f_sticky',
+                'f_user_lock',
+                'f_votechg'
+            )");
+
+            // New Member - User Restrictions (RoleId: 23)
+            migrationBuilder.Sql(@"
+            INSERT INTO ForumAclRoleData (RoleId, AuthOptionId, AuthSetting)
+            SELECT 23, AuthOptionId, 0
+            FROM ForumAclOption 
+            WHERE AuthOption LIKE 'u_%'
+            AND AuthOption IN (
+                'u_sendpm',
+                'u_masspm',
+                'u_masspm_group',
+                'u_chgprofileinfo'
+            )");
+
+            // New Member - Forum Restrictions (RoleId: 24)
+            migrationBuilder.Sql(@"
+            INSERT INTO ForumAclRoleData (RoleId, AuthOptionId, AuthSetting)
+            SELECT 24, AuthOptionId, 0
+            FROM ForumAclOption 
+            WHERE AuthOption LIKE 'f_%'
+            AND AuthOption IN (
+                'f_noapprove'
+            )");
+
+            // GUESTS - Basic permissions (download and search)
+            migrationBuilder.Sql(@"
+            INSERT INTO ForumAclGroup (GroupId, ForumId, AuthOptionId, AuthRoleId, AuthSetting)
+            SELECT 1, 0, AuthOptionId, 0, 1
+            FROM ForumAclOption 
+            WHERE AuthOption IN (
+                'u_',
+                'u_download',
+                'u_search'
+            )");
+
+            // Admin user - Full user features
+            migrationBuilder.InsertData(
+                table: "ForumAclUser",
+                columns: new[] { "UserId", "ForumId", "AuthOptionId", "AuthRoleId", "AuthSetting" },
+                values: new object[] { 2, 0, 0, 5, 0 });
+
+            // ADMINISTRATOR Group - Full user features
+            migrationBuilder.InsertData(
+                table: "ForumAclGroup",
+                columns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId", "AuthSetting" },
+                values: new object[] { 5, 0, 0, 5, 0 });
+
+            // ADMINISTRATOR Group - Standard admin permissions
+            migrationBuilder.InsertData(
+                table: "ForumAclGroup",
+                columns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId", "AuthSetting" },
+                values: new object[] { 5, 0, 0, 1, 0 });
+
+            // REGISTERED group - Standard user features
+            migrationBuilder.InsertData(
+                table: "ForumAclGroup",
+                columns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId", "AuthSetting" },
+                values: new object[] { 2, 0, 0, 6, 0 });
+
+            // REGISTERED_COPPA group - Standard user features
+            migrationBuilder.InsertData(
+                table: "ForumAclGroup",
+                columns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId", "AuthSetting" },
+                values: new object[] { 3, 0, 0, 6, 0 });
+
+            // GLOBAL_MODERATORS group - Full user features
+            migrationBuilder.InsertData(
+                table: "ForumAclGroup",
+                columns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId", "AuthSetting" },
+                values: new object[] { 4, 0, 0, 5, 0 });
+
+            // GLOBAL_MODERATORS group - Full moderator access
+            migrationBuilder.InsertData(
+                table: "ForumAclGroup",
+                columns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId", "AuthSetting" },
+                values: new object[] { 4, 0, 0, 10, 0 });
+
+            // Read only access for first category (ForumId: 1)
+            var groupPermissions = new[]
+            {
+                new { GroupId = 1, Comment = "GUESTS" },
+                new { GroupId = 2, Comment = "REGISTERED" },
+                new { GroupId = 3, Comment = "REGISTERED_COPPA" },
+                new { GroupId = 6, Comment = "BOTS" }
+            };
+
+            foreach (var group in groupPermissions)
+            {
+                migrationBuilder.InsertData(
+                    table: "ForumAclGroup",
+                    columns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId", "AuthSetting" },
+                    values: new object[] { group.GroupId, 1, 0, 17, 0 });
+            }
+
+            // GUESTS - Read only access
+            migrationBuilder.InsertData(
+                table: "ForumAclGroup",
+                columns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId", "AuthSetting" },
+                values: new object[] { 1, 2, 0, 17, 0 });
+
+            // REGISTERED - Standard access
+            migrationBuilder.InsertData(
+                table: "ForumAclGroup",
+                columns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId", "AuthSetting" },
+                values: new object[] { 2, 2, 0, 15, 0 });
+
+            // REGISTERED_COPPA - Standard access
+            migrationBuilder.InsertData(
+                table: "ForumAclGroup",
+                columns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId", "AuthSetting" },
+                values: new object[] { 3, 2, 0, 15, 0 });
+
+            // GLOBAL_MODERATORS - Standard access + polls
+            migrationBuilder.InsertData(
+                table: "ForumAclGroup",
+                columns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId", "AuthSetting" },
+                values: new object[] { 4, 2, 0, 21, 0 });
+
+            // ADMINISTRATORS - Full forum access
+            migrationBuilder.InsertData(
+                table: "ForumAclGroup",
+                columns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId", "AuthSetting" },
+                values: new object[] { 5, 2, 0, 14, 0 });
+
+            // ADMINISTRATORS - Full moderator access
+            migrationBuilder.InsertData(
+                table: "ForumAclGroup",
+                columns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId", "AuthSetting" },
+                values: new object[] { 5, 2, 0, 10, 0 });
+
+            // BOTS - Bot access
+            migrationBuilder.InsertData(
+                table: "ForumAclGroup",
+                columns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId", "AuthSetting" },
+                values: new object[] { 6, 2, 0, 19, 0 });
+
+            // NEW MEMBERS - PM restrictions (global)
+            migrationBuilder.InsertData(
+                table: "ForumAclGroup",
+                columns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId", "AuthSetting" },
+                values: new object[] { 7, 0, 0, 23, 0 });
+
+            // NEW MEMBERS - On moderation queue
+            migrationBuilder.InsertData(
+                table: "ForumAclGroup",
+                columns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId", "AuthSetting" },
+                values: new object[] { 7, 2, 0, 24, 0 });
+
+            migrationBuilder.InsertData(
+                table: "ForumTopic",
+                columns: new[]
+                {
+                    "TopicTitle",
+                    "TopicPoster",
+                    "TopicTime",
+                    "TopicViews",
+                    "TopicPostsApproved",
+                    "TopicPostsUnapproved",
+                    "TopicPostsSoftdeleted",
+                    "ForumId",
+                    "TopicStatus",
+                    "TopicType",
+                    "TopicFirstPostId",
+                    "TopicFirstPosterName",
+                    "TopicFirstPosterColor",
+                    "TopicLastPostId",
+                    "TopicLastPosterId",
+                    "TopicLastPosterName",
+                    "TopicLastPosterColor",
+                    "TopicLastPostSubject",
+                    "TopicLastPostTime",
+                    "TopicLastViewTime",
+                    "PollTitle",
+                    "TopicVisibility"
+                },
+                values: new object[]
+                {
+                    "{L_TOPICS_TopicTitle}",  // TopicTitle
+                    2,                        // TopicPoster
+                    972086460,               // TopicTime
+                    0,                        // TopicViews
+                    1,                        // TopicPostsApproved
+                    0,                        // TopicPostsUnapproved
+                    0,                        // TopicPostsSoftdeleted
+                    2,                        // ForumId
+                    0,                        // TopicStatus
+                    0,                        // TopicType
+                    1,                        // TopicFirstPostId
+                    "Admin",                  // TopicFirstPosterName
+                    "AA0000",                 // TopicFirstPosterColor
+                    1,                        // TopicLastPostId
+                    2,                        // TopicLastPosterId
+                    "Admin",                  // TopicLastPosterName
+                    "AA0000",                 // TopicLastPosterColor
+                    "{L_TOPICS_TopicTitle}",  // TopicLastPostSubject
+                    972086460,               // TopicLastPostTime
+                    972086460,               // TopicLastViewTime
+                    "",                       // PollTitle
+                    1                         // TopicVisibility
+                });
 
 
 
@@ -784,6 +1484,215 @@ namespace digioz.Forum.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
 
+
+
+            migrationBuilder.DeleteData(
+                table: "ForumTopic",
+                keyColumns: new[] { "TopicFirstPostId", "ForumId" },
+                keyValues: new object[] { 1, 2 });
+
+            // Remove ADMINISTRATORS permissions
+            migrationBuilder.DeleteData(
+                table: "ForumAclGroup",
+                keyColumns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId" },
+                keyValues: new object[] { 5, 2, 0, 14 });
+
+            migrationBuilder.DeleteData(
+                table: "ForumAclGroup",
+                keyColumns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId" },
+                keyValues: new object[] { 5, 2, 0, 10 });
+
+            // Remove BOTS permissions
+            migrationBuilder.DeleteData(
+                table: "ForumAclGroup",
+                keyColumns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId" },
+                keyValues: new object[] { 6, 2, 0, 19 });
+
+            // Remove NEW MEMBERS permissions
+            migrationBuilder.DeleteData(
+                table: "ForumAclGroup",
+                keyColumns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId" },
+                keyValues: new object[] { 7, 0, 0, 23 });
+
+            migrationBuilder.DeleteData(
+                table: "ForumAclGroup",
+                keyColumns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId" },
+                keyValues: new object[] { 7, 2, 0, 24 });
+
+            // Remove all forum access permissions
+            var groupsToRemove = new[] { 1, 2, 3, 4 };
+            foreach (var groupId in groupsToRemove)
+            {
+                migrationBuilder.DeleteData(
+                    table: "ForumAclGroup",
+                    keyColumns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId" },
+                    keyValues: new object[] { groupId, 2, 0,
+                    groupId == 1 ? 17 :    // GUESTS
+                    groupId == 4 ? 21 :    // GLOBAL_MODERATORS
+                    15                     // REGISTERED & REGISTERED_COPPA
+                    });
+
+                // Remove all read-only permissions for the first category
+                migrationBuilder.DeleteData(
+                table: "ForumAclGroup",
+                keyColumns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId" },
+                keyValues: new object[] { 1, 1, 0, 17 });
+
+            migrationBuilder.DeleteData(
+                table: "ForumAclGroup",
+                keyColumns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId" },
+                keyValues: new object[] { 2, 1, 0, 17 });
+
+            migrationBuilder.DeleteData(
+                table: "ForumAclGroup",
+                keyColumns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId" },
+                keyValues: new object[] { 3, 1, 0, 17 });
+
+            migrationBuilder.DeleteData(
+                table: "ForumAclGroup",
+                keyColumns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId" },
+                keyValues: new object[] { 6, 1, 0, 17 });
+
+            // Remove REGISTERED group permissions
+            migrationBuilder.DeleteData(
+                table: "ForumAclGroup",
+                keyColumns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId" },
+                keyValues: new object[] { 2, 0, 0, 6 });
+
+            // Remove REGISTERED_COPPA group permissions
+            migrationBuilder.DeleteData(
+                table: "ForumAclGroup",
+                keyColumns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId" },
+                keyValues: new object[] { 3, 0, 0, 6 });
+
+            // Remove GLOBAL_MODERATORS group permissions (both entries)
+            migrationBuilder.DeleteData(
+                table: "ForumAclGroup",
+                keyColumns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId" },
+                keyValues: new object[] { 4, 0, 0, 5 });
+
+            migrationBuilder.DeleteData(
+                table: "ForumAclGroup",
+                keyColumns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId" },
+                keyValues: new object[] { 4, 0, 0, 10 });
+
+            // Remove GUESTS permissions
+            migrationBuilder.Sql(@"
+            DELETE FROM ForumAclGroup 
+            WHERE GroupId = 1 AND ForumId = 0");
+
+            // Remove Admin user permissions
+            migrationBuilder.DeleteData(
+                table: "ForumAclUser",
+                keyColumns: new[] { "UserId", "ForumId", "AuthOptionId", "AuthRoleId" },
+                keyValues: new object[] { 2, 0, 0, 5 });
+
+            // Remove ADMINISTRATOR group permissions
+            migrationBuilder.DeleteData(
+                table: "ForumAclGroup",
+                keyColumns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId" },
+                keyValues: new object[] { 5, 0, 0, 5 });
+
+            migrationBuilder.DeleteData(
+                table: "ForumAclGroup",
+                keyColumns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId" },
+                keyValues: new object[] { 5, 0, 0, 1 });
+
+            // Remove all poll access and new member role data
+            migrationBuilder.Sql(@"
+            DELETE FROM ForumAclRoleData 
+            WHERE RoleId IN (21, 22, 23, 24)");
+
+            // Remove all special access role data
+            migrationBuilder.Sql(@"
+            DELETE FROM ForumAclRoleData 
+            WHERE RoleId IN (18, 19, 20)");
+
+            // Remove all forum access role data
+            migrationBuilder.Sql(@"
+            DELETE FROM ForumAclRoleData 
+            WHERE RoleId IN (14, 15, 16, 17)");
+
+            // Remove all moderator role data
+            migrationBuilder.Sql(@"
+            DELETE FROM ForumAclRoleData 
+            WHERE RoleId IN (10, 11, 12, 13)");
+
+            // Remove all No Avatar role data
+            migrationBuilder.Sql("DELETE FROM ForumAclRoleData WHERE RoleId = 9");
+
+            // Remove all No Private Messages role data
+            migrationBuilder.Sql("DELETE FROM ForumAclRoleData WHERE RoleId = 8");
+
+            // Remove Standard Features role data
+            migrationBuilder.Sql("DELETE FROM ForumAclRoleData WHERE RoleId = 6");
+
+            // Remove Limited Features role data
+            migrationBuilder.Sql("DELETE FROM ForumAclRoleData WHERE RoleId = 7");
+
+            // Remove User and Groups Admin role data
+            migrationBuilder.Sql("DELETE FROM ForumAclRoleData WHERE RoleId = 3");
+
+            // Remove Full Admin role data
+            migrationBuilder.Sql("DELETE FROM ForumAclRoleData WHERE RoleId = 4");
+
+            // Remove All Features role data
+            migrationBuilder.Sql("DELETE FROM ForumAclRoleData WHERE RoleId = 5");
+
+            // Remove Forum Admin role data
+            migrationBuilder.Sql("DELETE FROM ForumAclRoleData WHERE RoleId = 2");
+
+            // Remove Standard Admin role data
+            migrationBuilder.Sql("DELETE FROM ForumAclRoleData WHERE RoleId = 1");
+
+            migrationBuilder.DeleteData(
+                table: "ForumRank",
+                keyColumns: new[] { "RankTitle", "RankSpecial" },
+                keyValues: new object[] { "{L_RANKS_SITE_ADMIN_TITLE}", 1 });
+
+            migrationBuilder.DeleteData(
+                table: "ForumUserGroup",
+                keyColumns: new[] { "GroupId", "UserId" },
+                keyValues: new object[] { 1, 1 });
+
+            migrationBuilder.DeleteData(
+                table: "ForumUserGroup",
+                keyColumns: new[] { "GroupId", "UserId" },
+                keyValues: new object[] { 2, 2 });
+
+            migrationBuilder.DeleteData(
+                table: "ForumUserGroup",
+                keyColumns: new[] { "GroupId", "UserId" },
+                keyValues: new object[] { 4, 2 });
+
+            migrationBuilder.DeleteData(
+                table: "ForumUserGroup",
+                keyColumns: new[] { "GroupId", "UserId" },
+                keyValues: new object[] { 5, 2 });
+
+            migrationBuilder.DeleteData(
+                table: "ForumTeamPage",
+                keyColumns: new[] { "GroupId", "TeamPagePosition" },
+                keyValues: new object[] { 5, 1 });
+
+            migrationBuilder.DeleteData(
+                table: "ForumTeamPage",
+                keyColumns: new[] { "GroupId", "TeamPagePosition" },
+                keyValues: new object[] { 4, 2 });
+
+            migrationBuilder.DeleteData(
+            table: "ForumGroup",
+            keyColumn: "GroupName",
+            keyValues: new[]
+            {
+                "GUESTS",
+                "REGISTERED",
+                "REGISTERED_COPPA",
+                "GLOBAL_MODERATORS",
+                "ADMINISTRATORS",
+                "BOTS",
+                "NEWLY_REGISTERED"
+            });
 
             migrationBuilder.DeleteData(
                 table: "ForumUser",
