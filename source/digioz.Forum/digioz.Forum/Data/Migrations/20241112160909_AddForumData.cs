@@ -1,6 +1,7 @@
 ﻿using digioz.Forum.Helpers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Migrations;
+using digioz.Forum.Models;
 
 #nullable disable
 
@@ -14,6 +15,7 @@ namespace digioz.Forum.Data.Migrations
         {
             migrationBuilder.InsertData(
                 table: "ForumConfig",
+                columnTypes: new[] { "nvarchar(255)", "nvarchar(255)", "tinyint" },
                 columns: new[] { "ConfigName", "ConfigValue", "IsDynamic" },
                 values: new object[,]
                 {
@@ -335,6 +337,7 @@ namespace digioz.Forum.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "ForumConfig",
+                columnTypes: new[] { "nvarchar(255)", "nvarchar(255)", "tinyint" },
                 columns: new[] { "ConfigName", "ConfigValue", "IsDynamic" },
                 values: new object[,]
                 {
@@ -367,6 +370,7 @@ namespace digioz.Forum.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "ForumConfigText",
+                columnTypes: new[] { "nvarchar(255)", "text"},
                 columns: new[] { "ConfigName", "ConfigValue" },
                 values: new object[,]
                 {
@@ -378,6 +382,7 @@ namespace digioz.Forum.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "ForumAclOption",
+                columnTypes: new[] { "varchar(50)", "tinyint" },
                 columns: new[] { "AuthOption", "IsLocal" },
                 values: new object[,]
                 {
@@ -418,6 +423,7 @@ namespace digioz.Forum.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "ForumAclOption",
+                columnTypes: new[] { "varchar(50)", "tinyint", "tinyint" },
                 columns: new[] { "AuthOption", "IsLocal", "IsGlobal" },
                 values: new object[,]
                 {
@@ -437,6 +443,7 @@ namespace digioz.Forum.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "ForumAclOption",
+                columnTypes: new[] { "varchar(50)", "tinyint", "tinyint" },
                 columns: new[] { "AuthOption", "IsLocal", "IsGlobal" },
                 values: new object[,]
                 {
@@ -447,6 +454,7 @@ namespace digioz.Forum.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "ForumAclOption",
+                columnTypes: new[] { "varchar(50)", "tinyint", "tinyint" },
                 columns: new[] { "AuthOption", "IsGlobal", "IsLocal" },
                 values: new object[,]
                 {
@@ -496,6 +504,7 @@ namespace digioz.Forum.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "ForumAclOption",
+                columnTypes: new[] { "varchar(50)", "tinyint", "tinyint" },
                 columns: new[] { "AuthOption", "IsGlobal", "IsLocal" },
                 values: new object[,]
                 {
@@ -538,6 +547,7 @@ namespace digioz.Forum.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "ForumAclRole",
+                columnTypes: new[] { "varchar(255)", "text", "varchar(10)", "smallint" },
                 columns: new[] { "RoleName", "RoleDescription", "RoleType", "RoleOrder" },
                 values: new object[,]
                 {
@@ -576,6 +586,7 @@ namespace digioz.Forum.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "ForumStyle",
+                columnTypes: new[] { "varchar(255)", "varchar(255)", "tinyint", "varchar(100)", "varchar(255)", "int", "text" },
                 columns: new[] { "StyleName", "StyleCopyright", "StyleActive", "StylePath", "BbcodeBitField", "StyleParentId", "StyleParentTree" },
                 values: new object[,]
                 {
@@ -584,6 +595,12 @@ namespace digioz.Forum.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "Forum",
+                columnTypes: new[] {
+                    "varchar(255)","text","bigint","bigint","bigint","tinyint","bigint",
+                    "bigint","bigint","bigint","bigint","bigint","int","int","varchar(255)",
+                    "varchar(6)","varchar(255)","int","varchar(255)","varchar(255)","varchar(255)",
+                    "text","varchar(255)","varchar(8)","varchar(8)","bigint","bigint","bigint","text","tinyint"
+                    },
                 columns: new[] {
                     "ForumName", "ForumDesc", "LeftId", "RightId", "ParentId", "ForumType",
                     "ForumPostsApproved", "ForumPostsUnapproved", "ForumPostsSoftDeleted",
@@ -638,6 +655,9 @@ namespace digioz.Forum.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
+                columnTypes: new[] { "nvarchar(450)", "nvarchar(256)", "nvarchar(256)", "nvarchar(256)", 
+                                     "nvarchar(256)", "bit", "nvarchar(max)", "nvarchar(max)", "nvarchar(max)", 
+                                     "nvarchar(max)", "bit", "bit", "datetimeoffset", "bit", "int" },
                 columns: new[] {
                 "Id",
                 "UserName",
@@ -705,6 +725,9 @@ namespace digioz.Forum.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
+                columnTypes: new[] { "nvarchar(450)", "nvarchar(256)", "nvarchar(256)", "nvarchar(256)",
+                                     "nvarchar(256)", "bit", "nvarchar(max)", "nvarchar(max)", "nvarchar(max)",
+                                     "nvarchar(max)", "bit", "bit", "datetimeoffset", "bit", "int" },
                 columns: new[] {
                 "Id",
                 "UserName",
@@ -742,6 +765,36 @@ namespace digioz.Forum.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "ForumUser",
+                columnTypes: new[] {
+                    "tinyint",      // UserType
+                    "bigint",       // GroupId
+                    "varchar(255)", // UserName
+                    "varchar(255)", // UserNameClean
+                    "int",          // UserRegdate
+                    "varchar(100)", // UserEmail
+                    "varchar(30)",  // UserLang
+                    "bigint",       // UserStyle
+                    "bigint",       // UserRank
+                    "varchar(6)",   // UserColor
+                    "bigint",       // UserPosts
+                    "text",         // UserPermissions
+                    "varchar(40)",  // UserIp
+                    "varchar(10)",  // UserBirthday
+                    "varchar(200)", // UserLastPage
+                    "varchar(10)",  // UserLastConfirmKey
+                    "varchar(1)",   // UserPostSortbyType
+                    "varchar(1)",   // UserPostSortbyDir
+                    "varchar(1)",   // UserTopicSortbyType
+                    "varchar(1)",   // UserTopicSortbyDir
+                    "varchar(255)", // UserAvatar
+                    "text",         // UserSig
+                    "varchar(8)",   // UserSigBbcodeUid
+                    "varchar(255)", // UserJabber
+                    "varchar(32)",  // UserActkey
+                    "int",          // UserActkeyExpiration
+                    "varchar(255)",  // UserNewpasswd
+                    "tinyint"       // UserAllowMassemail
+                },
                 columns: new[] {
                     "UserType", "GroupId", "UserName", "UserNameClean", "UserRegdate",
                     "UserEmail", "UserLang", "UserStyle", "UserRank", "UserColor",
@@ -777,6 +830,17 @@ namespace digioz.Forum.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "ForumGroup",
+                columnTypes: new[] {
+                    "varchar(255)", // GroupName
+                    "tinyint",      // GroupType
+                    "tinyint",      // GroupFounderManage
+                    "varchar(6)",   // GroupColour
+                    "bigint",       // GroupLegend
+                    "varchar(255)", // GroupAvatar
+                    "text",         // GroupDesc
+                    "varchar(8)",   // GroupDescUid
+                    "bigint"        // GroupMaxRecipients
+                },
                 columns: new[] {
                     "GroupName", "GroupType", "GroupFounderManage", "GroupColour",
                     "GroupLegend", "GroupAvatar", "GroupDesc", "GroupDescUid",
@@ -823,6 +887,12 @@ namespace digioz.Forum.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "ForumTeamPage",
+                columnTypes: new[] {
+                    "bigint",       // GroupId
+                    "varchar(255)", // TeamPageName
+                    "bigint",       // TeamPagePosition
+                    "bigint"        // TeamPageParent
+                },
                 columns: new[] {
                     "GroupId",
                     "TeamPageName",
@@ -847,6 +917,12 @@ namespace digioz.Forum.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "ForumUserGroup",
+                columnTypes: new[] {
+                    "bigint",       // GroupId
+                    "int",          // UserId
+                    "tinyint",      // UserPending
+                    "tinyint"       // GroupLeader
+                },
                 columns: new[] {
                     "GroupId",
                     "UserId",
@@ -883,6 +959,12 @@ namespace digioz.Forum.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "ForumRank",
+                columnTypes: new[] {
+                    "varchar(255)", // RankTitle
+                    "bigint",       // RankMin
+                    "tinyint",      // RankSpecial
+                    "varchar(255)"  // RankImage
+                },
                 columns: new[] {
                     "RankTitle",
                     "RankMin",
@@ -1313,42 +1395,49 @@ namespace digioz.Forum.Data.Migrations
             // Admin user - Full user features
             migrationBuilder.InsertData(
                 table: "ForumAclUser",
+                columnTypes: new[] { "int", "bigint", "bigint", "bigint", "tinyint" },
                 columns: new[] { "UserId", "ForumId", "AuthOptionId", "AuthRoleId", "AuthSetting" },
                 values: new object[] { 2, 0, 0, 5, 0 });
 
             // ADMINISTRATOR Group - Full user features
             migrationBuilder.InsertData(
                 table: "ForumAclGroup",
+                columnTypes: new[] { "bigint", "bigint", "bigint", "bigint", "tinyint" },
                 columns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId", "AuthSetting" },
                 values: new object[] { 5, 0, 0, 5, 0 });
 
             // ADMINISTRATOR Group - Standard admin permissions
             migrationBuilder.InsertData(
                 table: "ForumAclGroup",
+                columnTypes: new[] { "bigint", "bigint", "bigint", "bigint", "tinyint" },
                 columns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId", "AuthSetting" },
                 values: new object[] { 5, 0, 0, 1, 0 });
 
             // REGISTERED group - Standard user features
             migrationBuilder.InsertData(
                 table: "ForumAclGroup",
+                columnTypes: new[] { "bigint", "bigint", "bigint", "bigint", "tinyint" },
                 columns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId", "AuthSetting" },
                 values: new object[] { 2, 0, 0, 6, 0 });
 
             // REGISTERED_COPPA group - Standard user features
             migrationBuilder.InsertData(
                 table: "ForumAclGroup",
+                columnTypes: new[] { "bigint", "bigint", "bigint", "bigint", "tinyint" },
                 columns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId", "AuthSetting" },
                 values: new object[] { 3, 0, 0, 6, 0 });
 
             // GLOBAL_MODERATORS group - Full user features
             migrationBuilder.InsertData(
                 table: "ForumAclGroup",
+                columnTypes: new[] { "bigint", "bigint", "bigint", "bigint", "tinyint" },
                 columns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId", "AuthSetting" },
                 values: new object[] { 4, 0, 0, 5, 0 });
 
             // GLOBAL_MODERATORS group - Full moderator access
             migrationBuilder.InsertData(
                 table: "ForumAclGroup",
+                columnTypes: new[] { "bigint", "bigint", "bigint", "bigint", "tinyint" },
                 columns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId", "AuthSetting" },
                 values: new object[] { 4, 0, 0, 10, 0 });
 
@@ -1365,6 +1454,7 @@ namespace digioz.Forum.Data.Migrations
             {
                 migrationBuilder.InsertData(
                     table: "ForumAclGroup",
+                    columnTypes: new[] { "bigint", "bigint", "bigint", "bigint", "tinyint" },
                     columns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId", "AuthSetting" },
                     values: new object[] { group.GroupId, 1, 0, 17, 0 });
             }
@@ -1372,59 +1462,92 @@ namespace digioz.Forum.Data.Migrations
             // GUESTS - Read only access
             migrationBuilder.InsertData(
                 table: "ForumAclGroup",
+                columnTypes: new[] { "bigint", "bigint", "bigint", "bigint", "tinyint" },
                 columns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId", "AuthSetting" },
                 values: new object[] { 1, 2, 0, 17, 0 });
 
             // REGISTERED - Standard access
             migrationBuilder.InsertData(
                 table: "ForumAclGroup",
+                columnTypes: new[] { "bigint", "bigint", "bigint", "bigint", "tinyint" },
                 columns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId", "AuthSetting" },
                 values: new object[] { 2, 2, 0, 15, 0 });
 
             // REGISTERED_COPPA - Standard access
             migrationBuilder.InsertData(
                 table: "ForumAclGroup",
+                columnTypes: new[] { "bigint", "bigint", "bigint", "bigint", "tinyint" },
                 columns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId", "AuthSetting" },
                 values: new object[] { 3, 2, 0, 15, 0 });
 
             // GLOBAL_MODERATORS - Standard access + polls
             migrationBuilder.InsertData(
                 table: "ForumAclGroup",
+                columnTypes: new[] { "bigint", "bigint", "bigint", "bigint", "tinyint" },
                 columns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId", "AuthSetting" },
                 values: new object[] { 4, 2, 0, 21, 0 });
 
             // ADMINISTRATORS - Full forum access
             migrationBuilder.InsertData(
                 table: "ForumAclGroup",
+                columnTypes: new[] { "bigint", "bigint", "bigint", "bigint", "tinyint" },
                 columns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId", "AuthSetting" },
                 values: new object[] { 5, 2, 0, 14, 0 });
 
             // ADMINISTRATORS - Full moderator access
             migrationBuilder.InsertData(
                 table: "ForumAclGroup",
+                columnTypes: new[] { "bigint", "bigint", "bigint", "bigint", "tinyint" },
                 columns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId", "AuthSetting" },
                 values: new object[] { 5, 2, 0, 10, 0 });
 
             // BOTS - Bot access
             migrationBuilder.InsertData(
                 table: "ForumAclGroup",
+                columnTypes: new[] { "bigint", "bigint", "bigint", "bigint", "tinyint" },
                 columns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId", "AuthSetting" },
                 values: new object[] { 6, 2, 0, 19, 0 });
 
             // NEW MEMBERS - PM restrictions (global)
             migrationBuilder.InsertData(
                 table: "ForumAclGroup",
+                columnTypes: new[] { "bigint", "bigint", "bigint", "bigint", "tinyint" },
                 columns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId", "AuthSetting" },
                 values: new object[] { 7, 0, 0, 23, 0 });
 
             // NEW MEMBERS - On moderation queue
             migrationBuilder.InsertData(
                 table: "ForumAclGroup",
+                columnTypes: new[] { "bigint", "bigint", "bigint", "bigint", "tinyint" },
                 columns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId", "AuthSetting" },
                 values: new object[] { 7, 2, 0, 24, 0 });
 
             migrationBuilder.InsertData(
                 table: "ForumTopic",
+                columnTypes: new[] {
+                    "varchar(255)",  // TopicTitle
+                    "int",           // TopicPoster
+                    "int",           // TopicTime
+                    "bigint",        // TopicViews
+                    "bigint",        // TopicPostsApproved
+                    "bigint",        // TopicPostsUnapproved
+                    "bigint",        // TopicPostsSoftdeleted
+                    "bigint",        // ForumId
+                    "tinyint",       // TopicStatus
+                    "tinyint",       // TopicType
+                    "int",           // TopicFirstPostId
+                    "varchar(255)",  // TopicFirstPosterName
+                    "varchar(6)",    // TopicFirstPosterColor
+                    "int",           // TopicLastPostId
+                    "int",           // TopicLastPosterId
+                    "varchar(255)",  // TopicLastPosterName
+                    "varchar(6)",    // TopicLastPosterColor
+                    "varchar(255)",  // TopicLastPostSubject
+                    "int",           // TopicLastPostTime
+                    "int",           // TopicLastViewTime
+                    "varchar(255)",  // PollTitle
+                    "tinyint"        // TopicVisibility
+                },
                 columns: new[]
                 {
                     "TopicTitle",
@@ -1478,6 +1601,20 @@ namespace digioz.Forum.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "ForumPost",
+                columnTypes: new[] {
+                    "int",           // TopicId
+                    "bigint",        // ForumId
+                    "int",           // PosterId
+                    "bigint",        // IconId
+                    "int",           // PostTime
+                    "varchar(255)",  // PostUsername
+                    "varchar(40)",   // PosterIp
+                    "varchar(255)",  // PostSubject
+                    "text",          // PostText
+                    "varchar(32)",   // PostChecksum
+                    "varchar(8)",    // BbcodeUid
+                    "tinyint"        // PostVisibility
+                },
                 columns: new[]
                 {
                     "TopicId",
@@ -1511,6 +1648,11 @@ namespace digioz.Forum.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "ForumTopicsPosted",
+                columnTypes: new[] {
+                    "int",           // UserId
+                    "int",           // TopicId
+                    "tinyint"        // TopicPosted
+                },
                 columns: new[]
                 {
                     "UserId",
@@ -1611,6 +1753,14 @@ namespace digioz.Forum.Data.Migrations
             {
                 migrationBuilder.InsertData(
                     table: "ForumSmilie",
+                    columnTypes: new[] {
+                        "varchar(50)",  // Code
+                        "varchar(50)",  // SmileyUrl
+                        "varchar(255)", // Emotion
+                        "smallint",     // SmileyWidth
+                        "smallint",     // SmileyHeight
+                        "bigint"        // SmileyOrder
+                    },
                     columns: new[] { "Code", "SmileyUrl", "Emotion", "SmileyWidth", "SmileyHeight", "SmileyOrder" },
                     values: new object[] { smilie.Code, smilie.Url, smilie.Emotion, smilie.Width, smilie.Height, smilie.Order });
             }
@@ -1636,6 +1786,13 @@ namespace digioz.Forum.Data.Migrations
             {
                 migrationBuilder.InsertData(
                     table: "ForumIcon",
+                    columnTypes: new[] {
+                        "varchar(255)", // IconsUrl
+                        "tinyint",      // IconsWidth
+                        "tinyint",      // IconsHeight
+                        "bigint",       // IconsOrder
+                        "tinyint"       // DisplayOnPosting
+                    },
                     columns: new[]
                     {
                     "IconsUrl",
@@ -1686,6 +1843,11 @@ namespace digioz.Forum.Data.Migrations
             {
                 migrationBuilder.InsertData(
                     table: "ForumReportsReason",
+                    columnTypes: new[] {
+                        "varchar(255)", // ReasonTitle
+                        "text",         // ReasonDescription
+                        "smallint"      // ReasonOrder
+                    },
                     columns: new[]
                     {
                     "ReasonTitle",
@@ -1757,7 +1919,16 @@ namespace digioz.Forum.Data.Migrations
             foreach (var group in extensionGroups)
             {
                 migrationBuilder.InsertData(
-                    table: "ForumExtensionGroup",
+                    table: "ForumExtensionGroup", 
+                    columnTypes: new[] {
+                        "varchar(255)",     // GroupName
+                        "tinyint",          // CatId
+                        "tinyint",          // AllowGroup
+                        "tinyint",          // DownloadMode
+                        "varchar(255)",     // UploadIcon
+                        "int",              // MaxFileSize
+                        "text"              // AllowedForums
+                    },
                     columns: new[]
                     {
                     "GroupName",
@@ -1851,6 +2022,7 @@ namespace digioz.Forum.Data.Migrations
             {
                 migrationBuilder.InsertData(
                     table: "ForumExtension",
+                    columnTypes: new[] { "bigint", "varchar(100)" },
                     columns: new[]
                     {
                     "GroupId",
@@ -2150,6 +2322,32 @@ namespace digioz.Forum.Data.Migrations
             {
                 migrationBuilder.InsertData(
                     table: "ForumProfileField",
+                    columnTypes: new[]
+                    {
+                        "varchar(255)", // FieldName
+                        "varchar(100)", // FieldType
+                        "varchar(20)",  // FieldIdent
+                        "varchar(20)",  // FieldLength
+                        "varchar(255)", // FieldMinlen
+                        "varchar(255)", // FieldMaxlen
+                        "varchar(255)", // FieldNovalue
+                        "varchar(255)", // FieldDefaultValue
+                        "varchar(128)", // FieldValidation
+                        "tinyint",      // FieldRequired
+                        "tinyint",      // FieldShowNovalue
+                        "tinyint",      // FieldShowOnReg
+                        "tinyint",      // FieldShowOnPm
+                        "tinyint",      // FieldShowOnVt
+                        "tinyint",      // FieldShowOnMl
+                        "tinyint",      // FieldShowProfile
+                        "tinyint",      // FieldHide
+                        "tinyint",      // FieldNoView
+                        "tinyint",      // FieldActive
+                        "bigint",       // FieldOrder
+                        "tinyint",      // FieldIsContact
+                        "varchar(255)", // FieldContactDesc
+                        "varchar(255)"  // FieldContactUrl
+                    },
                     columns: new[]
                     {
                     "FieldName", "FieldType", "FieldIdent", "FieldLength",
@@ -2227,6 +2425,7 @@ namespace digioz.Forum.Data.Migrations
             {
                 migrationBuilder.InsertData(
                     table: "ForumUserNotification",
+                    columnTypes: new[] { "varchar(165)", "bigint", "bigint", "varchar(165)" },
                     columns: new[]
                     {
                     "ItemType",
@@ -2344,153 +2543,153 @@ namespace digioz.Forum.Data.Migrations
                 keyColumns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId" },
                 keyValues: new object[] { 1, 1, 0, 17 });
 
-            migrationBuilder.DeleteData(
-                table: "ForumAclGroup",
-                keyColumns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId" },
-                keyValues: new object[] { 2, 1, 0, 17 });
+                migrationBuilder.DeleteData(
+                    table: "ForumAclGroup",
+                    keyColumns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId" },
+                    keyValues: new object[] { 2, 1, 0, 17 });
 
-            migrationBuilder.DeleteData(
-                table: "ForumAclGroup",
-                keyColumns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId" },
-                keyValues: new object[] { 3, 1, 0, 17 });
+                migrationBuilder.DeleteData(
+                    table: "ForumAclGroup",
+                    keyColumns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId" },
+                    keyValues: new object[] { 3, 1, 0, 17 });
 
-            migrationBuilder.DeleteData(
-                table: "ForumAclGroup",
-                keyColumns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId" },
-                keyValues: new object[] { 6, 1, 0, 17 });
+                migrationBuilder.DeleteData(
+                    table: "ForumAclGroup",
+                    keyColumns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId" },
+                    keyValues: new object[] { 6, 1, 0, 17 });
 
-            // Remove REGISTERED group permissions
-            migrationBuilder.DeleteData(
-                table: "ForumAclGroup",
-                keyColumns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId" },
-                keyValues: new object[] { 2, 0, 0, 6 });
+                // Remove REGISTERED group permissions
+                migrationBuilder.DeleteData(
+                    table: "ForumAclGroup",
+                    keyColumns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId" },
+                    keyValues: new object[] { 2, 0, 0, 6 });
 
-            // Remove REGISTERED_COPPA group permissions
-            migrationBuilder.DeleteData(
-                table: "ForumAclGroup",
-                keyColumns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId" },
-                keyValues: new object[] { 3, 0, 0, 6 });
+                // Remove REGISTERED_COPPA group permissions
+                migrationBuilder.DeleteData(
+                    table: "ForumAclGroup",
+                    keyColumns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId" },
+                    keyValues: new object[] { 3, 0, 0, 6 });
 
-            // Remove GLOBAL_MODERATORS group permissions (both entries)
-            migrationBuilder.DeleteData(
-                table: "ForumAclGroup",
-                keyColumns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId" },
-                keyValues: new object[] { 4, 0, 0, 5 });
+                // Remove GLOBAL_MODERATORS group permissions (both entries)
+                migrationBuilder.DeleteData(
+                    table: "ForumAclGroup",
+                    keyColumns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId" },
+                    keyValues: new object[] { 4, 0, 0, 5 });
 
-            migrationBuilder.DeleteData(
-                table: "ForumAclGroup",
-                keyColumns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId" },
-                keyValues: new object[] { 4, 0, 0, 10 });
+                migrationBuilder.DeleteData(
+                    table: "ForumAclGroup",
+                    keyColumns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId" },
+                    keyValues: new object[] { 4, 0, 0, 10 });
 
-            // Remove GUESTS permissions
-            migrationBuilder.Sql(@"
+                // Remove GUESTS permissions
+                migrationBuilder.Sql(@"
             DELETE FROM ForumAclGroup 
             WHERE GroupId = 1 AND ForumId = 0");
 
-            // Remove Admin user permissions
-            migrationBuilder.DeleteData(
-                table: "ForumAclUser",
-                keyColumns: new[] { "UserId", "ForumId", "AuthOptionId", "AuthRoleId" },
-                keyValues: new object[] { 2, 0, 0, 5 });
+                // Remove Admin user permissions
+                migrationBuilder.DeleteData(
+                    table: "ForumAclUser",
+                    keyColumns: new[] { "UserId", "ForumId", "AuthOptionId", "AuthRoleId" },
+                    keyValues: new object[] { 2, 0, 0, 5 });
 
-            // Remove ADMINISTRATOR group permissions
-            migrationBuilder.DeleteData(
-                table: "ForumAclGroup",
-                keyColumns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId" },
-                keyValues: new object[] { 5, 0, 0, 5 });
+                // Remove ADMINISTRATOR group permissions
+                migrationBuilder.DeleteData(
+                    table: "ForumAclGroup",
+                    keyColumns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId" },
+                    keyValues: new object[] { 5, 0, 0, 5 });
 
-            migrationBuilder.DeleteData(
-                table: "ForumAclGroup",
-                keyColumns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId" },
-                keyValues: new object[] { 5, 0, 0, 1 });
+                migrationBuilder.DeleteData(
+                    table: "ForumAclGroup",
+                    keyColumns: new[] { "GroupId", "ForumId", "AuthOptionId", "AuthRoleId" },
+                    keyValues: new object[] { 5, 0, 0, 1 });
 
-            // Remove all poll access and new member role data
-            migrationBuilder.Sql(@"
+                // Remove all poll access and new member role data
+                migrationBuilder.Sql(@"
             DELETE FROM ForumAclRoleData 
             WHERE RoleId IN (21, 22, 23, 24)");
 
-            // Remove all special access role data
-            migrationBuilder.Sql(@"
+                // Remove all special access role data
+                migrationBuilder.Sql(@"
             DELETE FROM ForumAclRoleData 
             WHERE RoleId IN (18, 19, 20)");
 
-            // Remove all forum access role data
-            migrationBuilder.Sql(@"
+                // Remove all forum access role data
+                migrationBuilder.Sql(@"
             DELETE FROM ForumAclRoleData 
             WHERE RoleId IN (14, 15, 16, 17)");
 
-            // Remove all moderator role data
-            migrationBuilder.Sql(@"
+                // Remove all moderator role data
+                migrationBuilder.Sql(@"
             DELETE FROM ForumAclRoleData 
             WHERE RoleId IN (10, 11, 12, 13)");
 
-            // Remove all No Avatar role data
-            migrationBuilder.Sql("DELETE FROM ForumAclRoleData WHERE RoleId = 9");
+                // Remove all No Avatar role data
+                migrationBuilder.Sql("DELETE FROM ForumAclRoleData WHERE RoleId = 9");
 
-            // Remove all No Private Messages role data
-            migrationBuilder.Sql("DELETE FROM ForumAclRoleData WHERE RoleId = 8");
+                // Remove all No Private Messages role data
+                migrationBuilder.Sql("DELETE FROM ForumAclRoleData WHERE RoleId = 8");
 
-            // Remove Standard Features role data
-            migrationBuilder.Sql("DELETE FROM ForumAclRoleData WHERE RoleId = 6");
+                // Remove Standard Features role data
+                migrationBuilder.Sql("DELETE FROM ForumAclRoleData WHERE RoleId = 6");
 
-            // Remove Limited Features role data
-            migrationBuilder.Sql("DELETE FROM ForumAclRoleData WHERE RoleId = 7");
+                // Remove Limited Features role data
+                migrationBuilder.Sql("DELETE FROM ForumAclRoleData WHERE RoleId = 7");
 
-            // Remove User and Groups Admin role data
-            migrationBuilder.Sql("DELETE FROM ForumAclRoleData WHERE RoleId = 3");
+                // Remove User and Groups Admin role data
+                migrationBuilder.Sql("DELETE FROM ForumAclRoleData WHERE RoleId = 3");
 
-            // Remove Full Admin role data
-            migrationBuilder.Sql("DELETE FROM ForumAclRoleData WHERE RoleId = 4");
+                // Remove Full Admin role data
+                migrationBuilder.Sql("DELETE FROM ForumAclRoleData WHERE RoleId = 4");
 
-            // Remove All Features role data
-            migrationBuilder.Sql("DELETE FROM ForumAclRoleData WHERE RoleId = 5");
+                // Remove All Features role data
+                migrationBuilder.Sql("DELETE FROM ForumAclRoleData WHERE RoleId = 5");
 
-            // Remove Forum Admin role data
-            migrationBuilder.Sql("DELETE FROM ForumAclRoleData WHERE RoleId = 2");
+                // Remove Forum Admin role data
+                migrationBuilder.Sql("DELETE FROM ForumAclRoleData WHERE RoleId = 2");
 
-            // Remove Standard Admin role data
-            migrationBuilder.Sql("DELETE FROM ForumAclRoleData WHERE RoleId = 1");
+                // Remove Standard Admin role data
+                migrationBuilder.Sql("DELETE FROM ForumAclRoleData WHERE RoleId = 1");
 
-            migrationBuilder.DeleteData(
-                table: "ForumRank",
-                keyColumns: new[] { "RankTitle", "RankSpecial" },
-                keyValues: new object[] { "{L_RANKS_SITE_ADMIN_TITLE}", 1 });
+                migrationBuilder.DeleteData(
+                    table: "ForumRank",
+                    keyColumns: new[] { "RankTitle", "RankSpecial" },
+                    keyValues: new object[] { "{L_RANKS_SITE_ADMIN_TITLE}", 1 });
 
-            migrationBuilder.DeleteData(
-                table: "ForumUserGroup",
-                keyColumns: new[] { "GroupId", "UserId" },
-                keyValues: new object[] { 1, 1 });
+                migrationBuilder.DeleteData(
+                    table: "ForumUserGroup",
+                    keyColumns: new[] { "GroupId", "UserId" },
+                    keyValues: new object[] { 1, 1 });
 
-            migrationBuilder.DeleteData(
-                table: "ForumUserGroup",
-                keyColumns: new[] { "GroupId", "UserId" },
-                keyValues: new object[] { 2, 2 });
+                migrationBuilder.DeleteData(
+                    table: "ForumUserGroup",
+                    keyColumns: new[] { "GroupId", "UserId" },
+                    keyValues: new object[] { 2, 2 });
 
-            migrationBuilder.DeleteData(
-                table: "ForumUserGroup",
-                keyColumns: new[] { "GroupId", "UserId" },
-                keyValues: new object[] { 4, 2 });
+                migrationBuilder.DeleteData(
+                    table: "ForumUserGroup",
+                    keyColumns: new[] { "GroupId", "UserId" },
+                    keyValues: new object[] { 4, 2 });
 
-            migrationBuilder.DeleteData(
-                table: "ForumUserGroup",
-                keyColumns: new[] { "GroupId", "UserId" },
-                keyValues: new object[] { 5, 2 });
+                migrationBuilder.DeleteData(
+                    table: "ForumUserGroup",
+                    keyColumns: new[] { "GroupId", "UserId" },
+                    keyValues: new object[] { 5, 2 });
 
-            migrationBuilder.DeleteData(
-                table: "ForumTeamPage",
-                keyColumns: new[] { "GroupId", "TeamPagePosition" },
-                keyValues: new object[] { 5, 1 });
+                migrationBuilder.DeleteData(
+                    table: "ForumTeamPage",
+                    keyColumns: new[] { "GroupId", "TeamPagePosition" },
+                    keyValues: new object[] { 5, 1 });
 
-            migrationBuilder.DeleteData(
-                table: "ForumTeamPage",
-                keyColumns: new[] { "GroupId", "TeamPagePosition" },
-                keyValues: new object[] { 4, 2 });
+                migrationBuilder.DeleteData(
+                    table: "ForumTeamPage",
+                    keyColumns: new[] { "GroupId", "TeamPagePosition" },
+                    keyValues: new object[] { 4, 2 });
 
-            migrationBuilder.DeleteData(
-            table: "ForumGroup",
-            keyColumn: "GroupName",
-            keyValues: new[]
-            {
+                migrationBuilder.DeleteData(
+                table: "ForumGroup",
+                keyColumn: "GroupName",
+                keyValues: new[]
+                {
                 "GUESTS",
                 "REGISTERED",
                 "REGISTERED_COPPA",
@@ -2498,50 +2697,50 @@ namespace digioz.Forum.Data.Migrations
                 "ADMINISTRATORS",
                 "BOTS",
                 "NEWLY_REGISTERED"
-            });
+                });
 
-            migrationBuilder.DeleteData(
-                table: "ForumUser",
-                keyColumns: new[] { "UserName", "UserType" },
-                keyValues: new object[] { "Anonymous", 2 });
+                migrationBuilder.DeleteData(
+                    table: "ForumUser",
+                    keyColumns: new[] { "UserName", "UserType" },
+                    keyValues: new object[] { "Anonymous", 2 });
 
-            migrationBuilder.DeleteData(
-                table: "ForumUser",
-                keyColumns: new[] { "UserName", "UserType" },
-                keyValues: new object[] { "Admin", 3 });
+                migrationBuilder.DeleteData(
+                    table: "ForumUser",
+                    keyColumns: new[] { "UserName", "UserType" },
+                    keyValues: new object[] { "Admin", 3 });
 
-            migrationBuilder.DeleteData(
-                table: "AspNetUsers",
-                keyColumn: "Email",
-                keyValue: "anonymous@yourdomain.com");
+                migrationBuilder.DeleteData(
+                    table: "AspNetUsers",
+                    keyColumn: "Email",
+                    keyValue: "anonymous@yourdomain.com");
 
-            migrationBuilder.DeleteData(
-                table: "AspNetUsers",
-                keyColumn: "Email",
-                keyValue: "admin@yourdomain.com");
+                migrationBuilder.DeleteData(
+                    table: "AspNetUsers",
+                    keyColumn: "Email",
+                    keyValue: "admin@yourdomain.com");
 
-            // Delete the test forum first (child)
-            migrationBuilder.DeleteData(
-                table: "Forum",
-                keyColumns: new[] { "ForumName", "LeftId", "RightId", "ParentId" },
-                keyValues: new object[] { "{L_FORUMS_TEST_FORUM_TITLE}", 2, 3, 1 });
+                // Delete the test forum first (child)
+                migrationBuilder.DeleteData(
+                    table: "Forum",
+                    keyColumns: new[] { "ForumName", "LeftId", "RightId", "ParentId" },
+                    keyValues: new object[] { "{L_FORUMS_TEST_FORUM_TITLE}", 2, 3, 1 });
 
-            // Then delete the category (parent)
-            migrationBuilder.DeleteData(
-                table: "Forum",
-                keyColumns: new[] { "ForumName", "LeftId", "RightId", "ParentId" },
-                keyValues: new object[] { "{L_FORUMS_FIRST_CATEGORY}", 1, 4, 0 });
+                // Then delete the category (parent)
+                migrationBuilder.DeleteData(
+                    table: "Forum",
+                    keyColumns: new[] { "ForumName", "LeftId", "RightId", "ParentId" },
+                    keyValues: new object[] { "{L_FORUMS_FIRST_CATEGORY}", 1, 4, 0 });
 
-            migrationBuilder.DeleteData(
-                table: "ForumStyle",
-                keyColumn: "StyleName",
-                keyValue: "prosilver");
+                migrationBuilder.DeleteData(
+                    table: "ForumStyle",
+                    keyColumn: "StyleName",
+                    keyValue: "prosilver");
 
-            migrationBuilder.DeleteData(
-                table: "ForumAclRole",
-                keyColumn: "RoleName",
-                keyValues: new[]
-                {
+                migrationBuilder.DeleteData(
+                    table: "ForumAclRole",
+                    keyColumn: "RoleName",
+                    keyValues: new[]
+                    {
                     "ROLE_ADMIN_STANDARD",
                     "ROLE_ADMIN_FORUM",
                     "ROLE_ADMIN_USERGROUP",
@@ -2566,13 +2765,13 @@ namespace digioz.Forum.Data.Migrations
                     "ROLE_FORUM_POLLS",
                     "ROLE_FORUM_LIMITED_POLLS",
                     "ROLE_FORUM_NEW_MEMBER"
-                });
+                    });
 
-            migrationBuilder.DeleteData(
-                table: "ForumAclOption",
-                keyColumn: "AuthOption",
-                keyValues: new[]
-                {
+                migrationBuilder.DeleteData(
+                    table: "ForumAclOption",
+                    keyColumn: "AuthOption",
+                    keyValues: new[]
+                    {
                     "u_",
                     "u_attach",
                     "u_chgavatar",
@@ -2608,13 +2807,13 @@ namespace digioz.Forum.Data.Migrations
                     "u_sig",
                     "u_viewonline",
                     "u_viewprofile"
-                });
+                    });
 
-            migrationBuilder.DeleteData(
-                table: "ForumAclOption",
-                keyColumn: "AuthOption",
-                keyValues: new[]
-                {
+                migrationBuilder.DeleteData(
+                    table: "ForumAclOption",
+                    keyColumn: "AuthOption",
+                    keyValues: new[]
+                    {
                     "a_",
                     "a_aauth",
                     "a_attach",
@@ -2657,23 +2856,23 @@ namespace digioz.Forum.Data.Migrations
                     "a_viewauth",
                     "a_viewlogs",
                     "a_words"
-                });
+                    });
 
-            migrationBuilder.DeleteData(
-                table: "ForumAclOption",
-                keyColumn: "AuthOption",
-                keyValues: new[]
-                {
+                migrationBuilder.DeleteData(
+                    table: "ForumAclOption",
+                    keyColumn: "AuthOption",
+                    keyValues: new[]
+                    {
                     "m_ban",
                     "m_pm_report",
                     "m_warn"
-                });
+                    });
 
-            migrationBuilder.DeleteData(
-                table: "ForumAclOption",
-                keyColumn: "AuthOption",
-                keyValues: new[]
-                {
+                migrationBuilder.DeleteData(
+                    table: "ForumAclOption",
+                    keyColumn: "AuthOption",
+                    keyValues: new[]
+                    {
                     "m_",
                     "m_approve",
                     "m_chgposter",
@@ -2686,13 +2885,13 @@ namespace digioz.Forum.Data.Migrations
                     "m_report",
                     "m_split",
                     "m_softdelete"
-                });
+                    });
 
-            migrationBuilder.DeleteData(
-                table: "ForumAclOption",
-                keyColumn: "AuthOption",
-                keyValues: new[]
-                {
+                migrationBuilder.DeleteData(
+                    table: "ForumAclOption",
+                    keyColumn: "AuthOption",
+                    keyValues: new[]
+                    {
                     "f_",
                     "f_announce",
                     "f_announce_global",
@@ -2726,24 +2925,24 @@ namespace digioz.Forum.Data.Migrations
                     "f_vote",
                     "f_votechg",
                     "f_softdelete"
-                });
+                    });
 
-            migrationBuilder.DeleteData(
-                table: "ForumConfigText",
-                keyColumn: "ConfigName",
-                keyValues: new[]
-                {
+                migrationBuilder.DeleteData(
+                    table: "ForumConfigText",
+                    keyColumn: "ConfigName",
+                    keyValues: new[]
+                    {
                     "contact_admin_info",
                     "contact_admin_info_uid",
                     "contact_admin_info_bitfield",
                     "contact_admin_info_flags"
-                });
+                    });
 
-            migrationBuilder.DeleteData(
-                table: "ForumConfig",
-                keyColumn: "ConfigName",
-                keyValues: new[]
-                {
+                migrationBuilder.DeleteData(
+                    table: "ForumConfig",
+                    keyColumn: "ConfigName",
+                    keyValues: new[]
+                    {
                     "cache_last_gc",
                     "cron_lock",
                     "database_last_gc",
@@ -2769,12 +2968,12 @@ namespace digioz.Forum.Data.Migrations
                     "smtp_username",
                     "upload_dir_size",
                     "warnings_last_gc"
-                });
+                    });
 
-            migrationBuilder.DeleteData(
-                table: "ForumConfig",
-                keyColumn: "ConfigName",
-                keyValues: new[] {
+                migrationBuilder.DeleteData(
+                    table: "ForumConfig",
+                    keyColumn: "ConfigName",
+                    keyValues: new[] {
                             "active_sessions",
                             "allow_attachments",
                             "allow_autologin",
@@ -3089,7 +3288,8 @@ namespace digioz.Forum.Data.Migrations
                             "version",
                             "warnings_expire_days",
                             "warnings_gc"
-                });
+                    });
+            }
         }
     }
 }
