@@ -1,7 +1,6 @@
 ﻿using digioz.Forum.Helpers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Migrations;
-using digioz.Forum.Models;
 
 #nullable disable
 
@@ -370,7 +369,7 @@ namespace digioz.Forum.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "ForumConfigText",
-                columnTypes: new[] { "nvarchar(255)", "text"},
+                columnTypes: new[] { "nvarchar(255)", "text" },
                 columns: new[] { "ConfigName", "ConfigValue" },
                 values: new object[,]
                 {
@@ -596,11 +595,37 @@ namespace digioz.Forum.Data.Migrations
             migrationBuilder.InsertData(
                 table: "Forum",
                 columnTypes: new[] {
-                    "varchar(255)","text","bigint","bigint","bigint","tinyint","bigint",
-                    "bigint","bigint","bigint","bigint","bigint","int","int","varchar(255)",
-                    "varchar(6)","varchar(255)","int","varchar(255)","varchar(255)","varchar(255)",
-                    "text","varchar(255)","varchar(8)","varchar(8)","bigint","bigint","bigint","text","tinyint"
-                    },
+                    "varchar(255)", // ForumName
+                    "text",         // ForumDesc
+                    "bigint",       // LeftId
+                    "bigint",       // RightId
+                    "bigint",       // ParentId
+                    "tinyint",      // ForumType
+                    "bigint",       // ForumPostsApproved
+                    "bigint",       // ForumPostsUnapproved
+                    "bigint",       // ForumPostsSoftDeleted
+                    "bigint",       // ForumTopicsApproved
+                    "bigint",       // ForumTopicsUnapproved
+                    "bigint",       // ForumTopicsSoftDeleted
+                    "int",          // ForumLastPostId
+                    "int",          // ForumLastPosterId
+                    "varchar(255)", // ForumLastPosterName
+                    "varchar(6)",   // ForumLastPosterColour
+                    "varchar(255)", // ForumLastPostSubject
+                    "int",          // ForumLastPostTime
+                    "varchar(255)", // ForumLink
+                    "varchar(255)", // ForumPassword
+                    "varchar(255)", // ForumImage
+                    "text",         // ForumRules
+                    "varchar(255)", // ForumRulesLink
+                    "varchar(8)",   // ForumRulesUid
+                    "varchar(8)",   // ForumDescUid
+                    "bigint",       // PruneFreq
+                    "bigint",       // PruneDays
+                    "bigint",       // PruneViewed
+                    "text",         // ForumParents
+                    "tinyint"       // ForumFlags
+                },
                 columns: new[] {
                     "ForumName", "ForumDesc", "LeftId", "RightId", "ParentId", "ForumType",
                     "ForumPostsApproved", "ForumPostsUnapproved", "ForumPostsSoftDeleted",
@@ -655,9 +680,23 @@ namespace digioz.Forum.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
-                columnTypes: new[] { "nvarchar(450)", "nvarchar(256)", "nvarchar(256)", "nvarchar(256)", 
-                                     "nvarchar(256)", "bit", "nvarchar(max)", "nvarchar(max)", "nvarchar(max)", 
-                                     "nvarchar(max)", "bit", "bit", "datetimeoffset", "bit", "int" },
+                columnTypes: new[] {
+                    "nvarchar(450)",    // Id
+                    "nvarchar(256)",    // UserName
+                    "nvarchar(256)",    // NormalizedUserName
+                    "nvarchar(256)",    // Email
+                    "nvarchar(256)",    // NormalizedEmail
+                    "bit",              // EmailConfirmed
+                    "nvarchar(max)",    // PasswordHash
+                    "nvarchar(max)",    // SecurityStamp
+                    "nvarchar(max)",    // ConcurrencyStamp
+                    "nvarchar(max)",    // PhoneNumber
+                    "bit",              // PhoneNumberConfirmed
+                    "bit",              // TwoFactorEnabled
+                    "datetimeoffset",   // LockoutEnd
+                    "bit",              // LockoutEnabled
+                    "int"               // AccessFailedCount
+                },
                 columns: new[] {
                 "Id",
                 "UserName",
@@ -1919,7 +1958,7 @@ namespace digioz.Forum.Data.Migrations
             foreach (var group in extensionGroups)
             {
                 migrationBuilder.InsertData(
-                    table: "ForumExtensionGroup", 
+                    table: "ForumExtensionGroup",
                     columnTypes: new[] {
                         "varchar(255)",     // GroupName
                         "tinyint",          // CatId
