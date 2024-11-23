@@ -1,5 +1,7 @@
 using digioz.Forum.Data;
 using digioz.Forum.Models;
+using digioz.Forum.Services;
+using digioz.Forum.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +16,10 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
+// Add custom services
+builder.Services.AddScoped<IForumConfigService, ForumConfigService>();
+
 builder.Services.AddRazorPages();
 
 // Login Options

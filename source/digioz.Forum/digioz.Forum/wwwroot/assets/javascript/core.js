@@ -1845,7 +1845,7 @@ $(function() {
 		phpbb.registerPalette($(this));
 	});
 
-	// Update browser history URL to point to specific post in viewtopic.php
+	// Update browser history URL to point to specific post in Topic
 	// when using view=unread#unread link.
 	phpbb.history.replaceUrl($('#unread[data-url]').data('url'));
 

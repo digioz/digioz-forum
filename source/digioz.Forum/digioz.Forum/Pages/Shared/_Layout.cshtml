@@ -1,51 +1,197 @@
-﻿<!DOCTYPE html>
+﻿@using digioz.Forum.Helpers
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - digioz.Forum</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/digioz.Forum.styles.css" asp-append-version="true" />
+    @{
+        var configHelper = new ConfigHelper();
+        var configs = configHelper.GetForumConfigs();
+        var styles = configHelper.GetForumStyles();
+        var activeStyle = styles.Where(x => x.StyleActive == 1).FirstOrDefault();
+    }
+
+    <link rel="stylesheet" href="~/assets/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="~/styles/@(activeStyle.StyleName)/theme/stylesheet.css" />
+    <link rel="stylesheet" href="~/styles/@(activeStyle.StyleName)/theme/en/stylesheet.css?assets_version=9" />
+
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">digioz.Forum</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                    <partial name="_LoginPartial" />
+<body id="phpbb" class="nojs notouch section-index ltr ">
+    <div id="wrap" class="wrap">
+        <div id="wrap" class="wrap">
+            <a id="top" class="top-anchor" accesskey="t"></a>
+            <div id="page-header">
+                <div class="headerbar" role="banner">
+                    <div class="inner">
+                        <div id="site-description" class="site-description">
+                            <a id="logo" class="logo" href="/Index" title="Board index">
+                                <span class="site_logo"></span>
+                            </a>
+                            <h1>DIGIOZBB</h1>
+                            <p>Open Source Forum Software</p>
+                            <p class="skiplink"><a href="#start_here">Skip to content</a></p>
+                        </div>
+                        <div id="search-box" class="search-box search-header" role="search">
+                            <form action="/Search" method="get" id="search">
+                                <fieldset>
+                                    <input name="keywords" id="keywords" type="search" maxlength="128" title="Search for keywords" class="inputbox search tiny" size="20" value="" placeholder="Search…" />
+                                    <button class="button button-search" type="submit" title="Search">
+                                        <i class="icon fa-search fa-fw" aria-hidden="true"></i><span class="sr-only">Search</span>
+                                    </button>
+                                    <a href="/Search" class="button button-search-end" title="Advanced search">
+                                        <i class="icon fa-cog fa-fw" aria-hidden="true"></i><span class="sr-only">Advanced search</span>
+                                    </a>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="navbar" role="navigation">
+                    <div class="inner">
+                        <ul id="nav-main" class="nav-main linklist" role="menubar">
+                            <li id="quick-links" class="quick-links dropdown-container responsive-menu" data-skip-responsive="true">
+                                <a href="#" class="dropdown-trigger">
+                                    <i class="icon fa-bars fa-fw" aria-hidden="true"></i><span>Quick links</span>
+                                </a>
+                                <div class="dropdown">
+                                    <div class="pointer">
+                                        <div class="pointer-inner"></div>
+                                    </div>
+                                    <ul class="dropdown-contents" role="menu">
+                                        <li class="separator"></li>
+                                        <li>
+                                            <a href="/Search?search_id=unanswered" role="menuitem">
+                                                <i class="icon fa-file-o fa-fw icon-gray" aria-hidden="true"></i><span>Unanswered topics</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/Search?search_id=active_topics" role="menuitem">
+                                                <i class="icon fa-file-o fa-fw icon-blue" aria-hidden="true"></i><span>Active topics</span>
+                                            </a>
+                                        </li>
+                                        <li class="separator"></li>
+                                        <li>
+                                            <a href="/Search" role="menuitem">
+                                                <i class="icon fa-search fa-fw" aria-hidden="true"></i><span>Search</span>
+                                            </a>
+                                        </li>
+                                        <li class="separator"></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="small-icon icon-faq no-bulletin"><a href="/">Demo</a></li>
+                            <li class="no-bulletin">
+                                <a href="/">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="position: relative; top: 2px; width: 14px; height: 14px; padding: 0 2px; fill: currentColor;">
+                                        <!-- Font Awesome Pro 5.15.4 by fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) -->
+                                        <path d="M256 0C114.6 0 0 100.3 0 224c0 70.1 36.9 132.6 94.5 173.7 9.6 6.9 15.2 18.1 13.5 29.9l-9.4 66.2c-1.4 9.6 6 18.2 15.7 18.2H192v-56c0-4.4 3.6-8 8-8h16c4.4 0 8 3.6 8 8v56h64v-56c0-4.4 3.6-8 8-8h16c4.4 0 8 3.6 8 8v56h77.7c9.7 0 17.1-8.6 15.7-18.2l-9.4-66.2c-1.7-11.7 3.8-23 13.5-29.9C475.1 356.6 512 294.1 512 224 512 100.3 397.4 0 256 0zm-96 320c-35.3 0-64-28.7-64-64s28.7-64 64-64 64 28.7 64 64-28.7 64-64 64zm192 0c-35.3 0-64-28.7-64-64s28.7-64 64-64 64 28.7 64 64-28.7 64-64 64z" />
+                                    </svg>
+                                    Skeleton Extension
+                                </a>
+                            </li>
+                            <li data-skip-responsive="true">
+                                <a href="/Faq" rel="help" title="Frequently Asked Questions" role="menuitem">
+                                    <i class="icon fa-question-circle fa-fw" aria-hidden="true"></i><span>FAQ</span>
+                                </a>
+                            </li>
+                            <li class="rightside" data-skip-responsive="true">
+                                <a href="/Ucp?mode=login&amp;redirect=index.php" title="Login" accesskey="x" role="menuitem">
+                                    <i class="icon fa-power-off fa-fw" aria-hidden="true"></i><span>Login</span>
+                                </a>
+                            </li>
+                            <li class="rightside" data-skip-responsive="true">
+                                <a href="/Ucp?mode=register" role="menuitem">
+                                    <i class="icon fa-pencil-square-o  fa-fw" aria-hidden="true"></i><span>Register</span>
+                                </a>
+                            </li>
+                        </ul>
+                        <ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks" role="menubar">
+                            <li class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList">
+                                <span class="crumb" itemtype="https://schema.org/ListItem" itemprop="itemListElement" itemscope>
+                                    <a itemprop="item" href="/Index" accesskey="h" data-navbar-reference="index"><i class="icon fa-home fa-fw"></i><span itemprop="name">Board index</span></a>
+                                    <meta itemprop="position" content="1" />
+                                </span>
+                            </li>
+                            <li class="rightside responsive-search">
+                                <a href="/Search" title="View the advanced search options" role="menuitem">
+                                    <i class="icon fa-search fa-fw" aria-hidden="true"></i><span class="sr-only">Search</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+            <a id="start_here" class="anchor"></a>
             @RenderBody()
-        </main>
+            <div id="page-footer" class="page-footer" role="contentinfo">
+                <div class="navbar" role="navigation">
+                    <div class="inner">
+                        <ul id="nav-footer" class="nav-footer linklist" role="menubar">
+                            <li class="breadcrumbs">
+                                <span class="crumb"><a href="/Index" data-navbar-reference="index"><i class="icon fa-home fa-fw" aria-hidden="true"></i><span>Board index</span></a></span>
+                            </li>
+                            <li class="rightside">All times are <span title="UTC">UTC</span></li>
+                            <li class="rightside">
+                                <a href="/Ucp?mode=delete_cookies" data-ajax="true" data-refresh="true" role="menuitem">
+                                    <i class="icon fa-trash fa-fw" aria-hidden="true"></i><span>Delete cookies</span>
+                                </a>
+                            </li>
+                            <li class="rightside" data-last-responsive="true">
+                                <a href="/Members?mode=contactadmin" role="menuitem">
+                                    <i class="icon fa-envelope fa-fw" aria-hidden="true"></i><span>Contact us</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="copyright">
+                    <p class="footer-row">
+                        <span class="footer-copyright">Powered by <a href="https://www.phpbb.com/">phpBB</a>&reg; Forum Software &copy; phpBB Limited</span>
+                    </p>
+                    <p class="footer-row" role="menu">
+                        <a class="footer-link" href="/Ucp?mode=privacy" title="Privacy" role="menuitem">
+                            <span class="footer-link-text">Privacy</span>
+                        </a>
+                        |
+                        <a class="footer-link" href="/Ucp?mode=terms" title="Terms" role="menuitem">
+                            <span class="footer-link-text">Terms</span>
+                        </a>
+                    </p>
+                </div>
+                <div id="darkenwrapper" class="darkenwrapper" data-ajax-error-title="AJAX error" data-ajax-error-text="Something went wrong when processing your request." data-ajax-error-text-abort="User aborted request." data-ajax-error-text-timeout="Your request timed out; please try again." data-ajax-error-text-parsererror="Something went wrong with the request and the server returned an invalid reply.">
+                    <div id="darken" class="darken">&nbsp;</div>
+                </div>
+                <div id="phpbb_alert" class="phpbb_alert" data-l-err="Error" data-l-timeout-processing-req="Request timed out.">
+                    <a href="#" class="alert_close">
+                        <i class="icon fa-times-circle fa-fw" aria-hidden="true"></i>
+                    </a>
+                    <h3 class="alert_title">&nbsp;</h3>
+                    <p class="alert_text"></p>
+                </div>
+                <div id="phpbb_confirm" class="phpbb_alert">
+                    <a href="#" class="alert_close">
+                        <i class="icon fa-times-circle fa-fw" aria-hidden="true"></i>
+                    </a>
+                    <div class="alert_text"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <a id="bottom" class="anchor" accesskey="z"></a>
+        <img class="sr-only" aria-hidden="true" src="" width="1" height="1" alt="">
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - digioz.Forum - <a asp-area="" asp-page="/Privacy">Privacy</a>
-        </div>
-    </footer>
+    @{
+        var configHelper2 = new ConfigHelper();
+        var styles2 = configHelper2.GetForumStyles();
+        var activeStyle2 = styles2.Where(x => x.StyleActive == 1).FirstOrDefault();
+    }
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/assets/javascript/jquery-3.6.0.min.js"></script>
+    <script src="~/assets/javascript/core.js"></script>
+    <script src="~/styles/@(activeStyle2.StyleName)/template/forum_fn.js"></script>
+    <script src="~/styles/@(activeStyle2.StyleName)/template/ajax.js"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>
