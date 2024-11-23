@@ -15,3 +15,14 @@ Thanks,
 Pete - https://digioz.com
 
 ![image](https://github.com/user-attachments/assets/6e5b0b0e-6ddb-4ffa-b633-b34d37fb83b9)
+
+**Developer Setup Steps**
+
+1. Close the source code of the project from https://github.com/digioz/digioz-forum
+2. Open the Project in Visual Studio 2022
+3. Open Package Manager Console
+4. Create a database in SQL Server called DigiozForum1
+5. Run the following command to run the migration and create the tables and populate initial data
+
+> Database-Update -context ApplicationDbContext
+> 
