@@ -15,7 +15,7 @@ We are currently looking for additional Open Source Developers & Contributors to
 
 - Be part of building a community-driven forum platform.
 - Collaborate with other passionate open-source enthusiasts.
-- Expand your skills in PHP, MySQL, front-end development, or open-source project management.
+- Expand your skills in ASP.NET, MSSQL, front-end development, or open-source project management.
 - Add valuable contributions to your portfolio.
 
 **How You Can Help**
