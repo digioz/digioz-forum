@@ -53,5 +53,5 @@ Pete - https://digioz.com
 4. Create a database in SQL Server called DigiozForum1
 5. Run the following command to run the migration and create the tables and populate initial data
 
-> Database-Update -context ApplicationDbContext
+> Update-Database -context ApplicationDbContext
 
