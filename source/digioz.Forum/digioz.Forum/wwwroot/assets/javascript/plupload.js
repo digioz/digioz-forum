@@ -73,7 +73,7 @@ phpbb.plupload.updateMultipartParams = function(obj) {
 };
 
 /**
- * Convert the array of attachment objects into an object that PHP would expect as POST data.
+ * Convert the array of attachment objects into an object that system would expect as POST data.
  *
  * @returns {object} An object in the form 'attachment_data[i][key]': value as
  * 	expected by the server
