@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace digioz.Forum.Pages
+namespace digioz.Forum.Areas.Forum.Pages
 {
-    public class IndexModel : PageModel
+    public class MembersModel : PageModel
     {
         public void OnGet()
         {

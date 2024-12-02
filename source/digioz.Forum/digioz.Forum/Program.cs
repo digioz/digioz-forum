@@ -1,5 +1,7 @@
 using digioz.Forum.Data;
 using digioz.Forum.Models;
+using digioz.Forum.Services;
+using digioz.Forum.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +16,10 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
+// Add custom services
+builder.Services.AddScoped<IForumConfigService, ForumConfigService>();
+
 builder.Services.AddRazorPages();
 
 // Login Options
@@ -50,6 +56,14 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.SlidingExpiration = true;
 });
 
+// Add Session Service
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(240);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -61,12 +75,20 @@ else
 {
     app.UseExceptionHandler("/Error");
 }
+
 app.UseStaticFiles();
-
 app.UseRouting();
-
 app.UseAuthorization();
 
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+      name: "areas",
+      pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+    );
+});
+
+app.UseSession();
 app.MapRazorPages();
 
 app.Run();
