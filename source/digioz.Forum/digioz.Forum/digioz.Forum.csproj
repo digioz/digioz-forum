@@ -8,6 +8,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Forum\Controllers\**" />
+    <Compile Remove="Areas\Forum\Data\**" />
+    <Compile Remove="Areas\Forum\Models\**" />
+    <Compile Remove="Areas\Forum\Views\**" />
+    <Content Remove="Areas\Forum\Controllers\**" />
+    <Content Remove="Areas\Forum\Data\**" />
+    <Content Remove="Areas\Forum\Models\**" />
+    <Content Remove="Areas\Forum\Views\**" />
+    <EmbeddedResource Remove="Areas\Forum\Controllers\**" />
+    <EmbeddedResource Remove="Areas\Forum\Data\**" />
+    <EmbeddedResource Remove="Areas\Forum\Models\**" />
+    <EmbeddedResource Remove="Areas\Forum\Views\**" />
+    <None Remove="Areas\Forum\Controllers\**" />
+    <None Remove="Areas\Forum\Data\**" />
+    <None Remove="Areas\Forum\Models\**" />
+    <None Remove="Areas\Forum\Views\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="Models\DigiozForum1Context.cs" />
   </ItemGroup>
 
