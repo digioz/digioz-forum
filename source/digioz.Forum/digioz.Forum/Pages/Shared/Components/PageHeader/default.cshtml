@@ -75,16 +75,68 @@
                         <i class="icon fa-question-circle fa-fw" aria-hidden="true"></i><span>FAQ</span>
                     </a>
                 </li>
-                <li class="rightside" data-skip-responsive="true">
-                    <a href="/Forum/Ucp?mode=login&amp;redirect=index" title="Login" accesskey="x" role="menuitem">
-                        <i class="icon fa-power-off fa-fw" aria-hidden="true"></i><span>Login</span>
-                    </a>
-                </li>
-                <li class="rightside" data-skip-responsive="true">
-                    <a href="/Forum/Ucp?mode=register" role="menuitem">
-                        <i class="icon fa-pencil-square-o  fa-fw" aria-hidden="true"></i><span>Register</span>
-                    </a>
-                </li>
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    <li class="rightside" data-skip-responsive="true">
+                        <a href="/Identity/Account/Login?redirect=index" title="Login" accesskey="x" role="menuitem">
+                            <i class="icon fa-power-off fa-fw" aria-hidden="true"></i><span>Login</span>
+                        </a>
+                    </li>
+                    <li class="rightside" data-skip-responsive="true">
+                        <a href="/Identity/Account/Register" role="menuitem">
+                            <i class="icon fa-pencil-square-o  fa-fw" aria-hidden="true"></i><span>Register</span>
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li id="username_logged_in" class="rightside" data-skip-responsive="true">
+                        <div class="header-profile dropdown-container">
+                            <a href="/Forum/Ucp" class="header-avatar dropdown-trigger dropdown-toggle"> <span style="color: #aa0000;" class="username-coloured">admin</span></a>
+                            <div class="dropdown">
+                                <div class="pointer">
+                                    <div class="pointer-inner"></div>
+                                </div>
+                                <ul class="dropdown-contents" role="menu">
+                                    <li>
+                                        <a href="/Forum/Ucp" title="User Control Panel" role="menuitem"> <i class="icon fa-sliders fa-fw" aria-hidden="true"></i><span>User Control Panel</span> </a>
+                                    </li>
+                                    <li>
+                                        <a href="/Forum/Profile" title="Profile" role="menuitem"> <i class="icon fa-user fa-fw" aria-hidden="true"></i><span>Profile</span> </a>
+                                    </li>
+                                    <li class="separator"></li>
+                                    <li>
+                                        <a href="/Identity/Account/Logout" title="Logout" accesskey="x" role="menuitem"> <i class="icon fa-power-off fa-fw" aria-hidden="true"></i><span>Logout</span> </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="rightside" data-skip-responsive="true">
+                        <a href="/Forum/Pm/Inbox" role="menuitem"> <i class="icon fa-inbox fa-fw" aria-hidden="true"></i><span>Private messages </span><strong class="badge hidden">0</strong> </a>
+                    </li>
+                    <li class="dropdown-container dropdown-right rightside" data-skip-responsive="true">
+                        <a href="/Forum/Ucp?i=ucp_notifications" id="notification_list_button" class="dropdown-trigger dropdown-toggle"> <i class="icon fa-bell fa-fw" aria-hidden="true"></i><span>Notifications </span><strong class="badge hidden">0</strong> </a>
+                        <div id="notification_list" class="dropdown dropdown-extended notification_list">
+                            <div class="pointer">
+                                <div class="pointer-inner"></div>
+                            </div>
+                            <div class="dropdown-contents">
+                                <div class="header">
+                                    Notifications
+                                    <span class="header_settings">
+                                        <a href="/Forum/Ucp?i=ucp_notifications&amp;mode=notification_options">Settings</a>
+                                    </span>
+                                </div>
+                                <ul>
+                                    <li class="no_notifications">
+                                        You have no notifications
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                }
             </ul>
             <ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks" role="menubar">
                 <li class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList">

@@ -51,20 +51,24 @@
             </ul>
         </div>
     </div>
-    <form method="post" action="/Ucp?mode=login" class="headerspace">
-        <h3><a href="/Forum/Ucp?mode=login&amp;redirect=index">Login</a>&nbsp; &bull; &nbsp;<a href="/Ucp?mode=register">Register</a></h3>
-        <fieldset class="quick-login">
-            <label for="username"><span>Username:</span> <input type="text" tabindex="1" name="username" id="username" size="10" class="inputbox" title="Username" /></label>
-            <label for="password"><span>Password:</span> <input type="password" tabindex="2" name="password" id="password" size="10" class="inputbox" title="Password" autocomplete="off" /></label>
-            <a href="/Identity/Account/ForgotPassword">I forgot my password</a>
-            <span class="responsive-hide">|</span>
-            <label for="autologin">Remember me <input type="checkbox" tabindex="4" name="autologin" id="autologin" /></label>
-            <input type="submit" tabindex="5" name="login" value="Login" class="button2" />
-            <input type="hidden" name="redirect" value="/Index" />
-            <input type="hidden" name="creation_time" value="1732293659" />
-            <input type="hidden" name="form_token" value="53be1f5685a425daa137dbb84ad2ea8c0e2a8dca" />
-        </fieldset>
-    </form>
+    @if (!User.Identity.IsAuthenticated)
+    {
+        <form method="post" action="/Ucp?mode=login" class="headerspace">
+            <h3><a href="/Forum/Ucp?mode=login&amp;redirect=index">Login</a>&nbsp; &bull; &nbsp;<a href="/Ucp?mode=register">Register</a></h3>
+            <fieldset class="quick-login">
+                <label for="username"><span>Username:</span> <input type="text" tabindex="1" name="username" id="username" size="10" class="inputbox" title="Username" /></label>
+                <label for="password"><span>Password:</span> <input type="password" tabindex="2" name="password" id="password" size="10" class="inputbox" title="Password" autocomplete="off" /></label>
+                <a href="/Identity/Account/ForgotPassword">I forgot my password</a>
+                <span class="responsive-hide">|</span>
+                <label for="autologin">Remember me <input type="checkbox" tabindex="4" name="autologin" id="autologin" /></label>
+                <input type="submit" tabindex="5" name="login" value="Login" class="button2" />
+                <input type="hidden" name="redirect" value="/Index" />
+                <input type="hidden" name="creation_time" value="1732293659" />
+                <input type="hidden" name="form_token" value="53be1f5685a425daa137dbb84ad2ea8c0e2a8dca" />
+            </fieldset>
+        </form>
+    }
+
     <div class="stat-block online-list">
         <h3>Who is online</h3>
         <p>
