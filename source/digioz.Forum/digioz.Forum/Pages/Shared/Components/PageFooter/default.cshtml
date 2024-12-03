@@ -1,4 +1,9 @@
-﻿@{
+﻿@using digioz.Forum.Services
+@using digioz.Forum.Services.Interfaces
+@inject ILayoutService LayoutService
+
+@{
+    var layoutModel = LayoutService.GetLayoutData();
 }
 
 <div id="page-footer" class="page-footer" role="contentinfo">

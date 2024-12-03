@@ -63,7 +63,7 @@ namespace digioz.Forum.Data.Migrations
                 },
                 values: new object[]
                 {
-                    "Welcome to phpBB3",      // TopicTitle
+                    "Welcome to DigiozBB!",   // TopicTitle
                     2,                        // TopicPoster
                     972086460,                // TopicTime
                     0,                        // TopicViews
@@ -80,9 +80,9 @@ namespace digioz.Forum.Data.Migrations
                     2,                        // TopicLastPosterId
                     "Admin",                  // TopicLastPosterName
                     "AA0000",                 // TopicLastPosterColor
-                    "Welcome to phpBB3",      // TopicLastPostSubject
-                    972086460,               // TopicLastPostTime
-                    972086460,               // TopicLastViewTime
+                    "Welcome to DigiozBB!",   // TopicLastPostSubject
+                    972086460,                // TopicLastPostTime
+                    972086460,                // TopicLastViewTime
                     "",                       // PollTitle
                     1                         // TopicVisibility
                 });
@@ -127,9 +127,9 @@ namespace digioz.Forum.Data.Migrations
                     972086460,                                      // PostTime
                     "",                                             // PostUsername
                     "127.0.0.1",                                    // PosterIp
-                    "Welcome to phpBB3",                            // PostSubject
-                    "This is an example post in your phpBB3 installation. Everything seems to be working. You may delete this post if you like and continue to set up your board. During the installation process your first category and your first forum are assigned an appropriate set of permissions for the predefined usergroups administrators, bots, global moderators, guests, registered users and registered COPPA users. If you also choose to delete your first category and your first forum, do not forget to assign permissions for all these usergroups for all new categories and forums you create. It is recommended to rename your first category and your first forum and copy permissions from these while creating new categories and forums. Have fun!",  // PostText
-                    "5dd683b17f641daf84c040bfefc58ce9",            // PostChecksum
+                    "Welcome to DigiozBB",                          // PostSubject
+                    "This is an example post in your DigiozBB installation. Everything seems to be working. You may delete this post if you like and continue to set up your board. During the installation process your first category and your first forum are assigned an appropriate set of permissions for the predefined usergroups administrators, bots, global moderators, guests, registered users and registered COPPA users. If you also choose to delete your first category and your first forum, do not forget to assign permissions for all these usergroups for all new categories and forums you create. It is recommended to rename your first category and your first forum and copy permissions from these while creating new categories and forums. Have fun!",  // PostText
+                    "5dd683b17f641daf84c040bfefc58ce9",             // PostChecksum
                     "",                                             // BbcodeUid
                     1                                               // PostVisibility
                 });

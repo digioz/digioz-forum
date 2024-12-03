@@ -1,4 +1,9 @@
-﻿@{
+﻿@using digioz.Forum.Services
+@using digioz.Forum.Services.Interfaces
+@inject ILayoutService LayoutService
+
+@{
+    var layoutModel = LayoutService.GetLayoutData();
 }
 
 <div id="page-header">
@@ -8,8 +13,8 @@
                 <a id="logo" class="logo" href="/Index" title="Board index">
                     <span class="site_logo"></span>
                 </a>
-                <h1>DIGIOZBB</h1>
-                <p>Open Source Forum Software</p>
+                <h1>@layoutModel.ForumConfig["sitename"]</h1>
+                <p>@layoutModel.ForumConfig["site_desc"]</p>
                 <p class="skiplink"><a href="#start_here">Skip to content</a></p>
             </div>
             <div id="search-box" class="search-box search-header" role="search">
