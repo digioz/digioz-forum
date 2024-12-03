@@ -1,19 +1,19 @@
-﻿@using digioz.Forum.Helpers
+﻿@using digioz.Forum.Services
+@using digioz.Forum.Services.Interfaces
+@inject ILayoutService LayoutService
+
+@{
+    var layoutModel = LayoutService.GetLayoutData();
+}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    @{
-        var configHelper = new ConfigHelper();
-        var configs = configHelper.GetForumConfigs();
-        var styles = configHelper.GetForumStyles();
-        var activeStyle = styles.Where(x => x.StyleActive == 1).FirstOrDefault();
-    }
-
     <link rel="stylesheet" href="~/assets/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="~/styles/@(activeStyle.StyleName)/theme/stylesheet.css" />
-    <link rel="stylesheet" href="~/styles/@(activeStyle.StyleName)/theme/en/stylesheet.css?assets_version=9" />
+    <link rel="stylesheet" href="~/styles/@(layoutModel.ForumStyle.StyleName)/theme/stylesheet.css" />
+    <link rel="stylesheet" href="~/styles/@(layoutModel.ForumStyle.StyleName)/theme/en/stylesheet.css?assets_version=9" />
 
 </head>
 <body id="phpbb" class="nojs notouch section-index ltr ">
@@ -31,16 +31,10 @@
         <img class="sr-only" aria-hidden="true" src="" width="1" height="1" alt="">
     </div>
 
-    @{
-        var configHelper2 = new ConfigHelper();
-        var styles2 = configHelper2.GetForumStyles();
-        var activeStyle2 = styles2.Where(x => x.StyleActive == 1).FirstOrDefault();
-    }
-
     <script src="~/assets/javascript/jquery-3.6.0.min.js"></script>
     <script src="~/assets/javascript/core.js"></script>
-    <script src="~/styles/@(activeStyle2.StyleName)/template/forum_fn.js"></script>
-    <script src="~/styles/@(activeStyle2.StyleName)/template/ajax.js"></script>
+    <script src="~/styles/@(layoutModel.ForumStyle.StyleName)/template/forum_fn.js"></script>
+    <script src="~/styles/@(layoutModel.ForumStyle.StyleName)/template/ajax.js"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>
