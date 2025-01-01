@@ -21,6 +21,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 builder.Services.AddScoped<IForumConfigService, ForumConfigService>();
 
 builder.Services.AddRazorPages();
+builder.Services.AddSingleton<ILayoutService, LayoutService>();
 
 // Login Options
 builder.Services.Configure<IdentityOptions>(options =>
@@ -79,14 +80,6 @@ else
 app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthorization();
-
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllerRoute(
-      name: "areas",
-      pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-    );
-});
 
 app.UseSession();
 app.MapRazorPages();

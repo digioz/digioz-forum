@@ -114,7 +114,7 @@ namespace digioz.Forum.Data.Migrations
                         2, // ForumLastPosterId
                         "Admin", // ForumLastPosterName
                         "AA0000", // ForumLastPosterColour
-                        "Welcome to phpBB3", // ForumLastPostSubject
+                        "Welcome to DigiozBB!", // ForumLastPostSubject
                         972086460, // ForumLastPostTime
                         "", // ForumLink
                         "", // ForumPassword
