@@ -11,5 +11,5 @@ public partial class ForumSessionsKey
 
     public string LastIp { get; set; } = null!;
 
-    public int LastLogin { get; set; }
+    public long LastLogin { get; set; }
 }

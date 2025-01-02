@@ -13,9 +13,9 @@ public partial class ForumBanlist
 
     public string BanEmail { get; set; } = null!;
 
-    public int BanStart { get; set; }
+    public long BanStart { get; set; }
 
-    public int BanEnd { get; set; }
+    public long BanEnd { get; set; }
 
     public byte BanExclude { get; set; }
 

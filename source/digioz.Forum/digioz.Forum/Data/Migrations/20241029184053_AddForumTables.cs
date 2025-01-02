@@ -40,7 +40,7 @@ namespace digioz.Forum.Data.Migrations
                     ForumLastPostId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     ForumLastPosterId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     ForumLastPostSubject = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
-                    ForumLastPostTime = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    ForumLastPostTime = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     ForumLastPosterName = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
                     ForumLastPosterColour = table.Column<string>(type: "varchar(6)", nullable: false, defaultValue: ""),
                     ForumFlags = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 32),
@@ -183,7 +183,7 @@ namespace digioz.Forum.Data.Migrations
                     Extension = table.Column<string>(type: "varchar(100)", nullable: false, defaultValue: ""),
                     MimeType = table.Column<string>(type: "varchar(100)", nullable: false, defaultValue: ""),
                     FileSize = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
-                    FileTime = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    FileTime = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     Thumbnail = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0)
                 },
                 constraints: table =>
@@ -200,8 +200,8 @@ namespace digioz.Forum.Data.Migrations
                     BanUserId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     BanIp = table.Column<string>(type: "varchar(40)", nullable: false, defaultValue: ""),
                     BanEmail = table.Column<string>(type: "varchar(100)", nullable: false, defaultValue: ""),
-                    BanStart = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
-                    BanEnd = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    BanStart = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
+                    BanEnd = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     BanExclude = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
                     BanReason = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
                     BanGiveReason = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: "")
@@ -323,7 +323,7 @@ namespace digioz.Forum.Data.Migrations
                     UserId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     TopicId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     ForumId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
-                    SaveTime = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    SaveTime = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     DraftSubject = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
                     DraftMessage = table.Column<string>(type: "text", nullable: false)
                 },
@@ -465,7 +465,7 @@ namespace digioz.Forum.Data.Migrations
                     PostId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     ReporteeId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     LogIp = table.Column<string>(type: "varchar(40)", nullable: false, defaultValue: ""),
-                    LogTime = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    LogTime = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     LogOperation = table.Column<string>(type: "text", nullable: false),
                     LogData = table.Column<string>(type: "text", nullable: false)
                 },
@@ -481,7 +481,7 @@ namespace digioz.Forum.Data.Migrations
                     AttemptIp = table.Column<string>(type: "varchar(40)", nullable: false, defaultValue: ""),
                     AttemptBrowser = table.Column<string>(type: "varchar(150)", nullable: false, defaultValue: ""),
                     AttemptForwardedFor = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
-                    AttemptTime = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    AttemptTime = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     UserId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     Username = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
                     UsernameClean = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: "")
@@ -496,8 +496,8 @@ namespace digioz.Forum.Data.Migrations
                     MigrationSchemaDone = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
                     MigrationDataDone = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
                     MigrationDataState = table.Column<string>(type: "text", nullable: false),
-                    MigrationStartTime = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
-                    MigrationEndTime = table.Column<int>(type: "int", nullable: false, defaultValue: 0)
+                    MigrationStartTime = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
+                    MigrationEndTime = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0)
                 },
                 constraints: table =>
                 {
@@ -553,7 +553,7 @@ namespace digioz.Forum.Data.Migrations
                     ItemParentId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     UserId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     NotificationRead = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
-                    NotificationTime = table.Column<int>(type: "int", nullable: false, defaultValue: 1),
+                    NotificationTime = table.Column<long>(type: "bigint", nullable: false, defaultValue: 1),
                     NotificationData = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
@@ -675,7 +675,7 @@ namespace digioz.Forum.Data.Migrations
                     PosterId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     IconId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     PosterIp = table.Column<string>(type: "varchar(40)", nullable: false, defaultValue: ""),
-                    PostTime = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    PostTime = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     PostReported = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
                     EnableBbcode = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 1),
                     EnableSmilies = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 1),
@@ -689,13 +689,13 @@ namespace digioz.Forum.Data.Migrations
                     BbcodeBitfield = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
                     BbcodeUid = table.Column<string>(type: "varchar(8)", nullable: false, defaultValue: ""),
                     PostCount = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 1),
-                    PostEditTime = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    PostEditTime = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     PostEditReason = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
                     PostEditUser = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     PostEditCount = table.Column<short>(type: "smallint", nullable: false, defaultValue: 0),
                     PostEditLocked = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
                     PostVisibility = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
-                    PostDeleteTime = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    PostDeleteTime = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     PostDeleteReason = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
                     PostDeleteUser = table.Column<int>(type: "int", nullable: false, defaultValue: 0)
                 },
@@ -714,7 +714,7 @@ namespace digioz.Forum.Data.Migrations
                     AuthorId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     IconId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     AuthorIp = table.Column<string>(type: "varchar(40)", nullable: false, defaultValue: ""),
-                    MessageTime = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    MessageTime = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     EnableBbcode = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 1),
                     EnableSmilies = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 1),
                     EnableMagicUrl = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 1),
@@ -726,7 +726,7 @@ namespace digioz.Forum.Data.Migrations
                     MessageAttachment = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
                     BbcodeBitfield = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
                     BbcodeUid = table.Column<string>(type: "varchar(8)", nullable: false, defaultValue: ""),
-                    MessageEditTime = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    MessageEditTime = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     MessageEditCount = table.Column<short>(type: "smallint", nullable: false, defaultValue: 0),
                     ToAddress = table.Column<string>(type: "text", nullable: false),
                     BccAddress = table.Column<string>(type: "text", nullable: false),
@@ -905,7 +905,7 @@ namespace digioz.Forum.Data.Migrations
                     UserId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     UserNotify = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
                     ReportClosed = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
-                    ReportTime = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    ReportTime = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     ReportText = table.Column<string>(type: "text", nullable: false),
                     PmId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     ReportedPostEnableBbcode = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 1),
@@ -940,7 +940,7 @@ namespace digioz.Forum.Data.Migrations
                 columns: table => new
                 {
                     SearchKey = table.Column<string>(type: "varchar(32)", nullable: false, defaultValue: ""),
-                    SearchTime = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    SearchTime = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     SearchKeywords = table.Column<string>(type: "text", nullable: false),
                     SearchAuthors = table.Column<string>(type: "text", nullable: false)
                 },
@@ -982,11 +982,11 @@ namespace digioz.Forum.Data.Migrations
                 name: "ForumSession",
                 columns: table => new
                 {
-                    SessionId = table.Column<string>(type: "char(32)", nullable: false, defaultValue: ""),
+                    SessionId = table.Column<string>(type: "varchar(128)", nullable: false, defaultValue: ""),
                     SessionUserId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
-                    SessionLastVisit = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
-                    SessionStart = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
-                    SessionTime = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    SessionLastVisit = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
+                    SessionStart = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
+                    SessionTime = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     SessionIp = table.Column<string>(type: "varchar(40)", nullable: false, defaultValue: ""),
                     SessionBrowser = table.Column<string>(type: "varchar(150)", nullable: false, defaultValue: ""),
                     SessionForwardedFor = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
@@ -1005,10 +1005,10 @@ namespace digioz.Forum.Data.Migrations
                 name: "ForumSessionsKey",
                 columns: table => new
                 {
-                    KeyId = table.Column<string>(type: "char(32)", nullable: false, defaultValue: ""),
+                    KeyId = table.Column<string>(type: "varchar(128)", nullable: false, defaultValue: ""),
                     UserId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     LastIp = table.Column<string>(type: "varchar(40)", nullable: false, defaultValue: ""),
-                    LastLogin = table.Column<int>(type: "int", nullable: false, defaultValue: 0)
+                    LastLogin = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0)
                 },
                 constraints: table =>
                 {
@@ -1097,8 +1097,8 @@ namespace digioz.Forum.Data.Migrations
                     TopicReported = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
                     TopicTitle = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
                     TopicPoster = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
-                    TopicTime = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
-                    TopicTimeLimit = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    TopicTime = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
+                    TopicTimeLimit = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     TopicViews = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     TopicStatus = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
                     TopicType = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
@@ -1110,19 +1110,19 @@ namespace digioz.Forum.Data.Migrations
                     TopicLastPosterName = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
                     TopicLastPosterColor = table.Column<string>(type: "varchar(6)", nullable: false, defaultValue: ""),
                     TopicLastPostSubject = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
-                    TopicLastPostTime = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
-                    TopicLastViewTime = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    TopicLastPostTime = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
+                    TopicLastViewTime = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     TopicMovedId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     TopicBumped = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
                     TopicBumper = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     PollTitle = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
-                    PollStart = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    PollStart = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     PollLength = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     PollMaxOptions = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 1),
-                    PollLastVote = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    PollLastVote = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     PollVoteChange = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
                     TopicVisibility = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
-                    TopicDeleteTime = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    TopicDeleteTime = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     TopicDeleteReason = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
                     TopicDeleteUser = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     TopicPostsApproved = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
@@ -1154,7 +1154,7 @@ namespace digioz.Forum.Data.Migrations
                     UserId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     TopicId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     ForumId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
-                    MarkTime = table.Column<int>(type: "int", nullable: false, defaultValue: 0)
+                    MarkTime = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0)
                 },
                 constraints: table =>
                 {
@@ -1180,7 +1180,7 @@ namespace digioz.Forum.Data.Migrations
                 {
                     UserId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     ForumId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
-                    MarkTime = table.Column<int>(type: "int", nullable: false, defaultValue: 0)
+                    MarkTime = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0)
                 },
                 constraints: table =>
                 {
@@ -1204,18 +1204,18 @@ namespace digioz.Forum.Data.Migrations
                     UserNameClean = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
                     UserEmail = table.Column<string>(type: "varchar(100)", nullable: false, defaultValue: ""),
                     UserBirthday = table.Column<string>(type: "varchar(10)", nullable: false, defaultValue: ""),
-                    UserLastVisit = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
-                    UserLastActive = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
-                    UserLastMark = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
-                    UserLastPostTime = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    UserLastVisit = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
+                    UserLastActive = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
+                    UserLastMark = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
+                    UserLastPostTime = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     UserLastPage = table.Column<string>(type: "varchar(200)", nullable: false, defaultValue: ""),
                     UserLastConfirmKey = table.Column<string>(type: "varchar(10)", nullable: false, defaultValue: ""),
                     UserLastSearch = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     UserWarnings = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
-                    UserLastWarning = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    UserLastWarning = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     UserLoginAttempts = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
                     UserInactiveReason = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
-                    UserInactiveTime = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    UserInactiveTime = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     UserPosts = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     UserLang = table.Column<string>(type: "varchar(30)", nullable: false, defaultValue: ""),
                     UserTimeZone = table.Column<string>(type: "varchar(100)", nullable: false, defaultValue: ""),
@@ -1225,10 +1225,10 @@ namespace digioz.Forum.Data.Migrations
                     UserColor = table.Column<string>(type: "varchar(6)", nullable: false, defaultValue: ""),
                     UserNewPrivmsg = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     UserUnreadPrivmsg = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
-                    UserLastPrivmsg = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    UserLastPrivmsg = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     UserMessageRules = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
                     UserFullFolder = table.Column<int>(type: "int", nullable: false, defaultValue: -3),
-                    UserEmailTime = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    UserEmailTime = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     UserTopicShowDays = table.Column<short>(type: "smallint", nullable: false, defaultValue: 0),
                     UserTopicSortbyType = table.Column<string>(type: "varchar(1)", nullable: false, defaultValue: "t"),
                     UserTopicSortbyDir = table.Column<string>(type: "varchar(1)", nullable: false, defaultValue: "d"),
@@ -1252,14 +1252,14 @@ namespace digioz.Forum.Data.Migrations
                     UserSigBbcodeBitfield = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
                     UserJabber = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
                     UserActkey = table.Column<string>(type: "varchar(32)", nullable: false, defaultValue: ""),
-                    UserActkeyExpiration = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    UserActkeyExpiration = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     ResetToken = table.Column<string>(type: "varchar(64)", nullable: false, defaultValue: ""),
-                    ResetTokenExpiration = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    ResetTokenExpiration = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     UserNewpasswd = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
                     UserFormSalt = table.Column<string>(type: "varchar(32)", nullable: false, defaultValue: ""),
                     UserNew = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 1),
                     UserReminded = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
-                    UserRemindedTime = table.Column<int>(type: "int", nullable: false, defaultValue: 0)
+                    UserRemindedTime = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0)
                 },
                 constraints: table =>
                 {
@@ -1301,7 +1301,7 @@ namespace digioz.Forum.Data.Migrations
                     UserId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     PostId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     LogId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
-                    WarningTime = table.Column<int>(type: "int", nullable: false, defaultValue: 0)
+                    WarningTime = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0)
                 },
                 constraints: table =>
                 {

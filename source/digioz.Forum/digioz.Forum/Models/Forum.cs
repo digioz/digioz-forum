@@ -55,7 +55,7 @@ public partial class Forum
 
     public string ForumLastPostSubject { get; set; } = null!;
 
-    public int ForumLastPostTime { get; set; }
+    public long ForumLastPostTime { get; set; }
 
     public string ForumLastPosterName { get; set; } = null!;
 

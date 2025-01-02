@@ -2,9 +2,9 @@
 
 namespace digioz.Forum.Services.Interfaces
 {
-    public interface ISessionService
+    public interface IForumSessionService
     {
-        ForumSession Get(int id);
+        ForumSession Get(string id);
         IEnumerable<ForumSession> GetAll();
         void Add(ForumSession session);
         void Edit(ForumSession session);
