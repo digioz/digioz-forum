@@ -4,7 +4,7 @@ Welcome to DigiozBB (Digioz Bulletin Board), an open-source forum software that 
 The development stack for the project is as follows:
 
 1. Visual Studio 2022
-2. Microsoft .NET Core 8.0
+2. Microsoft .NET Core 9.0
 3. Microsoft SQL Server 2022
 
 **🚀 We're Looking for Open-Source Contributors!**
