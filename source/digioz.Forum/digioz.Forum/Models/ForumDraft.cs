@@ -13,7 +13,7 @@ public partial class ForumDraft
 
     public long ForumId { get; set; }
 
-    public int SaveTime { get; set; }
+    public long SaveTime { get; set; }
 
     public string DraftSubject { get; set; } = null!;
 

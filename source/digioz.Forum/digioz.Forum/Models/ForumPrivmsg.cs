@@ -15,7 +15,7 @@ public partial class ForumPrivmsg
 
     public string AuthorIp { get; set; } = null!;
 
-    public int MessageTime { get; set; }
+    public long MessageTime { get; set; }
 
     public byte EnableBbcode { get; set; }
 
@@ -39,7 +39,7 @@ public partial class ForumPrivmsg
 
     public string BbcodeUid { get; set; } = null!;
 
-    public int MessageEditTime { get; set; }
+    public long MessageEditTime { get; set; }
 
     public short MessageEditCount { get; set; }
 

@@ -17,7 +17,7 @@ public partial class ForumNotification
 
     public byte NotificationRead { get; set; }
 
-    public int NotificationTime { get; set; }
+    public long NotificationTime { get; set; }
 
     public string NotificationData { get; set; } = null!;
 }

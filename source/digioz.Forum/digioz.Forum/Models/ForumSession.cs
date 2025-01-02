@@ -11,11 +11,11 @@ public partial class ForumSession
 
     public int SessionUserId { get; set; }
 
-    public int SessionLastVisit { get; set; }
+    public long SessionLastVisit { get; set; }
 
-    public int SessionStart { get; set; }
+    public long SessionStart { get; set; }
 
-    public int SessionTime { get; set; }
+    public long SessionTime { get; set; }
 
     public string SessionIp { get; set; } = null!;
 

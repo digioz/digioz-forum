@@ -17,7 +17,7 @@ public partial class ForumPost
 
     public string PosterIp { get; set; } = null!;
 
-    public int PostTime { get; set; }
+    public long PostTime { get; set; }
 
     public byte PostReported { get; set; }
 
@@ -45,7 +45,7 @@ public partial class ForumPost
 
     public byte PostCount { get; set; }
 
-    public int PostEditTime { get; set; }
+    public long PostEditTime { get; set; }
 
     public string PostEditReason { get; set; } = null!;
 
@@ -57,7 +57,7 @@ public partial class ForumPost
 
     public byte PostVisibility { get; set; }
 
-    public int PostDeleteTime { get; set; }
+    public long PostDeleteTime { get; set; }
 
     public string PostDeleteReason { get; set; } = null!;
 

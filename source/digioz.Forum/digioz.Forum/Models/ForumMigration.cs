@@ -15,7 +15,7 @@ public partial class ForumMigration
 
     public string MigrationDataState { get; set; } = null!;
 
-    public int MigrationStartTime { get; set; }
+    public long MigrationStartTime { get; set; }
 
-    public int MigrationEndTime { get; set; }
+    public long MigrationEndTime { get; set; }
 }

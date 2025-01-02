@@ -31,7 +31,7 @@ public partial class ForumAttachment
 
     public int FileSize { get; set; }
 
-    public int FileTime { get; set; }
+    public long FileTime { get; set; }
 
     public byte Thumbnail { get; set; }
 }

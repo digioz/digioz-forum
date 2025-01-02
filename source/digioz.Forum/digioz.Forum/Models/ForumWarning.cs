@@ -13,5 +13,5 @@ public partial class ForumWarning
 
     public int LogId { get; set; }
 
-    public int WarningTime { get; set; }
+    public long WarningTime { get; set; }
 }

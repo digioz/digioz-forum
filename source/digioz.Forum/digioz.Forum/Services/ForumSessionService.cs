@@ -5,18 +5,18 @@ using Microsoft.Build.Framework;
 
 namespace digioz.Forum.Services
 {
-    public class SessionService : ISessionService
+    public class ForumSessionService : IForumSessionService
     {
         private DigiozForumContext _context;
 
-        public SessionService(DigiozForumContext context)
+        public ForumSessionService(DigiozForumContext context)
         {
             _context = context;
         }
 
-        public ForumSession Get(int id)
+        public ForumSession Get(string id)
         {
-            var model = _context.ForumSessions.Find(id);
+            var model = _context.ForumSessions.Where(x => x.SessionId == id).SingleOrDefault();
             return model;
         }
 
