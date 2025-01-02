@@ -34,7 +34,7 @@ namespace digioz.Forum.Services
 
         public void Edit(ForumSession session)
         {
-            var model = _context.ForumSessions.Find(session.Id);
+            var model = _context.ForumSessions.Find(session.SessionId);
             if (model != null)
             {
                 _context.ForumSessions.Update(session);
