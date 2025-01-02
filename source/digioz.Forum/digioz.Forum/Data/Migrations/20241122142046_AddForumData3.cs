@@ -16,7 +16,8 @@ namespace digioz.Forum.Data.Migrations
                 columns: new[] { "StyleName", "StyleCopyright", "StyleActive", "StylePath", "BbcodeBitField", "StyleParentId", "StyleParentTree" },
                 values: new object[,]
                 {
-                    { "prosilver", "&copy; phpBB Limited", 1, "prosilver", "//g=", 0, "" }
+                    { "prosilver", "&copy; phpBB Limited", 1, "prosilver", "//g=", 0, "" },
+                    { "prosilver_dark", "&copy; phpBB Limited", 0, "prosilver_dark", "//g=", 0, "" }
                 });
 
             migrationBuilder.InsertData(
