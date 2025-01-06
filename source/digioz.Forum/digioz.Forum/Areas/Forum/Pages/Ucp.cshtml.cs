@@ -2,6 +2,7 @@ using digioz.Forum.Helpers;
 using digioz.Forum.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Security.Claims;
 
 namespace digioz.Forum.Areas.Forum.Pages
 {
@@ -19,7 +20,8 @@ namespace digioz.Forum.Areas.Forum.Pages
             var sessionId = HttpContext.Session.Id;
             var pageName = Request.Path;
             var forumSessionHelper = new ForumSessionHelper(_forumConfigService);
-            forumSessionHelper.AddSession(HttpContext, sessionId, pageName);
+            var sessionUserId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
+            forumSessionHelper.AddSession(HttpContext, sessionId, pageName, sessionUserId);
         }
 
         public void OnGet()

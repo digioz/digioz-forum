@@ -17,6 +17,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using digioz.Forum.Services.Interfaces;
+using digioz.Forum.Helpers;
 
 namespace digioz.Forum.Areas.Identity.Pages.Account
 {
@@ -29,13 +31,15 @@ namespace digioz.Forum.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<IdentityUser> _emailStore;
         private readonly IEmailSender _emailSender;
         private readonly ILogger<ExternalLoginModel> _logger;
+        private readonly IForumSessionService _forumConfigService;
 
         public ExternalLoginModel(
             SignInManager<IdentityUser> signInManager,
             UserManager<IdentityUser> userManager,
             IUserStore<IdentityUser> userStore,
             ILogger<ExternalLoginModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IForumSessionService forumConfigService)
         {
             _signInManager = signInManager;
             _userManager = userManager;
@@ -43,6 +47,16 @@ namespace digioz.Forum.Areas.Identity.Pages.Account
             _emailStore = GetEmailStore();
             _logger = logger;
             _emailSender = emailSender;
+            _forumConfigService = forumConfigService;
+        }
+
+        private void GetSession()
+        {
+            var sessionId = HttpContext.Session.Id;
+            var pageName = Request.Path;
+            var forumSessionHelper = new ForumSessionHelper(_forumConfigService);
+            var sessionUserId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
+            forumSessionHelper.AddSession(HttpContext, sessionId, pageName, sessionUserId);
         }
 
         /// <summary>
@@ -85,8 +99,12 @@ namespace digioz.Forum.Areas.Identity.Pages.Account
             [EmailAddress]
             public string Email { get; set; }
         }
-        
-        public IActionResult OnGet() => RedirectToPage("./Login");
+
+        public IActionResult OnGet()
+        {
+            GetSession();
+            return RedirectToPage("./Login");
+        } 
 
         public IActionResult OnPost(string provider, string returnUrl = null)
         {
@@ -98,6 +116,8 @@ namespace digioz.Forum.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnGetCallbackAsync(string returnUrl = null, string remoteError = null)
         {
+            GetSession();
+
             returnUrl = returnUrl ?? Url.Content("~/");
             if (remoteError != null)
             {

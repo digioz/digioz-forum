@@ -4,8 +4,11 @@
 
 using System;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using digioz.Forum.Helpers;
+using digioz.Forum.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -17,10 +20,21 @@ namespace digioz.Forum.Areas.Identity.Pages.Account
     public class ConfirmEmailModel : PageModel
     {
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly IForumSessionService _forumConfigService;
 
-        public ConfirmEmailModel(UserManager<IdentityUser> userManager)
+        public ConfirmEmailModel(UserManager<IdentityUser> userManager, IForumSessionService forumConfigService)
         {
             _userManager = userManager;
+            _forumConfigService = forumConfigService;
+        }
+
+        private void GetSession()
+        {
+            var sessionId = HttpContext.Session.Id;
+            var pageName = Request.Path;
+            var forumSessionHelper = new ForumSessionHelper(_forumConfigService);
+            var sessionUserId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
+            forumSessionHelper.AddSession(HttpContext, sessionId, pageName, sessionUserId);
         }
 
         /// <summary>
@@ -31,6 +45,8 @@ namespace digioz.Forum.Areas.Identity.Pages.Account
         public string StatusMessage { get; set; }
         public async Task<IActionResult> OnGetAsync(string userId, string code)
         {
+            GetSession();
+
             if (userId == null || code == null)
             {
                 return RedirectToPage("/Index");

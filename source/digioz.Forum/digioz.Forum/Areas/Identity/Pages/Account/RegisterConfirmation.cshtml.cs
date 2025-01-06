@@ -3,8 +3,11 @@
 #nullable disable
 
 using System;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using digioz.Forum.Helpers;
+using digioz.Forum.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -19,11 +22,22 @@ namespace digioz.Forum.Areas.Identity.Pages.Account
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IEmailSender _sender;
+        private readonly IForumSessionService _forumConfigService;
 
-        public RegisterConfirmationModel(UserManager<IdentityUser> userManager, IEmailSender sender)
+        public RegisterConfirmationModel(UserManager<IdentityUser> userManager, IEmailSender sender, IForumSessionService forumConfigService)
         {
             _userManager = userManager;
             _sender = sender;
+            _forumConfigService = forumConfigService;
+        }
+
+        private void GetSession()
+        {
+            var sessionId = HttpContext.Session.Id;
+            var pageName = Request.Path;
+            var forumSessionHelper = new ForumSessionHelper(_forumConfigService);
+            var sessionUserId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
+            forumSessionHelper.AddSession(HttpContext, sessionId, pageName, sessionUserId);
         }
 
         /// <summary>
@@ -46,6 +60,8 @@ namespace digioz.Forum.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnGetAsync(string email, string returnUrl = null)
         {
+            GetSession();
+
             if (email == null)
             {
                 return RedirectToPage("/Index");
