@@ -58,3 +58,14 @@ Pete - https://digioz.com
 6. Run the following command to run the migration and create the tables and populate initial data:
 
 > Update-Database -context ApplicationDbContext
+
+*IMPORTANT:* Make sure you are logged into Github as the User that you want to use to commit changes to the repository. 
+This is important because the User that you are logged in as will be the User that is associated with the commits that 
+you make.
+
+To set your user, take the following steps:
+
+1. Go to Help > About Visual Studio
+2. Click on License Status Link
+3. Under All Accounts section, click the ADD button
+4. Select GitHub Account, then log in using it using your browser
