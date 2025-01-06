@@ -9,7 +9,7 @@ The development stack for the project is as follows:
 
 **🚀 We're Looking for Open-Source Contributors!**
 
-We are currently looking for additional Open Source Developers & Contributors to join our Team as we wramp up development of the project. Whether you're a developer, designer, tester, or just someone who loves contributing to open-source, we’d love for you to join our journey!
+We are currently looking for additional Open Source Developers & Contributors to join our Team as we wramp up development of the project. Whether you're a developer, designer, tester, or just someone who loves contributing to open-source, we'd love for you to join our journey!
  
 **Why Contribute?**
 
@@ -36,7 +36,7 @@ Here are some ways you can contribute:
 - Open an Issue to start the conversation.
 - Join our discussion board or Slack/Discord group.
 
-We can’t wait to work with you and make DigiozBB an amazing platform!
+We can't wait to work with you and make DigiozBB an amazing platform!
 
 Contact webmaster@digioz.com if you are interested.
 
