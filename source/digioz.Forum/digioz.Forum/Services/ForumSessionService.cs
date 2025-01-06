@@ -20,6 +20,19 @@ namespace digioz.Forum.Services
             return model;
         }
 
+        public int GetForumUserId(string aspNetUserId)
+        {
+            var forumUser = _context.ForumUsers.Where(x => x.UserId == aspNetUserId).SingleOrDefault();
+            if (forumUser != null)
+            {
+                return forumUser.ForumUserId;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
         public IEnumerable<ForumSession> GetAll()
         {
             var models = _context.ForumSessions;

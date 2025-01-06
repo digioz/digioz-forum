@@ -11,6 +11,9 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
+using digioz.Forum.Services.Interfaces;
+using digioz.Forum.Helpers;
+using System.Security.Claims;
 
 namespace digioz.Forum.Areas.Identity.Pages.Account
 {
@@ -19,15 +22,27 @@ namespace digioz.Forum.Areas.Identity.Pages.Account
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger<LoginWith2faModel> _logger;
+        private readonly IForumSessionService _forumConfigService;
 
         public LoginWith2faModel(
             SignInManager<IdentityUser> signInManager,
             UserManager<IdentityUser> userManager,
-            ILogger<LoginWith2faModel> logger)
+            ILogger<LoginWith2faModel> logger,
+            IForumSessionService forumConfigService)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _logger = logger;
+            _forumConfigService = forumConfigService;
+        }
+
+        private void GetSession()
+        {
+            var sessionId = HttpContext.Session.Id;
+            var pageName = Request.Path;
+            var forumSessionHelper = new ForumSessionHelper(_forumConfigService);
+            var sessionUserId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
+            forumSessionHelper.AddSession(HttpContext, sessionId, pageName, sessionUserId);
         }
 
         /// <summary>
@@ -75,6 +90,8 @@ namespace digioz.Forum.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnGetAsync(bool rememberMe, string returnUrl = null)
         {
+            GetSession();
+
             // Ensure the user has gone through the username & password screen first
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
 

@@ -3,7 +3,10 @@
 #nullable disable
 
 using System;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using digioz.Forum.Helpers;
+using digioz.Forum.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -16,11 +19,27 @@ namespace digioz.Forum.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<LogoutModel> _logger;
+        private readonly IForumSessionService _forumConfigService;
 
-        public LogoutModel(SignInManager<IdentityUser> signInManager, ILogger<LogoutModel> logger)
+        public LogoutModel(SignInManager<IdentityUser> signInManager, ILogger<LogoutModel> logger, IForumSessionService forumConfigService)
         {
             _signInManager = signInManager;
             _logger = logger;
+            _forumConfigService = forumConfigService;
+        }
+
+        private void GetSession()
+        {
+            var sessionId = HttpContext.Session.Id;
+            var pageName = Request.Path;
+            var forumSessionHelper = new ForumSessionHelper(_forumConfigService);
+            var sessionUserId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
+            forumSessionHelper.AddSession(HttpContext, sessionId, pageName, sessionUserId);
+        }
+
+        public void OnGet()
+        {
+            GetSession();
         }
 
         public async Task<IActionResult> OnPost(string returnUrl = null)

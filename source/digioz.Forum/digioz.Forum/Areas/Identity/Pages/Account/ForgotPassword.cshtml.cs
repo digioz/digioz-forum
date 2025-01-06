@@ -4,9 +4,12 @@
 
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Claims;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using digioz.Forum.Helpers;
+using digioz.Forum.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -20,11 +23,13 @@ namespace digioz.Forum.Areas.Identity.Pages.Account
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IEmailSender _emailSender;
+        private readonly IForumSessionService _forumConfigService;
 
-        public ForgotPasswordModel(UserManager<IdentityUser> userManager, IEmailSender emailSender)
+        public ForgotPasswordModel(UserManager<IdentityUser> userManager, IEmailSender emailSender, IForumSessionService forumConfigService)
         {
             _userManager = userManager;
             _emailSender = emailSender;
+            _forumConfigService = forumConfigService;
         }
 
         /// <summary>
@@ -47,6 +52,22 @@ namespace digioz.Forum.Areas.Identity.Pages.Account
             [Required]
             [EmailAddress]
             public string Email { get; set; }
+        }
+
+        private void GetSession()
+        {
+            var sessionId = HttpContext.Session.Id;
+            var pageName = Request.Path;
+            var forumSessionHelper = new ForumSessionHelper(_forumConfigService);
+            var sessionUserId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
+            forumSessionHelper.AddSession(HttpContext, sessionId, pageName, sessionUserId);
+        }
+
+        public async Task<IActionResult> OnGetAsync()
+        {
+            GetSession();
+
+            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()

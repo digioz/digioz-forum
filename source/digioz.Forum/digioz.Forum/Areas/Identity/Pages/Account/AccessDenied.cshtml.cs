@@ -2,7 +2,10 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
+using digioz.Forum.Helpers;
+using digioz.Forum.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Security.Claims;
 
 namespace digioz.Forum.Areas.Identity.Pages.Account
 {
@@ -12,12 +15,29 @@ namespace digioz.Forum.Areas.Identity.Pages.Account
     /// </summary>
     public class AccessDeniedModel : PageModel
     {
+        private readonly IForumSessionService _forumConfigService;
+
+        public AccessDeniedModel(IForumSessionService forumConfigService)
+        {
+            _forumConfigService = forumConfigService;
+        }
+
+        private void GetSession()
+        {
+            var sessionId = HttpContext.Session.Id;
+            var pageName = Request.Path;
+            var forumSessionHelper = new ForumSessionHelper(_forumConfigService);
+            var sessionUserId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
+            forumSessionHelper.AddSession(HttpContext, sessionId, pageName, sessionUserId);
+        }
+
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
         public void OnGet()
         {
+            GetSession();
         }
     }
 }
