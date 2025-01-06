@@ -19,27 +19,19 @@ namespace digioz.Forum.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<LogoutModel> _logger;
-        private readonly IForumSessionService _forumConfigService;
+        private readonly IForumSessionService _forumSessionService;
 
-        public LogoutModel(SignInManager<IdentityUser> signInManager, ILogger<LogoutModel> logger, IForumSessionService forumConfigService)
+        public LogoutModel(SignInManager<IdentityUser> signInManager, ILogger<LogoutModel> logger, IForumSessionService forumSessionService)
         {
             _signInManager = signInManager;
             _logger = logger;
-            _forumConfigService = forumConfigService;
-        }
-
-        private void GetSession()
-        {
-            var sessionId = HttpContext.Session.Id;
-            var pageName = Request.Path;
-            var forumSessionHelper = new ForumSessionHelper(_forumConfigService);
-            var sessionUserId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
-            forumSessionHelper.AddSession(HttpContext, sessionId, pageName, sessionUserId);
+            _forumSessionService = forumSessionService;
         }
 
         public void OnGet()
         {
-            GetSession();
+            var forumSessionHelper = new ForumSessionHelper(_forumSessionService);
+            forumSessionHelper.GetSession(HttpContext, User);
         }
 
         public async Task<IActionResult> OnPost(string returnUrl = null)

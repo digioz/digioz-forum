@@ -17,20 +17,11 @@ namespace digioz.Forum.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class ForgotPasswordConfirmation : PageModel
     {
-        private readonly IForumSessionService _forumConfigService;
+        private readonly IForumSessionService _forumSessionService;
 
-        public ForgotPasswordConfirmation(IForumSessionService forumConfigService)
+        public ForgotPasswordConfirmation(IForumSessionService forumSessionService)
         {
-            _forumConfigService = forumConfigService;
-        }
-
-        private void GetSession()
-        {
-            var sessionId = HttpContext.Session.Id;
-            var pageName = Request.Path;
-            var forumSessionHelper = new ForumSessionHelper(_forumConfigService);
-            var sessionUserId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
-            forumSessionHelper.AddSession(HttpContext, sessionId, pageName, sessionUserId);
+            _forumSessionService = forumSessionService;
         }
 
         /// <summary>
@@ -39,7 +30,8 @@ namespace digioz.Forum.Areas.Identity.Pages.Account
         /// </summary>
         public void OnGet()
         {
-            GetSession();
+            var forumSessionHelper = new ForumSessionHelper(_forumSessionService);
+            forumSessionHelper.GetSession(HttpContext, User);
         }
     }
 }

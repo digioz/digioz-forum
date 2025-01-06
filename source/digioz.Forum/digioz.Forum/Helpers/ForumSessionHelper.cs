@@ -1,5 +1,7 @@
 ﻿using digioz.Forum.Models;
+using digioz.Forum.Services;
 using digioz.Forum.Services.Interfaces;
+using System.Security.Claims;
 
 namespace digioz.Forum.Helpers
 {
@@ -10,6 +12,14 @@ namespace digioz.Forum.Helpers
         public ForumSessionHelper(IForumSessionService forumSessionService)
         {
             _forumSessionService = forumSessionService;
+        }
+
+        public void GetSession(HttpContext httpContext, ClaimsPrincipal user)
+        {
+            var sessionId = httpContext.Session.Id;
+            var pageName = httpContext.Request.Path;
+            var sessionUserId = user.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
+            AddSession(httpContext, sessionId, pageName, sessionUserId);
         }
 
         public int GetForumUserId(string aspNetUserId)
