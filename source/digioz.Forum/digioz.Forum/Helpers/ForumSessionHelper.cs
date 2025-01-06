@@ -12,16 +12,24 @@ namespace digioz.Forum.Helpers
             _forumSessionService = forumSessionService;
         }
 
+        /// <summary>
+        /// Add a session to the database to track user activity
+        /// </summary>
+        /// <param name="httpContext">The current HTTP context.</param>
+        /// <param name="sessionId">The unique identifier for the session.</param>
+        /// <param name="pageName">The name of the page being visited.</param>
         public void AddSession(HttpContext httpContext, string sessionId, string pageName)
         {
-            var ipAddressHelper = new IpAddressHelper();
             var doesSessionExist = _forumSessionService.Get(sessionId);
-            var dateTimeInt = DateTime.Now.Ticks;
-            var ipAddress = ipAddressHelper.GetIpAddress(httpContext);
-            var browser = ipAddressHelper.GetBrowser(httpContext);
 
             if (doesSessionExist == null)
             {
+                var ipAddressHelper = new IpAddressHelper();
+
+                var dateTimeInt = DateTime.Now.Ticks;
+                var ipAddress = ipAddressHelper.GetIpAddress(httpContext);
+                var browser = ipAddressHelper.GetBrowser(httpContext);
+
                 var session = new ForumSession
                 {
                     SessionId = sessionId,
@@ -40,6 +48,34 @@ namespace digioz.Forum.Helpers
                 };
 
                 _forumSessionService.Add(session);
+            }
+            else
+            {
+                UpdateSession(httpContext, sessionId, pageName);
+            }
+        }
+
+        /// <summary>
+        /// Update a session in the database to track user activity
+        /// </summary>
+        /// <param name="httpContext">The current HTTP context.</param>
+        /// <param name="sessionId">The unique identifier for the session.</param>
+        /// <param name="pageName">The name of the page being visited.</param>
+        public void UpdateSession(HttpContext httpContext, string sessionId, string pageName)
+        {
+            var ipAddressHelper = new IpAddressHelper();
+            var session = _forumSessionService.Get(sessionId);
+            var dateTimeInt = DateTime.Now.Ticks;
+            var ipAddress = ipAddressHelper.GetIpAddress(httpContext);
+            var browser = ipAddressHelper.GetBrowser(httpContext);
+            if (session != null)
+            {
+                session.SessionLastVisit = dateTimeInt;
+                session.SessionTime = dateTimeInt;
+                session.SessionIp = ipAddress;
+                session.SessionBrowser = browser;
+                session.SessionPage = pageName;
+                _forumSessionService.Edit(session);
             }
         }
     }
