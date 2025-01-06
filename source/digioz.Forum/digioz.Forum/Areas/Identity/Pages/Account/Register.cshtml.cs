@@ -32,7 +32,7 @@ namespace digioz.Forum.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<IdentityUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
-        private readonly IForumSessionService _forumConfigService;
+        private readonly IForumSessionService _forumSessionService;
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
@@ -40,7 +40,7 @@ namespace digioz.Forum.Areas.Identity.Pages.Account
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
-            IForumSessionService forumConfigService)
+            IForumSessionService forumSessionService)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -48,16 +48,7 @@ namespace digioz.Forum.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
-            _forumConfigService = forumConfigService;
-        }
-
-        private void GetSession()
-        {
-            var sessionId = HttpContext.Session.Id;
-            var pageName = Request.Path;
-            var forumSessionHelper = new ForumSessionHelper(_forumConfigService);
-            var sessionUserId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
-            forumSessionHelper.AddSession(HttpContext, sessionId, pageName, sessionUserId);
+            _forumSessionService = forumSessionService;
         }
 
         /// <summary>
@@ -117,7 +108,8 @@ namespace digioz.Forum.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
-            GetSession();
+            var forumSessionHelper = new ForumSessionHelper(_forumSessionService);
+            forumSessionHelper.GetSession(HttpContext, User);
 
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();

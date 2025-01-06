@@ -20,21 +20,12 @@ namespace digioz.Forum.Areas.Identity.Pages.Account
     public class ResetPasswordModel : PageModel
     {
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly IForumSessionService _forumConfigService;
+        private readonly IForumSessionService _forumSessionService;
 
-        public ResetPasswordModel(UserManager<IdentityUser> userManager, IForumSessionService forumConfigService)
+        public ResetPasswordModel(UserManager<IdentityUser> userManager, IForumSessionService forumSessionService)
         {
             _userManager = userManager;
-            _forumConfigService = forumConfigService;
-        }
-
-        private void GetSession()
-        {
-            var sessionId = HttpContext.Session.Id;
-            var pageName = Request.Path;
-            var forumSessionHelper = new ForumSessionHelper(_forumConfigService);
-            var sessionUserId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
-            forumSessionHelper.AddSession(HttpContext, sessionId, pageName, sessionUserId);
+            _forumSessionService = forumSessionService;
         }
 
         /// <summary>
@@ -87,7 +78,8 @@ namespace digioz.Forum.Areas.Identity.Pages.Account
 
         public IActionResult OnGet(string code = null)
         {
-            GetSession();
+            var forumSessionHelper = new ForumSessionHelper(_forumSessionService);
+            forumSessionHelper.GetSession(HttpContext, User);
 
             if (code == null)
             {
