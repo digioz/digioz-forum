@@ -1,9 +1,14 @@
-﻿@using digioz.Forum.Services
+﻿@using System.Security.Claims
+@using digioz.Forum.Helpers
+@using digioz.Forum.Services
 @using digioz.Forum.Services.Interfaces
 @inject ILayoutService LayoutService
-
+@inject IHttpContextAccessor HttpContextAccessor
 @{
     var layoutModel = LayoutService.GetLayoutData();
+    var userHelper = new UserHelper(HttpContextAccessor);
+    var userId = userHelper.GetUserId();
+    var loggedInUser = userHelper.GetForumUser(userId);
 }
 
 <div id="page-header">
@@ -97,7 +102,7 @@
                 {
                     <li id="username_logged_in" class="rightside" data-skip-responsive="true">
                         <div class="header-profile dropdown-container">
-                            <a href="/Forum/Ucp" class="header-avatar dropdown-trigger dropdown-toggle"> <span style="color: #aa0000;" class="username-coloured">admin</span></a>
+                            <a href="/Forum/Ucp" class="header-avatar dropdown-trigger dropdown-toggle"> <span style="color: #@(loggedInUser.UserColor) " class="username-coloured">@loggedInUser.UserName</span></a>
                             <div class="dropdown">
                                 <div class="pointer">
                                     <div class="pointer-inner"></div>
