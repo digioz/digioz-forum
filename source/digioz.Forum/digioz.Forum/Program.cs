@@ -20,6 +20,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 // Add custom services
 builder.Services.AddScoped<IForumConfigService, ForumConfigService>();
 builder.Services.AddScoped<IForumSessionService, ForumSessionService>();
+builder.Services.AddScoped<IForumUserService, ForumUserService>();
 
 builder.Services.AddRazorPages();
 builder.Services.AddSingleton<ILayoutService, LayoutService>();
