@@ -1199,7 +1199,7 @@ namespace digioz.Forum.Data.Migrations
                     UserPermissions = table.Column<string>(type: "text", nullable: false),
                     UserPermFrom = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     UserIp = table.Column<string>(type: "varchar(40)", nullable: false, defaultValue: ""),
-                    UserRegdate = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    UserRegdate = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     UserName = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
                     UserNameClean = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
                     UserEmail = table.Column<string>(type: "varchar(100)", nullable: false, defaultValue: ""),

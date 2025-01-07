@@ -19,7 +19,7 @@ public partial class ForumUser
 
     public string UserIp { get; set; } = null!;
 
-    public int UserRegdate { get; set; }
+    public long UserRegdate { get; set; }
 
     public string UserName { get; set; } = null!;
 

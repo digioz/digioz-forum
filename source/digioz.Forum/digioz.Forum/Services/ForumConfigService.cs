@@ -7,9 +7,9 @@ namespace digioz.Forum.Services
     {
         private DigiozForumContext _context;
 
-        public ForumConfigService()
+        public ForumConfigService(DigiozForumContext context)
         {
-            _context = new DigiozForumContext();
+            _context = context;
         }
 
         public ForumConfig Get(string configName)
