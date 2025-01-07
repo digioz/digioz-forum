@@ -22,6 +22,28 @@ namespace digioz.Forum.Helpers
             return userId;
         }
 
+        public string GetForumUserName(string email)
+        {
+            var forumUserName = "";
+
+            var context = new DigiozForumContext();
+            var user = context.ForumUsers.FirstOrDefault(x => x.UserEmail == email);
+
+            if (user != null)
+            {
+                forumUserName = user.UserName;
+            }
+
+            return forumUserName;
+        }
+
+        public ForumUser GetForumUser(string email)
+        {
+            var context = new DigiozForumContext();
+            var user = context.ForumUsers.FirstOrDefault(x => x.UserEmail == email);
+            return user;
+        }
+
         public int GetUserType(string name)
         {
             var userType = 0;
