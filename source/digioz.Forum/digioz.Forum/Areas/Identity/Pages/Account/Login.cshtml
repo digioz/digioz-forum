@@ -10,20 +10,20 @@
         <div class="content">
             <h2 class="login-title">@ViewData["Title"]</h2>
             <form id="account" method="post">
-                <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                <div asp-validation-summary="ModelOnly" class="error" role="alert"></div>
                 <fieldset class="fields1">
                     <dl>
                         <dt><label for="username">Username or Email:</label></dt>
                         <dd>
-                            <input asp-for="Input.Email" class="inputbox autowidth" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                            <input asp-for="Input.Email" class="inputbox autowidth" autocomplete="username" aria-required="true" placeholder="" />
+                            <span asp-validation-for="Input.Email" class="error"></span>
                         </dd>
                     </dl> 
                     <dl>
                         <dt><label asp-for="Input.Password" class="form-label">Password</label></dt>
                         <dd>
-                            <input asp-for="Input.Password" class="inputbox autowidth" autocomplete="current-password" aria-required="true" placeholder="password" />
-                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                            <input asp-for="Input.Password" class="inputbox autowidth" autocomplete="current-password" aria-required="true" placeholder="" />
+                            <span asp-validation-for="Input.Password" class="error"></span>
                         </dd>
                         <dd><a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a></dd>
                     </dl>

@@ -33,6 +33,7 @@ namespace digioz.Forum.Areas.Identity.Pages.Account
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
         private readonly IForumSessionService _forumSessionService;
+        private readonly IForumUserService _forumUserService;
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
@@ -40,7 +41,8 @@ namespace digioz.Forum.Areas.Identity.Pages.Account
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
-            IForumSessionService forumSessionService)
+            IForumSessionService forumSessionService,
+            IForumUserService forumUserService)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -49,6 +51,7 @@ namespace digioz.Forum.Areas.Identity.Pages.Account
             _logger = logger;
             _emailSender = emailSender;
             _forumSessionService = forumSessionService;
+            _forumUserService = forumUserService;
         }
 
         /// <summary>
@@ -76,6 +79,15 @@ namespace digioz.Forum.Areas.Identity.Pages.Account
         /// </summary>
         public class InputModel
         {
+            /// <summary>
+            /// This field supports the Forum User Name
+            /// </summary>
+            [Required]
+            [RegularExpression("^[a-zA-Z0-9]*$", ErrorMessage = "The {0} can only contain alphanumeric characters.")]
+            [StringLength(50, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 4)]
+            [Display(Name = "Username")]
+            public string ForumUserName { get; set; }
+
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
@@ -121,6 +133,15 @@ namespace digioz.Forum.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
+                // Check if ForumUser is taken
+                var doesForumUserExist = _forumUserService.DoesForumUsernameExist(Input.ForumUserName);
+
+                if (doesForumUserExist)
+                {
+                    ModelState.AddModelError(string.Empty, "The Forum User Name is already taken.");
+                    return Page();
+                }
+
                 var user = CreateUser();
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
@@ -132,6 +153,22 @@ namespace digioz.Forum.Areas.Identity.Pages.Account
                     _logger.LogInformation("User created a new account with password.");
 
                     var userId = await _userManager.GetUserIdAsync(user);
+
+                    // Create Forum User Record
+                    var userHelper = new UserHelper(HttpContext.RequestServices.GetService<IHttpContextAccessor>());
+                    var userIPHelper = new IpAddressHelper();
+                    var forumUser = userHelper.GetDefaultUser();
+
+                    forumUser.UserId = userId;
+                    forumUser.UserName = Input.ForumUserName;
+                    forumUser.UserNameClean = Input.ForumUserName.ToLower();
+                    forumUser.UserEmail = Input.Email;
+                    forumUser.UserType = (byte)userHelper.GetUserType("USER_NORMAL");
+                    forumUser.UserIp = userIPHelper.GetIpAddress(HttpContext);
+
+                    _forumUserService.Add(forumUser);
+
+                    // Send Email Confirmation
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                     var callbackUrl = Url.Page(

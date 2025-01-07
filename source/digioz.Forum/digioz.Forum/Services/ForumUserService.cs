@@ -61,5 +61,11 @@ namespace digioz.Forum.Services
             var model = _context.ForumUsers.Where(x => x.ForumUserId == forumUserId).SingleOrDefault();
             return model != null;
         }
+
+        public bool DoesForumUsernameExist(string username)
+        {
+            var model = _context.ForumUsers.Where(x => x.UserName == username).SingleOrDefault();
+            return model != null;
+        }
     }
 }

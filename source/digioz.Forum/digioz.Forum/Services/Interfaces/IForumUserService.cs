@@ -11,5 +11,6 @@ namespace digioz.Forum.Services.Interfaces
         void Delete(int id);
         bool DoesUserExist(string userId);
         bool DoesForumUserExist(int forumUserId);
+        bool DoesForumUsernameExist(string username);
     }
 }
