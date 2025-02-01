@@ -44,18 +44,6 @@ public partial class DigiozForumContext : DbContext
 
     public virtual DbSet<Forum> Forums { get; set; }
 
-    public virtual DbSet<ForumAccess> ForumAccesses { get; set; }
-
-    public virtual DbSet<ForumAclGroup> ForumAclGroups { get; set; }
-
-    public virtual DbSet<ForumAclOption> ForumAclOptions { get; set; }
-
-    public virtual DbSet<ForumAclRole> ForumAclRoles { get; set; }
-
-    public virtual DbSet<ForumAclRoleData> ForumAclRoleData { get; set; }
-
-    public virtual DbSet<ForumAclUser> ForumAclUsers { get; set; }
-
     public virtual DbSet<ForumAttachment> ForumAttachments { get; set; }
 
     public virtual DbSet<ForumBanlist> ForumBanlists { get; set; }
@@ -68,12 +56,6 @@ public partial class DigiozForumContext : DbContext
 
     public virtual DbSet<ForumConfig> ForumConfigs { get; set; }
 
-    public virtual DbSet<ForumConfigText> ForumConfigTexts { get; set; }
-
-    public virtual DbSet<ForumConfirm> ForumConfirms { get; set; }
-
-    public virtual DbSet<ForumDisallow> ForumDisallows { get; set; }
-
     public virtual DbSet<ForumDraft> ForumDrafts { get; set; }
 
     public virtual DbSet<ForumExt> ForumExts { get; set; }
@@ -81,8 +63,6 @@ public partial class DigiozForumContext : DbContext
     public virtual DbSet<ForumExtension> ForumExtensions { get; set; }
 
     public virtual DbSet<ForumExtensionGroup> ForumExtensionGroups { get; set; }
-
-    public virtual DbSet<ForumGroup> ForumGroups { get; set; }
 
     public virtual DbSet<ForumIcon> ForumIcons { get; set; }
 
@@ -92,23 +72,7 @@ public partial class DigiozForumContext : DbContext
 
     public virtual DbSet<ForumLoginAttempt> ForumLoginAttempts { get; set; }
 
-    public virtual DbSet<ForumMigration> ForumMigrations { get; set; }
-
-    public virtual DbSet<ForumModeratorCache> ForumModeratorCaches { get; set; }
-
     public virtual DbSet<ForumModule> ForumModules { get; set; }
-
-    public virtual DbSet<ForumNotification> ForumNotifications { get; set; }
-
-    public virtual DbSet<ForumNotificationEmail> ForumNotificationEmails { get; set; }
-
-    public virtual DbSet<ForumNotificationType> ForumNotificationTypes { get; set; }
-
-    public virtual DbSet<ForumOauthAccount> ForumOauthAccounts { get; set; }
-
-    public virtual DbSet<ForumOauthState> ForumOauthStates { get; set; }
-
-    public virtual DbSet<ForumOauthToken> ForumOauthTokens { get; set; }
 
     public virtual DbSet<ForumPollOption> ForumPollOptions { get; set; }
 
@@ -132,29 +96,15 @@ public partial class DigiozForumContext : DbContext
 
     public virtual DbSet<ForumProfileLang> ForumProfileLangs { get; set; }
 
-    public virtual DbSet<ForumRank> ForumRanks { get; set; }
-
     public virtual DbSet<ForumReport> ForumReports { get; set; }
 
     public virtual DbSet<ForumReportsReason> ForumReportsReasons { get; set; }
 
-    public virtual DbSet<ForumSearchResult> ForumSearchResults { get; set; }
-
-    public virtual DbSet<ForumSearchWordlist> ForumSearchWordlists { get; set; }
-
-    public virtual DbSet<ForumSearchWordmatch> ForumSearchWordmatches { get; set; }
-
     public virtual DbSet<ForumSession> ForumSessions { get; set; }
-
-    public virtual DbSet<ForumSessionsKey> ForumSessionsKeys { get; set; }
-
-    public virtual DbSet<ForumSiteList> ForumSiteLists { get; set; }
 
     public virtual DbSet<ForumSmilie> ForumSmilies { get; set; }
 
     public virtual DbSet<ForumStyle> ForumStyles { get; set; }
-
-    public virtual DbSet<ForumTeamPage> ForumTeamPages { get; set; }
 
     public virtual DbSet<ForumTopic> ForumTopics { get; set; }
 
@@ -168,13 +118,7 @@ public partial class DigiozForumContext : DbContext
 
     public virtual DbSet<ForumUser> ForumUsers { get; set; }
 
-    public virtual DbSet<ForumUserGroup> ForumUserGroups { get; set; }
-
-    public virtual DbSet<ForumUserNotification> ForumUserNotifications { get; set; }
-
     public virtual DbSet<ForumWarning> ForumWarnings { get; set; }
-
-    public virtual DbSet<ForumWatch> ForumWatches { get; set; }
 
     public virtual DbSet<ForumWord> ForumWords { get; set; }
 
@@ -328,69 +272,6 @@ public partial class DigiozForumContext : DbContext
             entity.Property(e => e.PruneShadowFreq).HasDefaultValue(1L);
         });
 
-        modelBuilder.Entity<ForumAccess>(entity =>
-        {
-            entity.HasKey(e => new { e.ForumId, e.UserId, e.SessionId }).HasName("PK__ForumAcc__A2A1D439687B7751");
-
-            entity.ToTable("ForumAccess");
-
-            entity.Property(e => e.SessionId)
-                .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasDefaultValue("")
-                .IsFixedLength();
-        });
-
-        modelBuilder.Entity<ForumAclGroup>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToTable("ForumAclGroup");
-        });
-
-        modelBuilder.Entity<ForumAclOption>(entity =>
-        {
-            entity.HasKey(e => e.AuthOptionId).HasName("PK__ForumAcl__864971E2C429CEC0");
-
-            entity.ToTable("ForumAclOption");
-
-            entity.HasIndex(e => e.AuthOption, "UQ__ForumAcl__8183B6510818F239").IsUnique();
-
-            entity.Property(e => e.AuthOption)
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasDefaultValue("");
-        });
-
-        modelBuilder.Entity<ForumAclRole>(entity =>
-        {
-            entity.HasKey(e => e.RoleId).HasName("PK__ForumAcl__8AFACE1A74468257");
-
-            entity.ToTable("ForumAclRole");
-
-            entity.Property(e => e.RoleDescription).HasColumnType("text");
-            entity.Property(e => e.RoleName)
-                .HasMaxLength(255)
-                .IsUnicode(false)
-                .HasDefaultValue("");
-            entity.Property(e => e.RoleType)
-                .HasMaxLength(10)
-                .IsUnicode(false)
-                .HasDefaultValue("");
-        });
-
-        modelBuilder.Entity<ForumAclRoleData>(entity =>
-        {
-            entity.HasKey(e => new { e.RoleId, e.AuthOptionId }).HasName("PK__ForumAcl__B29E5904197F6F57");
-        });
-
-        modelBuilder.Entity<ForumAclUser>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToTable("ForumAclUser");
-        });
-
         modelBuilder.Entity<ForumAttachment>(entity =>
         {
             entity.HasKey(e => e.AttachId).HasName("PK__ForumAtt__F517C3F52C50DBE6");
@@ -504,53 +385,6 @@ public partial class DigiozForumContext : DbContext
                 .HasDefaultValue("");
         });
 
-        modelBuilder.Entity<ForumConfigText>(entity =>
-        {
-            entity.HasKey(e => e.ConfigName).HasName("PK__ForumCon__A89A7DB329533719");
-
-            entity.ToTable("ForumConfigText");
-
-            entity.Property(e => e.ConfigName)
-                .HasMaxLength(255)
-                .IsUnicode(false)
-                .HasDefaultValue("");
-            entity.Property(e => e.ConfigValue).HasColumnType("text");
-        });
-
-        modelBuilder.Entity<ForumConfirm>(entity =>
-        {
-            entity.HasKey(e => new { e.SessionId, e.ConfirmId }).HasName("PK__ForumCon__E09C1AE07A96E169");
-
-            entity.ToTable("ForumConfirm");
-
-            entity.Property(e => e.SessionId)
-                .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasDefaultValue("")
-                .IsFixedLength();
-            entity.Property(e => e.ConfirmId)
-                .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasDefaultValue("")
-                .IsFixedLength();
-            entity.Property(e => e.Code)
-                .HasMaxLength(8)
-                .IsUnicode(false)
-                .HasDefaultValue("");
-        });
-
-        modelBuilder.Entity<ForumDisallow>(entity =>
-        {
-            entity.HasKey(e => e.DisallowId).HasName("PK__ForumDis__3552915CC306D49C");
-
-            entity.ToTable("ForumDisallow");
-
-            entity.Property(e => e.DisallowUsername)
-                .HasMaxLength(255)
-                .IsUnicode(false)
-                .HasDefaultValue("");
-        });
-
         modelBuilder.Entity<ForumDraft>(entity =>
         {
             entity.HasKey(e => e.DraftId).HasName("PK__ForumDra__3E93D65B31BD1546");
@@ -605,41 +439,6 @@ public partial class DigiozForumContext : DbContext
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasDefaultValue("");
-        });
-
-        modelBuilder.Entity<ForumGroup>(entity =>
-        {
-            entity.HasKey(e => e.GroupId).HasName("PK__ForumGro__149AF36A421A854C");
-
-            entity.ToTable("ForumGroup");
-
-            entity.Property(e => e.GroupAvatar)
-                .HasMaxLength(255)
-                .IsUnicode(false)
-                .HasDefaultValue("");
-            entity.Property(e => e.GroupAvatarType)
-                .HasMaxLength(255)
-                .IsUnicode(false)
-                .HasDefaultValue("");
-            entity.Property(e => e.GroupColour)
-                .HasMaxLength(6)
-                .IsUnicode(false)
-                .HasDefaultValue("");
-            entity.Property(e => e.GroupDesc).HasColumnType("text");
-            entity.Property(e => e.GroupDescBitfield)
-                .HasMaxLength(255)
-                .IsUnicode(false)
-                .HasDefaultValue("");
-            entity.Property(e => e.GroupDescOptions).HasDefaultValue(7);
-            entity.Property(e => e.GroupDescUid)
-                .HasMaxLength(8)
-                .IsUnicode(false)
-                .HasDefaultValue("");
-            entity.Property(e => e.GroupName)
-                .HasMaxLength(255)
-                .IsUnicode(false)
-                .HasDefaultValue("");
-            entity.Property(e => e.GroupType).HasDefaultValue((byte)1);
         });
 
         modelBuilder.Entity<ForumIcon>(entity =>
@@ -731,37 +530,6 @@ public partial class DigiozForumContext : DbContext
                 .HasDefaultValueSql("((0))");
         });
 
-        modelBuilder.Entity<ForumMigration>(entity =>
-        {
-            entity.HasKey(e => e.MigrationName).HasName("PK__ForumMig__5B65651C08918178");
-
-            entity.ToTable("ForumMigration");
-
-            entity.Property(e => e.MigrationName)
-                .HasMaxLength(255)
-                .IsUnicode(false)
-                .HasDefaultValue("");
-            entity.Property(e => e.MigrationDataState).HasColumnType("text");
-            entity.Property(e => e.MigrationDependsOn).HasColumnType("text");
-        });
-
-        modelBuilder.Entity<ForumModeratorCache>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToTable("ForumModeratorCache");
-
-            entity.Property(e => e.DisplayOnIndex).HasDefaultValue((byte)1);
-            entity.Property(e => e.GroupName)
-                .HasMaxLength(255)
-                .IsUnicode(false)
-                .HasDefaultValue("");
-            entity.Property(e => e.Username)
-                .HasMaxLength(255)
-                .IsUnicode(false)
-                .HasDefaultValue("");
-        });
-
         modelBuilder.Entity<ForumModule>(entity =>
         {
             entity.HasKey(e => e.ModuleId).HasName("PK__ForumMod__2B7477A7CF7B72AC");
@@ -790,92 +558,6 @@ public partial class DigiozForumContext : DbContext
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasDefaultValue("");
-        });
-
-        modelBuilder.Entity<ForumNotification>(entity =>
-        {
-            entity.HasKey(e => e.NotificationId).HasName("PK__ForumNot__20CF2E1234A35003");
-
-            entity.ToTable("ForumNotification");
-
-            entity.Property(e => e.NotificationData).HasColumnType("text");
-            entity.Property(e => e.NotificationTime).HasDefaultValue(1);
-        });
-
-        modelBuilder.Entity<ForumNotificationEmail>(entity =>
-        {
-            entity.HasKey(e => new { e.NotificationTypeId, e.ItemId, e.ItemParentId, e.UserId }).HasName("PK__ForumNot__C06BCBAF824891D0");
-
-            entity.ToTable("ForumNotificationEmail");
-        });
-
-        modelBuilder.Entity<ForumNotificationType>(entity =>
-        {
-            entity.HasKey(e => e.NotificationTypeId).HasName("PK__ForumNot__299002C1762E5BBB");
-
-            entity.ToTable("ForumNotificationType");
-
-            entity.HasIndex(e => e.NotificationTypeName, "UQ__ForumNot__82081546FEC97DD1").IsUnique();
-
-            entity.Property(e => e.NotificationTypeEnabled).HasDefaultValue((byte)1);
-            entity.Property(e => e.NotificationTypeName)
-                .HasMaxLength(255)
-                .IsUnicode(false)
-                .HasDefaultValue("");
-        });
-
-        modelBuilder.Entity<ForumOauthAccount>(entity =>
-        {
-            entity.HasKey(e => new { e.UserId, e.Provider }).HasName("PK__ForumOau__AE1C8A5C59C16759");
-
-            entity.ToTable("ForumOauthAccount");
-
-            entity.Property(e => e.Provider)
-                .HasMaxLength(255)
-                .IsUnicode(false)
-                .HasDefaultValue("");
-            entity.Property(e => e.OauthProviderId)
-                .HasColumnType("text")
-                .HasColumnName("Oauth_provider_id");
-        });
-
-        modelBuilder.Entity<ForumOauthState>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToTable("ForumOauthState");
-
-            entity.Property(e => e.OauthState)
-                .HasMaxLength(255)
-                .IsUnicode(false)
-                .HasDefaultValue("");
-            entity.Property(e => e.Provider)
-                .HasMaxLength(255)
-                .IsUnicode(false)
-                .HasDefaultValue("");
-            entity.Property(e => e.SessionId)
-                .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasDefaultValue("")
-                .IsFixedLength();
-        });
-
-        modelBuilder.Entity<ForumOauthToken>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToTable("ForumOauthToken");
-
-            entity.Property(e => e.OauthToken).HasColumnType("text");
-            entity.Property(e => e.Provider)
-                .HasMaxLength(255)
-                .IsUnicode(false)
-                .HasDefaultValue("");
-            entity.Property(e => e.SessionId)
-                .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasDefaultValue("")
-                .IsFixedLength();
         });
 
         modelBuilder.Entity<ForumPollOption>(entity =>
@@ -1140,22 +822,6 @@ public partial class DigiozForumContext : DbContext
                 .HasDefaultValue("");
         });
 
-        modelBuilder.Entity<ForumRank>(entity =>
-        {
-            entity.HasKey(e => e.RankId).HasName("PK__ForumRan__B37AF876349894D3");
-
-            entity.ToTable("ForumRank");
-
-            entity.Property(e => e.RankImage)
-                .HasMaxLength(255)
-                .IsUnicode(false)
-                .HasDefaultValue("");
-            entity.Property(e => e.RankTitle)
-                .HasMaxLength(255)
-                .IsUnicode(false)
-                .HasDefaultValue("");
-        });
-
         modelBuilder.Entity<ForumReport>(entity =>
         {
             entity.HasKey(e => e.ReportId).HasName("PK__ForumRep__D5BD48054E720D33");
@@ -1190,43 +856,6 @@ public partial class DigiozForumContext : DbContext
                 .HasDefaultValue("");
         });
 
-        modelBuilder.Entity<ForumSearchResult>(entity =>
-        {
-            entity.HasKey(e => e.SearchKey).HasName("PK__ForumSea__4174EA4EB0C24CDE");
-
-            entity.ToTable("ForumSearchResult");
-
-            entity.Property(e => e.SearchKey)
-                .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasDefaultValue("");
-            entity.Property(e => e.SearchAuthors).HasColumnType("text");
-            entity.Property(e => e.SearchKeywords).HasColumnType("text");
-        });
-
-        modelBuilder.Entity<ForumSearchWordlist>(entity =>
-        {
-            entity.HasKey(e => e.WordId).HasName("PK__ForumSea__2C20F0662AFF2FD6");
-
-            entity.ToTable("ForumSearchWordlist");
-
-            entity.HasIndex(e => e.WordText, "UQ__ForumSea__918B59BDF6B1D963").IsUnique();
-
-            entity.Property(e => e.WordText)
-                .HasMaxLength(255)
-                .IsUnicode(false)
-                .HasDefaultValue("");
-        });
-
-        modelBuilder.Entity<ForumSearchWordmatch>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToTable("ForumSearchWordmatch");
-
-            entity.HasIndex(e => new { e.WordId, e.PostId, e.TitleMatch }, "unMtch").IsUnique();
-        });
-
         modelBuilder.Entity<ForumSession>(entity =>
         {
             entity.HasKey(e => e.SessionId).HasName("PK__ForumSes__C9F49290E5162354");
@@ -1255,39 +884,6 @@ public partial class DigiozForumContext : DbContext
                 .IsUnicode(false)
                 .HasDefaultValue("");
             entity.Property(e => e.SessionViewOnline).HasDefaultValue((byte)1);
-        });
-
-        modelBuilder.Entity<ForumSessionsKey>(entity =>
-        {
-            entity.HasKey(e => new { e.KeyId, e.UserId }).HasName("PK__ForumSes__F08D3283B50BD5F7");
-
-            entity.ToTable("ForumSessionsKey");
-
-            entity.Property(e => e.KeyId)
-                .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasDefaultValue("")
-                .IsFixedLength();
-            entity.Property(e => e.LastIp)
-                .HasMaxLength(40)
-                .IsUnicode(false)
-                .HasDefaultValue("");
-        });
-
-        modelBuilder.Entity<ForumSiteList>(entity =>
-        {
-            entity.HasKey(e => e.SiteId).HasName("PK__ForumSit__B9DCB9637BE6A05D");
-
-            entity.ToTable("ForumSiteList");
-
-            entity.Property(e => e.SiteHostName)
-                .HasMaxLength(255)
-                .IsUnicode(false)
-                .HasDefaultValue("");
-            entity.Property(e => e.SiteIp)
-                .HasMaxLength(40)
-                .IsUnicode(false)
-                .HasDefaultValue("");
         });
 
         modelBuilder.Entity<ForumSmilie>(entity =>
@@ -1335,18 +931,6 @@ public partial class DigiozForumContext : DbContext
             entity.Property(e => e.StyleParentTree).HasColumnType("text");
             entity.Property(e => e.StylePath)
                 .HasMaxLength(100)
-                .IsUnicode(false)
-                .HasDefaultValue("");
-        });
-
-        modelBuilder.Entity<ForumTeamPage>(entity =>
-        {
-            entity.HasKey(e => e.TeamPageId).HasName("PK__ForumTea__F6CBB807DE12F49B");
-
-            entity.ToTable("ForumTeamPage");
-
-            entity.Property(e => e.TeamPageName)
-                .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasDefaultValue("");
         });
@@ -1540,48 +1124,11 @@ public partial class DigiozForumContext : DbContext
                 .HasDefaultValue("t");
         });
 
-        modelBuilder.Entity<ForumUserGroup>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToTable("ForumUserGroup");
-
-            entity.Property(e => e.UserPending).HasDefaultValue((byte)1);
-        });
-
-        modelBuilder.Entity<ForumUserNotification>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToTable("ForumUserNotification");
-
-            entity.HasIndex(e => new { e.ItemType, e.ItemId, e.UserId, e.Method }, "itmUsrMthd").IsUnique();
-
-            entity.Property(e => e.ItemType)
-                .HasMaxLength(165)
-                .IsUnicode(false)
-                .HasDefaultValue("");
-            entity.Property(e => e.Method)
-                .HasMaxLength(165)
-                .IsUnicode(false)
-                .HasDefaultValue("");
-            entity.Property(e => e.Notify).HasDefaultValue((byte)1);
-        });
-
         modelBuilder.Entity<ForumWarning>(entity =>
         {
             entity.HasKey(e => e.WarningId).HasName("PK__ForumWar__214571586C77902C");
 
             entity.ToTable("ForumWarning");
-        });
-
-        modelBuilder.Entity<ForumWatch>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToTable("ForumWatch");
-
-            entity.Property(e => e.NotifyStatus).HasColumnName("notifyStatus");
         });
 
         modelBuilder.Entity<ForumWord>(entity =>

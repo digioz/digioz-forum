@@ -16,9 +16,10 @@ namespace digioz.Forum.Data.Migrations
             var hasher = new PasswordHasher<IdentityUser>();
 
             // Generate unique values
-            var userId1 = Guid.NewGuid().ToString();
+            var userId1 = "18b0b36f-f6b5-4a8f-a06b-bb9443549bb4";
             var securityStamp = Guid.NewGuid().ToString();
-            var concurrencyStamp = Guid.NewGuid().ToString();
+            var concurrencyStamp = Guid.NewGuid().ToString();      
+            var roleId1 = "58b72395-0601-4349-9353-d93a101746d2";
 
             // Create admin user
             var user = new
@@ -43,55 +44,55 @@ namespace digioz.Forum.Data.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columnTypes: new[] {
-                    "nvarchar(450)",    // Id
-                    "nvarchar(256)",    // UserName
-                    "nvarchar(256)",    // NormalizedUserName
-                    "nvarchar(256)",    // Email
-                    "nvarchar(256)",    // NormalizedEmail
-                    "bit",              // EmailConfirmed
-                    "nvarchar(max)",    // PasswordHash
-                    "nvarchar(max)",    // SecurityStamp
-                    "nvarchar(max)",    // ConcurrencyStamp
-                    "nvarchar(max)",    // PhoneNumber
-                    "bit",              // PhoneNumberConfirmed
-                    "bit",              // TwoFactorEnabled
-                    "datetimeoffset",   // LockoutEnd
-                    "bit",              // LockoutEnabled
-                    "int"               // AccessFailedCount
+                        "nvarchar(450)",    // Id
+                        "nvarchar(256)",    // UserName
+                        "nvarchar(256)",    // NormalizedUserName
+                        "nvarchar(256)",    // Email
+                        "nvarchar(256)",    // NormalizedEmail
+                        "bit",              // EmailConfirmed
+                        "nvarchar(max)",    // PasswordHash
+                        "nvarchar(max)",    // SecurityStamp
+                        "nvarchar(max)",    // ConcurrencyStamp
+                        "nvarchar(max)",    // PhoneNumber
+                        "bit",              // PhoneNumberConfirmed
+                        "bit",              // TwoFactorEnabled
+                        "datetimeoffset",   // LockoutEnd
+                        "bit",              // LockoutEnabled
+                        "int"               // AccessFailedCount
                 },
                 columns: new[] {
-                "Id",
-                "UserName",
-                "NormalizedUserName",
-                "Email",
-                "NormalizedEmail",
-                "EmailConfirmed",
-                "PasswordHash",
-                "SecurityStamp",
-                "ConcurrencyStamp",
-                "PhoneNumber",
-                "PhoneNumberConfirmed",
-                "TwoFactorEnabled",
-                "LockoutEnd",
-                "LockoutEnabled",
-                "AccessFailedCount"
+                    "Id",
+                    "UserName",
+                    "NormalizedUserName",
+                    "Email",
+                    "NormalizedEmail",
+                    "EmailConfirmed",
+                    "PasswordHash",
+                    "SecurityStamp",
+                    "ConcurrencyStamp",
+                    "PhoneNumber",
+                    "PhoneNumberConfirmed",
+                    "TwoFactorEnabled",
+                    "LockoutEnd",
+                    "LockoutEnabled",
+                    "AccessFailedCount"
                 },
                 values: new object[] {
-                user.Id,
-                user.UserName,
-                user.NormalizedUserName,
-                user.Email,
-                user.NormalizedEmail,
-                user.EmailConfirmed,
-                user.PasswordHash,
-                user.SecurityStamp,
-                user.ConcurrencyStamp,
-                user.PhoneNumber,
-                user.PhoneNumberConfirmed,
-                user.TwoFactorEnabled,
-                user.LockoutEnd,
-                user.LockoutEnabled,
-                user.AccessFailedCount
+                    user.Id,
+                    user.UserName,
+                    user.NormalizedUserName,
+                    user.Email,
+                    user.NormalizedEmail,
+                    user.EmailConfirmed,
+                    user.PasswordHash,
+                    user.SecurityStamp,
+                    user.ConcurrencyStamp,
+                    user.PhoneNumber,
+                    user.PhoneNumberConfirmed,
+                    user.TwoFactorEnabled,
+                    user.LockoutEnd,
+                    user.LockoutEnabled,
+                    user.AccessFailedCount
                 });
 
             // Create password hasher
@@ -127,127 +128,149 @@ namespace digioz.Forum.Data.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columnTypes: new[] {
-                    "nvarchar(450)",    // Id
-                    "nvarchar(256)",    // UserName
-                    "nvarchar(256)",    // NormalizedUserName
-                    "nvarchar(256)",    // Email
-                    "nvarchar(256)",    // NormalizedEmail
-                    "bit",              // EmailConfirmed
-                    "nvarchar(max)",    // PasswordHash
-                    "nvarchar(max)",    // SecurityStamp
-                    "nvarchar(max)",    // ConcurrencyStamp
-                    "nvarchar(max)",    // PhoneNumber
-                    "bit",              // PhoneNumberConfirmed
-                    "bit",              // TwoFactorEnabled
-                    "datetimeoffset",   // LockoutEnd
-                    "bit",              // LockoutEnabled
-                    "int"               // AccessFailedCount
+                        "nvarchar(450)",    // Id
+                        "nvarchar(256)",    // UserName
+                        "nvarchar(256)",    // NormalizedUserName
+                        "nvarchar(256)",    // Email
+                        "nvarchar(256)",    // NormalizedEmail
+                        "bit",              // EmailConfirmed
+                        "nvarchar(max)",    // PasswordHash
+                        "nvarchar(max)",    // SecurityStamp
+                        "nvarchar(max)",    // ConcurrencyStamp
+                        "nvarchar(max)",    // PhoneNumber
+                        "bit",              // PhoneNumberConfirmed
+                        "bit",              // TwoFactorEnabled
+                        "datetimeoffset",   // LockoutEnd
+                        "bit",              // LockoutEnabled
+                        "int"               // AccessFailedCount
                 },
                 columns: new[] {
-                "Id",
-                "UserName",
-                "NormalizedUserName",
-                "Email",
-                "NormalizedEmail",
-                "EmailConfirmed",
-                "PasswordHash",
-                "SecurityStamp",
-                "ConcurrencyStamp",
-                "PhoneNumber",
-                "PhoneNumberConfirmed",
-                "TwoFactorEnabled",
-                "LockoutEnd",
-                "LockoutEnabled",
-                "AccessFailedCount"
+                    "Id",
+                    "UserName",
+                    "NormalizedUserName",
+                    "Email",
+                    "NormalizedEmail",
+                    "EmailConfirmed",
+                    "PasswordHash",
+                    "SecurityStamp",
+                    "ConcurrencyStamp",
+                    "PhoneNumber",
+                    "PhoneNumberConfirmed",
+                    "TwoFactorEnabled",
+                    "LockoutEnd",
+                    "LockoutEnabled",
+                    "AccessFailedCount"
                 },
                 values: new object[] {
-                user.Id,
-                user.UserName,
-                user.NormalizedUserName,
-                user.Email,
-                user.NormalizedEmail,
-                user.EmailConfirmed,
-                user.PasswordHash,
-                user.SecurityStamp,
-                user.ConcurrencyStamp,
-                user.PhoneNumber,
-                user.PhoneNumberConfirmed,
-                user.TwoFactorEnabled,
-                user.LockoutEnd,
-                user.LockoutEnabled,
-                user.AccessFailedCount
+                    user.Id,
+                    user.UserName,
+                    user.NormalizedUserName,
+                    user.Email,
+                    user.NormalizedEmail,
+                    user.EmailConfirmed,
+                    user.PasswordHash,
+                    user.SecurityStamp,
+                    user.ConcurrencyStamp,
+                    user.PhoneNumber,
+                    user.PhoneNumberConfirmed,
+                    user.TwoFactorEnabled,
+                    user.LockoutEnd,
+                    user.LockoutEnabled,
+                    user.AccessFailedCount
                 });
 
             migrationBuilder.InsertData(
                 table: "ForumUser",
                 columnTypes: new[] {
-                    "varchar(128)", // UserId
-                    "tinyint",      // UserType
-                    "bigint",       // GroupId
-                    "varchar(255)", // UserName
-                    "varchar(255)", // UserNameClean
-                    "int",          // UserRegdate
-                    "varchar(100)", // UserEmail
-                    "varchar(30)",  // UserLang
-                    "bigint",       // UserStyle
-                    "bigint",       // UserRank
-                    "varchar(6)",   // UserColor
-                    "bigint",       // UserPosts
-                    "text",         // UserPermissions
-                    "varchar(40)",  // UserIp
-                    "varchar(10)",  // UserBirthday
-                    "varchar(200)", // UserLastPage
-                    "varchar(10)",  // UserLastConfirmKey
-                    "varchar(1)",   // UserPostSortbyType
-                    "varchar(1)",   // UserPostSortbyDir
-                    "varchar(1)",   // UserTopicSortbyType
-                    "varchar(1)",   // UserTopicSortbyDir
-                    "varchar(255)", // UserAvatar
-                    "text",         // UserSig
-                    "varchar(8)",   // UserSigBbcodeUid
-                    "varchar(255)", // UserJabber
-                    "varchar(32)",  // UserActkey
-                    "int",          // UserActkeyExpiration
-                    "varchar(255)",  // UserNewpasswd
-                    "tinyint"       // UserAllowMassemail
+                        "varchar(128)", // UserId
+                        "tinyint",      // UserType
+                        "bigint",       // GroupId
+                        "varchar(255)", // UserName
+                        "varchar(255)", // UserNameClean
+                        "int",          // UserRegdate
+                        "varchar(100)", // UserEmail
+                        "varchar(30)",  // UserLang
+                        "bigint",       // UserStyle
+                        "bigint",       // UserRank
+                        "varchar(6)",   // UserColor
+                        "bigint",       // UserPosts
+                        "text",         // UserPermissions
+                        "varchar(40)",  // UserIp
+                        "varchar(10)",  // UserBirthday
+                        "varchar(200)", // UserLastPage
+                        "varchar(10)",  // UserLastConfirmKey
+                        "varchar(1)",   // UserPostSortbyType
+                        "varchar(1)",   // UserPostSortbyDir
+                        "varchar(1)",   // UserTopicSortbyType
+                        "varchar(1)",   // UserTopicSortbyDir
+                        "varchar(255)", // UserAvatar
+                        "text",         // UserSig
+                        "varchar(8)",   // UserSigBbcodeUid
+                        "varchar(255)", // UserJabber
+                        "varchar(32)",  // UserActkey
+                        "int",          // UserActkeyExpiration
+                        "varchar(255)",  // UserNewpasswd
+                        "tinyint"       // UserAllowMassemail
                 },
                 columns: new[] {
-                    "UserId", "UserType", "GroupId", "UserName", "UserNameClean", "UserRegdate",
-                    "UserEmail", "UserLang", "UserStyle", "UserRank", "UserColor",
-                    "UserPosts", "UserPermissions", "UserIp", "UserBirthday",
-                    "UserLastPage", "UserLastConfirmKey", "UserPostSortbyType",
-                    "UserPostSortbyDir", "UserTopicSortbyType", "UserTopicSortbyDir",
-                    "UserAvatar", "UserSig", "UserSigBbcodeUid", "UserJabber",
-                    "UserActkey", "UserActkeyExpiration", "UserNewpasswd", "UserAllowMassemail"
+                        "UserId", "UserType", "GroupId", "UserName", "UserNameClean", "UserRegdate",
+                        "UserEmail", "UserLang", "UserStyle", "UserRank", "UserColor",
+                        "UserPosts", "UserPermissions", "UserIp", "UserBirthday",
+                        "UserLastPage", "UserLastConfirmKey", "UserPostSortbyType",
+                        "UserPostSortbyDir", "UserTopicSortbyType", "UserTopicSortbyDir",
+                        "UserAvatar", "UserSig", "UserSigBbcodeUid", "UserJabber",
+                        "UserActkey", "UserActkeyExpiration", "UserNewpasswd", "UserAllowMassemail"
                 },
                 values: new object[,]
                 {
-                    {
-                        // Anonymous user
-                        userId2, 2, 1, "Anonymous", "anonymous", 0,
-                        "", "en", 1, 0, "",
-                        0, "", "", "",
-                        "", "", "t",
-                        "a", "t", "d",
-                        "", "", "", "",
-                        "", 0, "", 0
-                    },
-                    {
-                        // Admin user
-                        userId1, 3, 5, "Admin", "admin", 0,
-                        "admin@yourdomain.com", "en", 1, 1, "AA0000",
-                        1, "", "", "",
-                        "", "", "t",
-                        "a", "t", "d",
-                        "", "", "", "",
-                        "", 0, "", 1
-                    }
+                        {
+                            // Anonymous user
+                            userId2, 2, 1, "Anonymous", "anonymous", 0,
+                            "", "en", 1, 0, "",
+                            0, "", "", "",
+                            "", "", "t",
+                            "a", "t", "d",
+                            "", "", "", "",
+                            "", 0, "", 0
+                        },
+                        {
+                            // Admin user
+                            userId1, 3, 5, "Admin", "admin", 0,
+                            "admin@yourdomain.com", "en", 1, 1, "AA0000",
+                            1, "", "", "",
+                            "", "", "t",
+                            "a", "t", "d",
+                            "", "", "", "",
+                            "", 0, "", 1
+                        }
                 });
+
+            // Insert roles
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "Name", "NormalizedName", "ConcurrencyStamp" },
+                values: new object[,]
+                {
+                        { roleId1, "Administrators", "ADMINISTRATORS", Guid.NewGuid().ToString() },
+                        { Guid.NewGuid().ToString(), "Moderators", "MODERATORS", Guid.NewGuid().ToString() },
+                        { Guid.NewGuid().ToString(), "Registered", "REGISTERED", Guid.NewGuid().ToString() },
+                        { Guid.NewGuid().ToString(), "Bots", "BOTS", Guid.NewGuid().ToString() },
+                        { Guid.NewGuid().ToString(), "Guests", "GUESTS", Guid.NewGuid().ToString() }
+                });
+
+            // Assign admin user to Administrators role
+            migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "UserId", "RoleId" },
+                values: new object[] { userId1, roleId1 });
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            var userId1 = "18b0b36f-f6b5-4a8f-a06b-bb9443549bb4";
+            var roleId1 = "58b72395-0601-4349-9353-d93a101746d2";
+
             migrationBuilder.DeleteData(
                 table: "ForumUser",
                 keyColumns: new[] { "UserName", "UserType" },
@@ -267,6 +290,36 @@ namespace digioz.Forum.Data.Migrations
                 table: "AspNetUsers",
                 keyColumn: "Email",
                 keyValue: "admin@yourdomain.com");
+
+            migrationBuilder.DeleteData(
+                table: "AspNetRoles",
+                keyColumn: "Name",
+                keyValue: "Administrators");
+
+            migrationBuilder.DeleteData(
+                table: "AspNetRoles",
+                keyColumn: "Name",
+                keyValue: "Moderators");
+
+            migrationBuilder.DeleteData(
+                table: "AspNetRoles",
+                keyColumn: "Name",
+                keyValue: "Registered");
+
+            migrationBuilder.DeleteData(
+                table: "AspNetRoles",
+                keyColumn: "Name",
+                keyValue: "Bots");
+
+            migrationBuilder.DeleteData(
+                table: "AspNetRoles",
+                keyColumn: "Name",
+                keyValue: "Guests");
+
+            migrationBuilder.DeleteData(
+                table: "AspNetUserRoles",
+                keyColumns: new[] { "UserId", "RoleId" },
+                keyValues: new object[] { userId1, roleId1 });
         }
     }
 }
