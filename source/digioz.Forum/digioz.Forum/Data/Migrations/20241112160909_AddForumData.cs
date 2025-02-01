@@ -366,34 +366,11 @@ namespace digioz.Forum.Data.Migrations
                     { "upload_dir_size", "0", 1 },
                     { "warnings_last_gc", "0", 1 }
                 });
-
-            migrationBuilder.InsertData(
-                table: "ForumConfigText",
-                columnTypes: new[] { "nvarchar(255)", "text" },
-                columns: new[] { "ConfigName", "ConfigValue" },
-                values: new object[,]
-                {
-                    { "contact_admin_info", "" },
-                    { "contact_admin_info_uid", "" },
-                    { "contact_admin_info_bitfield", "" },
-                    { "contact_admin_info_flags", "7" }
-                });
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DeleteData(
-                table: "ForumConfigText",
-                keyColumn: "ConfigName",
-                keyValues: new[]
-                {
-                "contact_admin_info",
-                "contact_admin_info_uid",
-                "contact_admin_info_bitfield",
-                "contact_admin_info_flags"
-                });
-
             migrationBuilder.DeleteData(
                 table: "ForumConfig",
                 keyColumn: "ConfigName",

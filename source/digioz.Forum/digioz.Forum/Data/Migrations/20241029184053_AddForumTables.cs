@@ -72,100 +72,6 @@ namespace digioz.Forum.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ForumAccess",
-                columns: table => new
-                {
-                    ForumId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
-                    UserId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
-                    SessionId = table.Column<string>(type: "char(32)", nullable: false, defaultValue: "")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ForumAccess", x => new { x.ForumId, x.UserId, x.SessionId });
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ForumAclGroup",
-                columns: table => new
-                {
-                    GroupId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
-                    ForumId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
-                    AuthOptionId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
-                    AuthRoleId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
-                    AuthSetting = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ForumAclGroup", x => new { x.GroupId, x.ForumId, x.AuthOptionId, x.AuthRoleId });
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ForumAclOption",
-                columns: table => new
-                {
-                    AuthOptionId = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    AuthOption = table.Column<string>(type: "varchar(50)", nullable: false, defaultValue: ""),
-                    IsGlobal = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
-                    IsLocal = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
-                    FounderOnly = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ForumAclOption", x => x.AuthOptionId);
-                });
-
-                migrationBuilder.CreateIndex(
-                    name: "IX_ForumAclOption_AuthOption",
-                    table: "ForumAclOption",
-                    column: "AuthOption",
-                    unique: true);
-
-            migrationBuilder.CreateTable(
-                name: "ForumAclRole",
-                columns: table => new
-                {
-                    RoleId = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    RoleName = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
-                    RoleDescription = table.Column<string>(type: "text", nullable: false),
-                    RoleType = table.Column<string>(type: "varchar(10)", nullable: false, defaultValue: ""),
-                    RoleOrder = table.Column<short>(type: "smallint", nullable: false, defaultValue: 0)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ForumAclRole", x => x.RoleId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ForumAclRoleData",
-                columns: table => new
-                {
-                    RoleId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
-                    AuthOptionId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
-                    AuthSetting = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ForumAclRoleData", x => new { x.RoleId, x.AuthOptionId });
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ForumAclUser",
-                columns: table => new
-                {
-                    UserId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
-                    ForumId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
-                    AuthOptionId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
-                    AuthRoleId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
-                    AuthSetting = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ForumAclUser", x => new { x.UserId, x.ForumId, x.AuthOptionId, x.AuthRoleId });
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ForumAttachment",
                 columns: table => new
                 {
@@ -274,47 +180,6 @@ namespace digioz.Forum.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ForumConfigText",
-                columns: table => new
-                {
-                    ConfigName = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
-                    ConfigValue = table.Column<string>(type: "text", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ForumConfigText", x => x.ConfigName);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ForumConfirm",
-                columns: table => new
-                {
-                    ConfirmId = table.Column<string>(type: "char(32)", nullable: false, defaultValue: ""),
-                    SessionId = table.Column<string>(type: "char(32)", nullable: false, defaultValue: ""),
-                    ConfirmType = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
-                    Code = table.Column<string>(type: "varchar(8)", nullable: false, defaultValue: ""),
-                    Seed = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
-                    Attempts = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ForumConfirm", x => new { x.SessionId, x.ConfirmId });
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ForumDisallow",
-                columns: table => new
-                {
-                    DisallowId = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DisallowUsername = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: "")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ForumDisallow", x => x.DisallowId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ForumDrafts",
                 columns: table => new
                 {
@@ -383,38 +248,6 @@ namespace digioz.Forum.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ForumExtensionGroup", x => x.GroupId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ForumGroup",
-                columns: table => new
-                {
-                    GroupId = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    GroupType = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 1),
-                    GroupFounderManage = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
-                    GroupSkipAuth = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
-                    GroupName = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
-                    GroupDesc = table.Column<string>(type: "text", nullable: false),
-                    GroupDescBitfield = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
-                    GroupDescOptions = table.Column<int>(type: "int", nullable: false, defaultValue: 7),
-                    GroupDescUid = table.Column<string>(type: "varchar(8)", nullable: false, defaultValue: ""),
-                    GroupDisplay = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
-                    GroupAvatar = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
-                    GroupAvatarType = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
-                    GroupAvatarWidth = table.Column<short>(type: "smallint", nullable: false, defaultValue: 0),
-                    GroupAvatarHeight = table.Column<short>(type: "smallint", nullable: false, defaultValue: 0),
-                    GroupRank = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
-                    GroupColour = table.Column<string>(type: "varchar(6)", nullable: false, defaultValue: ""),
-                    GroupSigChars = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
-                    GroupReceivePm = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
-                    GroupMessageLimit = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
-                    GroupLegend = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
-                    GroupMaxRecipients = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ForumGroup", x => x.GroupId);
                 });
 
             migrationBuilder.CreateTable(
@@ -488,39 +321,6 @@ namespace digioz.Forum.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ForumMigration",
-                columns: table => new
-                {
-                    MigrationName = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
-                    MigrationDependsOn = table.Column<string>(type: "text", nullable: false),
-                    MigrationSchemaDone = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
-                    MigrationDataDone = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
-                    MigrationDataState = table.Column<string>(type: "text", nullable: false),
-                    MigrationStartTime = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
-                    MigrationEndTime = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ForumMigration", x => x.MigrationName);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ForumModeratorCache",
-                columns: table => new
-                {
-                    ForumId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
-                    UserId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
-                    Username = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
-                    GroupId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
-                    GroupName = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
-                    DisplayOnIndex = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 1)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ForumModeratorCache", x => new { x.ForumId, x.UserId, x.GroupId });
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ForumModule",
                 columns: table => new
                 {
@@ -540,100 +340,6 @@ namespace digioz.Forum.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ForumModule", x => x.ModuleId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ForumNotification",
-                columns: table => new
-                {
-                    NotificationId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    NotificationTypeId = table.Column<short>(type: "smallint", nullable: false, defaultValue: 0),
-                    ItemId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
-                    ItemParentId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
-                    UserId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
-                    NotificationRead = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
-                    NotificationTime = table.Column<long>(type: "bigint", nullable: false, defaultValue: 1),
-                    NotificationData = table.Column<string>(type: "text", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ForumNotification", x => x.NotificationId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ForumNotificationEmail",
-                columns: table => new
-                {
-                    NotificationTypeId = table.Column<short>(type: "smallint", nullable: false, defaultValue: 0),
-                    ItemId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
-                    ItemParentId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
-                    UserId = table.Column<int>(type: "int", nullable: false, defaultValue: 0)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ForumNotificationEmail", x => new { x.NotificationTypeId, x.ItemId, x.ItemParentId, x.UserId });
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ForumNotificationType",
-                columns: table => new
-                {
-                    NotificationTypeId = table.Column<short>(type: "smallint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    NotificationTypeName = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
-                    NotificationTypeEnabled = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 1)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ForumNotificationType", x => x.NotificationTypeId);
-                });
-
-                migrationBuilder.CreateIndex(
-                    name: "IX_ForumNotificationType_NotificationTypeName",
-                    table: "ForumNotificationType",
-                    column: "NotificationTypeName",
-                    unique: true);
-
-            migrationBuilder.CreateTable(
-                name: "ForumOauthAccount",
-                columns: table => new
-                {
-                    UserId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
-                    Provider = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
-                    OauthProviderId = table.Column<string>(type: "text", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ForumOauthAccount", x => new { x.UserId, x.Provider });
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ForumOauthState",
-                columns: table => new
-                {
-                    UserId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
-                    SessionId = table.Column<string>(type: "char(32)", nullable: false, defaultValue: ""),
-                    Provider = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
-                    OauthState = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: "")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ForumOauthState", x => new { x.UserId, x.SessionId, x.Provider });
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ForumOauthToken",
-                columns: table => new
-                {
-                    UserId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
-                    SessionId = table.Column<string>(type: "char(32)", nullable: false, defaultValue: ""),
-                    Provider = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
-                    OauthToken = table.Column<string>(type: "text", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ForumOauthToken", x => new { x.UserId, x.SessionId, x.Provider });
                 });
 
             migrationBuilder.CreateTable(
@@ -879,22 +585,6 @@ namespace digioz.Forum.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ForumRank",
-                columns: table => new
-                {
-                    RankId = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    RankTitle = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
-                    RankMin = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
-                    RankSpecial = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
-                    RankImage = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: "")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ForumRank", x => x.RankId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ForumReport",
                 columns: table => new
                 {
@@ -936,49 +626,6 @@ namespace digioz.Forum.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ForumSearchResult",
-                columns: table => new
-                {
-                    SearchKey = table.Column<string>(type: "varchar(32)", nullable: false, defaultValue: ""),
-                    SearchTime = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
-                    SearchKeywords = table.Column<string>(type: "text", nullable: false),
-                    SearchAuthors = table.Column<string>(type: "text", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ForumSearchResult", x => x.SearchKey);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ForumSearchWordlist",
-                columns: table => new
-                {
-                    WordId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    WordText = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
-                    WordCommon = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
-                    WordCount = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ForumSearchWordlist", x => x.WordId);
-                    table.UniqueConstraint("UQ_ForumSearchWordlist_WordText", x => x.WordText);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ForumSearchWordmatch",
-                columns: table => new
-                {
-                    PostId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
-                    WordId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
-                    TitleMatch = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ForumSearchWordmatch", x => new { x.PostId, x.WordId });
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ForumSession",
                 columns: table => new
                 {
@@ -999,35 +646,6 @@ namespace digioz.Forum.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ForumSession", x => x.SessionId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ForumSessionsKey",
-                columns: table => new
-                {
-                    KeyId = table.Column<string>(type: "varchar(128)", nullable: false, defaultValue: ""),
-                    UserId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
-                    LastIp = table.Column<string>(type: "varchar(40)", nullable: false, defaultValue: ""),
-                    LastLogin = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ForumSessionsKey", x => new { x.KeyId, x.UserId });
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ForumSitelist",
-                columns: table => new
-                {
-                    SiteId = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    SiteIp = table.Column<string>(type: "varchar(40)", nullable: false, defaultValue: ""),
-                    SiteHostname = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
-                    IpExclude = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ForumSitelist", x => x.SiteId);
                 });
 
             migrationBuilder.CreateTable(
@@ -1067,22 +685,6 @@ namespace digioz.Forum.Data.Migrations
                 {
                     table.PrimaryKey("PK_ForumStyle", x => x.StyleId);
                     table.UniqueConstraint("AK_ForumStyle_StyleName", x => x.StyleName);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ForumTeamPage",
-                columns: table => new
-                {
-                    TeamPageId = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    GroupId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
-                    TeamPageName = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
-                    TeamPagePosition = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
-                    TeamPageParent = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ForumTeamPage", x => x.TeamPageId);
                 });
 
             migrationBuilder.CreateTable(
@@ -1268,31 +870,6 @@ namespace digioz.Forum.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ForumUserGroup",
-                columns: table => new
-                {
-                    GroupId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
-                    UserId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
-                    GroupLeader = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
-                    UserPending = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 1)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ForumUserGroup", x => new { x.GroupId, x.UserId });
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ForumUserNotification",
-                columns: table => new
-                {
-                    ItemType = table.Column<string>(type: "varchar(165)", nullable: false, defaultValue: ""),
-                    ItemId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
-                    UserId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
-                    Method = table.Column<string>(type: "varchar(165)", nullable: false, defaultValue: ""),
-                    Notify = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 1)
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ForumWarning",
                 columns: table => new
                 {
@@ -1306,19 +883,6 @@ namespace digioz.Forum.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ForumWarning", x => x.WarningId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ForumWatch",
-                columns: table => new
-                {
-                    ForumId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
-                    UserId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
-                    NotifyStatus = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ForumWatch", x => new { x.ForumId, x.UserId });
                 });
 
             migrationBuilder.CreateTable(
@@ -1355,28 +919,18 @@ namespace digioz.Forum.Data.Migrations
         {
             migrationBuilder.DropTable(name: "ForumZebra");
             migrationBuilder.DropTable(name: "ForumWord");
-            migrationBuilder.DropTable(name: "ForumWatch");
             migrationBuilder.DropTable(name: "ForumWarning");
-            migrationBuilder.DropTable(name: "ForumUserNotification");
-            migrationBuilder.DropTable(name: "ForumUserGroup");
             migrationBuilder.DropTable(name: "ForumUser");
             migrationBuilder.DropTable(name: "ForumTrack");
             migrationBuilder.DropTable(name: "ForumTopicsWatch");
             migrationBuilder.DropTable(name: "ForumTopicsTrack");
             migrationBuilder.DropTable(name: "ForumTopicsPosted");
             migrationBuilder.DropTable(name: "ForumTopic");
-            migrationBuilder.DropTable(name: "ForumTeamPage");
             migrationBuilder.DropTable(name: "ForumStyle");
             migrationBuilder.DropTable(name: "ForumSmilie");
-            migrationBuilder.DropTable(name: "ForumSitelist");
-            migrationBuilder.DropTable(name: "ForumSessionsKey");
             migrationBuilder.DropTable(name: "ForumSession");
-            migrationBuilder.DropTable(name: "ForumSearchWordmatch");
-            migrationBuilder.DropTable(name: "ForumSearchWordlist");
-            migrationBuilder.DropTable(name: "ForumSearchResult");
             migrationBuilder.DropTable(name: "ForumReportsReason");
             migrationBuilder.DropTable(name: "ForumReport");
-            migrationBuilder.DropTable(name: "ForumRank");
             migrationBuilder.DropTable(name: "ForumProfileLang");
             migrationBuilder.DropTable(name: "ForumProfileFieldsLang");
             migrationBuilder.DropTable(name: "ForumProfileFieldsData");
@@ -1388,39 +942,21 @@ namespace digioz.Forum.Data.Migrations
             migrationBuilder.DropTable(name: "ForumPost");
             migrationBuilder.DropTable(name: "ForumPollVote");
             migrationBuilder.DropTable(name: "ForumPollOption");
-            migrationBuilder.DropTable(name: "ForumOauthToken");
-            migrationBuilder.DropTable(name: "ForumOauthState");
-            migrationBuilder.DropTable(name: "ForumOauthAccount");
-            migrationBuilder.DropTable(name: "ForumNotificationType");
-            migrationBuilder.DropTable(name: "ForumNotificationEmail");
-            migrationBuilder.DropTable(name: "ForumNotification");
             migrationBuilder.DropTable(name: "ForumModule");
-            migrationBuilder.DropTable(name: "ForumModeratorCache");
-            migrationBuilder.DropTable(name: "ForumMigration");
             migrationBuilder.DropTable(name: "ForumLoginAttempt");
             migrationBuilder.DropTable(name: "ForumLog");
             migrationBuilder.DropTable(name: "ForumLang");
             migrationBuilder.DropTable(name: "ForumIcon");
-            migrationBuilder.DropTable(name: "ForumGroup");
             migrationBuilder.DropTable(name: "ForumExtensionGroup");
             migrationBuilder.DropTable(name: "ForumExtension");
             migrationBuilder.DropTable(name: "ForumExt");
             migrationBuilder.DropTable(name: "ForumDrafts");
-            migrationBuilder.DropTable(name: "ForumDisallow");
-            migrationBuilder.DropTable(name: "ForumConfirm");
-            migrationBuilder.DropTable(name: "ForumConfigText");
             migrationBuilder.DropTable(name: "ForumConfig");
             migrationBuilder.DropTable(name: "ForumBot");
             migrationBuilder.DropTable(name: "ForumBookmark");
             migrationBuilder.DropTable(name: "ForumBbcode");
             migrationBuilder.DropTable(name: "ForumBanlist");
             migrationBuilder.DropTable(name: "ForumAttachment");
-            migrationBuilder.DropTable(name: "ForumAclUser");
-            migrationBuilder.DropTable(name: "ForumAclRoleData");
-            migrationBuilder.DropTable(name: "ForumAclRole");
-            migrationBuilder.DropTable(name: "ForumAclOption");
-            migrationBuilder.DropTable(name: "ForumAclGroup");
-            migrationBuilder.DropTable(name: "ForumAccess");
             migrationBuilder.DropTable(name: "Forum");
         }
     }

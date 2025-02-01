@@ -344,98 +344,11 @@ namespace digioz.Forum.Data.Migrations
                         field.IsContact ? 1 : 0, field.ContactDesc, field.ContactUrl
                     });
             }
-
-            var notifications = new[]
-            {
-                // Post Notifications
-                new
-                {
-                    Type = "notification.type.post",
-                    ItemId = 0,
-                    UserId = 2,
-                    Method = "notification.method.board"
-                },
-                new
-                {
-                    Type = "notification.type.post",
-                    ItemId = 0,
-                    UserId = 2,
-                    Method = "notification.method.email"
-                },
-
-                // Topic Notifications
-                new
-                {
-                    Type = "notification.type.topic",
-                    ItemId = 0,
-                    UserId = 2,
-                    Method = "notification.method.board"
-                },
-                new
-                {
-                    Type = "notification.type.topic",
-                    ItemId = 0,
-                    UserId = 2,
-                    Method = "notification.method.email"
-                },
-
-                // Forum Notifications
-                new
-                {
-                    Type = "notification.type.forum",
-                    ItemId = 0,
-                    UserId = 2,
-                    Method = "notification.method.board"
-                },
-                new
-                {
-                    Type = "notification.type.forum",
-                    ItemId = 0,
-                    UserId = 2,
-                    Method = "notification.method.email"
-                }
-            };
-
-            foreach (var notification in notifications)
-            {
-                migrationBuilder.InsertData(
-                    table: "ForumUserNotification",
-                    columnTypes: new[] { "varchar(165)", "bigint", "bigint", "varchar(165)" },
-                    columns: new[]
-                    {
-                    "ItemType",
-                    "ItemId",
-                    "UserId",
-                    "Method"
-                    },
-                    values: new object[]
-                    {
-                        notification.Type,
-                        notification.ItemId,
-                        notification.UserId,
-                        notification.Method
-                    });
-            }
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DeleteData(
-                table: "ForumUserNotification",
-                keyColumns: new[] { "UserId", "ItemType" },
-                keyValues: new object[] { 2, "notification.type.post" });
-
-            migrationBuilder.DeleteData(
-                table: "ForumUserNotification",
-                keyColumns: new[] { "UserId", "ItemType" },
-                keyValues: new object[] { 2, "notification.type.topic" });
-
-            migrationBuilder.DeleteData(
-                table: "ForumUserNotification",
-                keyColumns: new[] { "UserId", "ItemType" },
-                keyValues: new object[] { 2, "notification.type.forum" });
-
             migrationBuilder.Sql("DELETE FROM ForumProfileField WHERE FieldOrder BETWEEN 1 AND 12");
         }
     }
