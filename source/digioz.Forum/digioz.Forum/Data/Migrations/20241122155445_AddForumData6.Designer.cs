@@ -12,8 +12,8 @@ using digioz.Forum.Data;
 namespace digioz.Forum.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241122142046_AddForumData3")]
-    partial class AddForumData3
+    [Migration("20241122155445_AddForumData6")]
+    partial class AddForumData6
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
