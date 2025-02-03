@@ -5,7 +5,7 @@
 namespace digioz.Forum.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class AddForumData8 : Migration
+    public partial class AddForumData4 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

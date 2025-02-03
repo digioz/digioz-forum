@@ -12,7 +12,7 @@ using digioz.Forum.Data;
 namespace digioz.Forum.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241122144806_AddForumData4")]
+    [Migration("20241122153704_AddForumData4")]
     partial class AddForumData4
     {
         /// <inheritdoc />
