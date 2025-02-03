@@ -74,6 +74,8 @@ public partial class DigiozForumContext : DbContext
 
     public virtual DbSet<ForumModule> ForumModules { get; set; }
 
+    public virtual DbSet<ForumPermission> ForumPermissions { get; set; }
+
     public virtual DbSet<ForumPollOption> ForumPollOptions { get; set; }
 
     public virtual DbSet<ForumPollVote> ForumPollVotes { get; set; }
@@ -556,6 +558,16 @@ public partial class DigiozForumContext : DbContext
                 .HasDefaultValue("");
             entity.Property(e => e.ModuleMode)
                 .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasDefaultValue("");
+        });
+
+        modelBuilder.Entity<ForumPermission>(entity =>
+        {
+            entity.HasKey(e => e.ForumPermissionId).HasName("PK__ForumPer__D3A3E3A3A3A3A3A3");
+            entity.ToTable("ForumPermission");
+            entity.Property(e => e.RoleId)
+                .HasMaxLength(450)
                 .IsUnicode(false)
                 .HasDefaultValue("");
         });
