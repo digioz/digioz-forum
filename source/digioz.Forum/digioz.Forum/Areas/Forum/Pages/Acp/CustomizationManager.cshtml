@@ -1,0 +1,175 @@
+﻿@page
+@model digioz.Forum.Areas.Forum.Pages.Acp.CustomizationManagerModel
+@{
+    Layout = "/Pages/Shared/_LayoutAcp.cshtml";
+}
+
+<div id="wrap">
+    <div id="page-header">
+        <h1>Administration Control Panel</h1>
+        <p><a href="index.php?sid=8d7527c1ede56ede082d1bfaa302a670">Admin index</a> &bull; <a href="./../index.php?sid=8d7527c1ede56ede082d1bfaa302a670">Board index</a></p>
+        <p id="skip"><a href="#acp">Skip to content</a></p>
+    </div>
+    <div id="page-body">
+        <div id="tabs">
+            <ul>
+                <li class="tab"><a href="/Forum/Acp/Index&amp;i=1">General</a></li>
+                <li class="tab"><a href="/Forum/Acp/ForumManager">Forums</a></li>
+                <li class="tab"><a href="/Forum/Acp/PostManager">Posting</a></li>
+                <li class="tab"><a href="/Forum/Acp/UsersAndGroupsManager">Users and Groups</a></li>
+                <li class="tab"><a href="/Forum/Acp/PermissionsManager">Permissions</a></li>
+                <li class="tab activetab"><a href="/Forum/Acp/CustomizationManager">Customise</a></li>
+                <li class="tab"><a href="/Forum/Acp/MaintenanceManager">Maintenance</a></li>
+                <li class="tab"><a href="/Forum/Acp/SystemSettingsManager">System</a></li>
+            </ul>
+        </div>
+        <div id="acp">
+            <div id="content">
+                <div id="menu">
+                    <p>You are logged in as:<br /><strong>admin</strong> [&nbsp;<a href="./../ucp.php?mode=logout&amp;sid=8d7527c1ede56ede082d1bfaa302a670">Logout</a>&nbsp;][&nbsp;<a href="index.php?action=admlogout&amp;sid=8d7527c1ede56ede082d1bfaa302a670">ACP&nbsp;Logout</a>&nbsp;]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                    <div class="menu-block">
+                        <a class="header" href="javascript:void(0);">Extension management</a>
+                        <ul>
+                            <li id="activemenu"><a href="index.php?sid=8d7527c1ede56ede082d1bfaa302a670&amp;i=acp_extensions&amp;mode=main"><span>Manage extensions</span></a></li>
+                        </ul>
+                    </div>
+                    <div class="menu-block">
+                        <a class="header" href="javascript:void(0);">Style management</a>
+                        <ul>
+                            <li><a href="index.php?sid=8d7527c1ede56ede082d1bfaa302a670&amp;i=acp_styles&amp;mode=style"><span>Styles</span></a></li>
+                            <li><a href="index.php?sid=8d7527c1ede56ede082d1bfaa302a670&amp;i=acp_styles&amp;mode=install"><span>Install Styles</span></a></li>
+                        </ul>
+                    </div>
+                    <div class="menu-block">
+                        <a class="header" href="javascript:void(0);">Language management</a>
+                        <ul>
+                            <li><a href="index.php?sid=8d7527c1ede56ede082d1bfaa302a670&amp;i=acp_language&amp;mode=lang_packs"><span>Language packs</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="main">
+                    <div class="main">
+                        <a id="maincontent"></a>
+                        <h1>Extensions Manager</h1>
+                        <p>The Extensions Manager is a tool in your phpBB Board which allows you to manage all of your extensions statuses and view information about them.</p>
+                        <fieldset class="quick">
+                            <span class="small"><a href="https://www.phpbb.com/go/customise/extensions/3.3" target="_blank">Browse extensions database</a> &bull; <a href="index.php?i=acp_extensions&amp;sid=8d7527c1ede56ede082d1bfaa302a670&amp;mode=main&amp;action=list&amp;versioncheck_force=1">Re-Check all versions</a> &bull; <a href="javascript:phpbb.toggleDisplay('version_check_settings');">Settings</a></span>
+                        </fieldset>
+                        <form id="version_check_settings" method="post" action="index.php?i=acp_extensions&amp;sid=8d7527c1ede56ede082d1bfaa302a670&amp;mode=main" style="display:none">
+                            <fieldset>
+                                <legend>Version check settings</legend>
+                                <dl>
+                                    <dt><label for="force_unstable">Always check for unstable versions:</label></dt>
+                                    <dd>
+                                        <label><input type="radio" id="force_unstable" name="force_unstable" class="radio" value="1" /> Yes</label>
+                                        <label><input type="radio" name="force_unstable" class="radio" value="0" checked="checked" /> No</label>
+                                    </dd>
+                                </dl>
+                                <p class="submit-buttons">
+                                    <input class="button1" type="submit" name="update" value="Submit" />&nbsp;
+                                    <input class="button2" type="reset" name="reset" value="Reset" />
+                                    <input type="hidden" name="action" value="set_config_version_check_force_unstable" />
+                                </p>
+                            </fieldset>
+                        </form>
+                        <table class="table1">
+                            <col class="row1">
+                            <col class="row1">
+                            <col class="row2">
+                            <col class="row2">
+                            <thead>
+                                <tr>
+                                    <th>Extension Name</th>
+                                    <th style="text-align: center; width: 20%;">Current version</th>
+                                    <th style="text-align: center; width: 10%;">Options</th>
+                                    <th style="text-align: center; width: 25%;">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="row3" colspan="4">
+                                        <strong>Enabled Extensions</strong>
+                                    </td>
+                                </tr>
+                                <tr class="ext_enabled row-highlight">
+                                    <td>
+                                        <strong title="phpbb/viglink">VigLink</strong>
+                                    </td>
+                                    <td style="text-align: center;">
+                                        1.0.5
+                                    </td>
+                                    <td style="text-align: center;">
+                                        <a href="index.php?i=acp_extensions&amp;sid=8d7527c1ede56ede082d1bfaa302a670&amp;mode=main&amp;action=details&amp;ext_name=phpbb%2Fviglink">Details</a>
+                                    </td>
+                                    <td style="text-align: center;">
+                                        <a href="index.php?i=acp_extensions&amp;sid=8d7527c1ede56ede082d1bfaa302a670&amp;mode=main&amp;action=disable_pre&amp;ext_name=phpbb%2Fviglink" title="Disabling an extension retains its files, data and settings but removes any functionality added by the extension.">Disable</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="table1">
+                            <tr>
+                                <th>Installing an extension</th>
+                            </tr>
+                            <tr>
+                                <td class="row3">
+                                    <ol>
+                                        <li>Download an extension from phpBB’s extensions database</li>
+                                        <li>Unzip the extension and upload it to the <samp>ext/</samp> directory of your phpBB board</li>
+                                        <li>Enable the extension, here in the Extensions manager</li>
+                                    </ol>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Updating an extension</th>
+                            </tr>
+                            <tr>
+                                <td class="row3">
+                                    <ol>
+                                        <li>Disable the extension</li>
+                                        <li>Delete the extension’s files from the filesystem</li>
+                                        <li>Upload the new files</li>
+                                        <li>Enable the extension</li>
+                                    </ol>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Completely removing an extension from your board</th>
+                            </tr>
+                            <tr>
+                                <td class="row3">
+                                    <ol>
+                                        <li>Disable the extension</li>
+                                        <li>Delete the extension’s data</li>
+                                        <li>Delete the extension’s files from the filesystem</li>
+                                    </ol>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- /#main -->
+            </div>
+        </div>
+        <!-- /#acp -->
+    </div>
+    <div id="page-footer">
+        <div class="copyright">
+            Powered by <a href="https://www.phpbb.com/">phpBB</a>&reg; Forum Software &copy; phpBB Limited
+        </div>
+        <div id="darkenwrapper" data-ajax-error-title="AJAX error" data-ajax-error-text="Something went wrong when processing your request." data-ajax-error-text-abort="User aborted request." data-ajax-error-text-timeout="Your request timed out; please try again." data-ajax-error-text-parsererror="Something went wrong with the request and the server returned an invalid reply.">
+            <div id="darken">&nbsp;</div>
+        </div>
+        <div id="loading_indicator"></div>
+        <div id="phpbb_alert" class="phpbb_alert" data-l-err="Error" data-l-timeout-processing-req="Request timed out.">
+            <a href="#" class="alert_close"></a>
+            <h3 class="alert_title">&nbsp;</h3>
+            <p class="alert_text"></p>
+        </div>
+        <div id="phpbb_confirm" class="phpbb_alert">
+            <a href="#" class="alert_close"></a>
+            <div class="alert_text"></div>
+        </div>
+    </div>
+</div>

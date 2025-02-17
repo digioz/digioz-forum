@@ -1,0 +1,105 @@
+﻿@page
+@model digioz.Forum.Areas.Forum.Pages.Acp.PostManagerModel
+@{
+    Layout = "/Pages/Shared/_LayoutAcp.cshtml";
+}
+
+<div id="wrap">
+    <div id="page-header">
+        <h1>Administration Control Panel</h1>
+        <p><a href="index.php?sid=8d7527c1ede56ede082d1bfaa302a670">Admin index</a> &bull; <a href="./../index.php?sid=8d7527c1ede56ede082d1bfaa302a670">Board index</a></p>
+        <p id="skip"><a href="#acp">Skip to content</a></p>
+    </div>
+    <div id="page-body">
+        <div id="tabs">
+            <ul>
+                <li class="tab"><a href="/Forum/Acp/Index&amp;i=1">General</a></li>
+                <li class="tab"><a href="/Forum/Acp/ForumManager">Forums</a></li>
+                <li class="tab activetab"><a href="/Forum/Acp/PostManager">Posting</a></li>
+                <li class="tab"><a href="/Forum/Acp/UsersAndGroupsManager">Users and Groups</a></li>
+                <li class="tab"><a href="/Forum/Acp/PermissionsManager">Permissions</a></li>
+                <li class="tab"><a href="/Forum/Acp/CustomizationManager">Customise</a></li>
+                <li class="tab"><a href="/Forum/Acp/MaintenanceManager">Maintenance</a></li>
+                <li class="tab"><a href="/Forum/Acp/SystemSettingsManager">System</a></li>
+            </ul>
+        </div>
+        <div id="acp">
+            <div id="content">
+                <div id="menu">
+                    <p>You are logged in as:<br /><strong>admin</strong> [&nbsp;<a href="./../ucp.php?mode=logout&amp;sid=8d7527c1ede56ede082d1bfaa302a670">Logout</a>&nbsp;][&nbsp;<a href="index.php?action=admlogout&amp;sid=8d7527c1ede56ede082d1bfaa302a670">ACP&nbsp;Logout</a>&nbsp;]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                    <div class="menu-block">
+                        <a class="header" href="javascript:void(0);">Messages</a>
+                        <ul>
+                            <li id="activemenu"><a href="index.php?sid=8d7527c1ede56ede082d1bfaa302a670&amp;i=acp_bbcodes&amp;mode=bbcodes"><span>BBCodes</span></a></li>
+                            <li><a href="index.php?sid=8d7527c1ede56ede082d1bfaa302a670&amp;i=acp_board&amp;icat=9&amp;mode=message"><span>Private message settings</span></a></li>
+                            <li><a href="index.php?sid=8d7527c1ede56ede082d1bfaa302a670&amp;i=acp_board&amp;icat=9&amp;mode=post"><span>Post settings</span></a></li>
+                            <li><a href="index.php?sid=8d7527c1ede56ede082d1bfaa302a670&amp;i=acp_icons&amp;mode=icons"><span>Topic icons</span></a></li>
+                            <li><a href="index.php?sid=8d7527c1ede56ede082d1bfaa302a670&amp;i=acp_icons&amp;mode=smilies"><span>Smilies</span></a></li>
+                            <li><a href="index.php?sid=8d7527c1ede56ede082d1bfaa302a670&amp;i=acp_words&amp;mode=words"><span>Word censoring</span></a></li>
+                        </ul>
+                    </div>
+                    <div class="menu-block">
+                        <a class="header" href="javascript:void(0);">Attachments</a>
+                        <ul>
+                            <li><a href="index.php?sid=8d7527c1ede56ede082d1bfaa302a670&amp;i=acp_attachments&amp;icat=9&amp;mode=attach"><span>Attachment settings</span></a></li>
+                            <li><a href="index.php?sid=8d7527c1ede56ede082d1bfaa302a670&amp;i=acp_attachments&amp;mode=extensions"><span>Manage attachment extensions</span></a></li>
+                            <li><a href="index.php?sid=8d7527c1ede56ede082d1bfaa302a670&amp;i=acp_attachments&amp;mode=ext_groups"><span>Manage attachment extension groups</span></a></li>
+                            <li><a href="index.php?sid=8d7527c1ede56ede082d1bfaa302a670&amp;i=acp_attachments&amp;mode=orphan"><span>Orphaned attachments</span></a></li>
+                            <li><a href="index.php?sid=8d7527c1ede56ede082d1bfaa302a670&amp;i=acp_attachments&amp;mode=manage"><span>Manage attachments</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="main">
+                    <div class="main">
+                        <a id="maincontent"></a>
+                        <h1>BBCodes</h1>
+                        <p>BBCode is a special implementation of HTML offering greater control over what and how something is displayed. From this page you can add, remove and edit custom BBCodes.</p>
+                        <form id="acp_bbcodes" method="post" action="index.php?i=acp_bbcodes&amp;sid=8d7527c1ede56ede082d1bfaa302a670&amp;mode=bbcodes&amp;action=add">
+                            <fieldset class="tabulated">
+                                <legend>BBCodes</legend>
+                                <table class="table1 zebra-table" id="down">
+                                    <thead>
+                                        <tr>
+                                            <th>Tag</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="row3">
+                                            <td colspan="2">There are no items yet.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <p class="quick">
+                                    <input class="button2" name="submit" type="submit" value="Add a new BBCode" />
+                                </p>
+                                <input type="hidden" name="creation_time" value="1739828884" />
+                                <input type="hidden" name="form_token" value="b5d9fb359d4f3a977b3c3a3e97a1150b14a20273" />
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+                <!-- /#main -->
+            </div>
+        </div>
+        <!-- /#acp -->
+    </div>
+    <div id="page-footer">
+        <div class="copyright">
+            Powered by <a href="https://www.phpbb.com/">phpBB</a>&reg; Forum Software &copy; phpBB Limited
+        </div>
+        <div id="darkenwrapper" data-ajax-error-title="AJAX error" data-ajax-error-text="Something went wrong when processing your request." data-ajax-error-text-abort="User aborted request." data-ajax-error-text-timeout="Your request timed out; please try again." data-ajax-error-text-parsererror="Something went wrong with the request and the server returned an invalid reply.">
+            <div id="darken">&nbsp;</div>
+        </div>
+        <div id="loading_indicator"></div>
+        <div id="phpbb_alert" class="phpbb_alert" data-l-err="Error" data-l-timeout-processing-req="Request timed out.">
+            <a href="#" class="alert_close"></a>
+            <h3 class="alert_title">&nbsp;</h3>
+            <p class="alert_text"></p>
+        </div>
+        <div id="phpbb_confirm" class="phpbb_alert">
+            <a href="#" class="alert_close"></a>
+            <div class="alert_text"></div>
+        </div>
+    </div>
+</div>

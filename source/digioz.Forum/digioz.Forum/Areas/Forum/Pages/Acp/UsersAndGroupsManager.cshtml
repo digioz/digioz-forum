@@ -1,0 +1,152 @@
+﻿@page
+@model digioz.Forum.Areas.Forum.Pages.Acp.UsersAndGroupsManagerModel
+@{
+    Layout = "/Pages/Shared/_LayoutAcp.cshtml";
+}
+
+<div id="wrap">
+    <div id="page-header">
+        <h1>Administration Control Panel</h1>
+        <p><a href="index.php?sid=8d7527c1ede56ede082d1bfaa302a670">Admin index</a> &bull; <a href="./../index.php?sid=8d7527c1ede56ede082d1bfaa302a670">Board index</a></p>
+        <p id="skip"><a href="#acp">Skip to content</a></p>
+    </div>
+    <div id="page-body">
+        <div id="tabs">
+            <ul>
+                <li class="tab"><a href="/Forum/Acp/Index&amp;i=1">General</a></li>
+                <li class="tab"><a href="/Forum/Acp/ForumManager">Forums</a></li>
+                <li class="tab"><a href="/Forum/Acp/PostManager">Posting</a></li>
+                <li class="tab activetab"><a href="/Forum/Acp/UsersAndGroupsManager">Users and Groups</a></li>
+                <li class="tab"><a href="/Forum/Acp/PermissionsManager">Permissions</a></li>
+                <li class="tab"><a href="/Forum/Acp/CustomizationManager">Customise</a></li>
+                <li class="tab"><a href="/Forum/Acp/MaintenanceManager">Maintenance</a></li>
+                <li class="tab"><a href="/Forum/Acp/SystemSettingsManager">System</a></li>
+            </ul>
+        </div>
+        <div id="acp">
+            <div id="content">
+                <div id="menu">
+                    <p>You are logged in as:<br /><strong>admin</strong> [&nbsp;<a href="./../ucp.php?mode=logout&amp;sid=8d7527c1ede56ede082d1bfaa302a670">Logout</a>&nbsp;][&nbsp;<a href="index.php?action=admlogout&amp;sid=8d7527c1ede56ede082d1bfaa302a670">ACP&nbsp;Logout</a>&nbsp;]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                    <div class="menu-block">
+                        <a class="header" href="javascript:void(0);">Users</a>
+                        <ul>
+                            <li id="activemenu"><a href="index.php?sid=8d7527c1ede56ede082d1bfaa302a670&amp;i=acp_inactive&amp;mode=list"><span>Inactive users</span></a></li>
+                            <li><a href="index.php?sid=8d7527c1ede56ede082d1bfaa302a670&amp;i=acp_users&amp;icat=12&amp;mode=overview"><span>Manage users</span></a></li>
+                            <li><a href="index.php?sid=8d7527c1ede56ede082d1bfaa302a670&amp;i=acp_permissions&amp;mode=setting_user_global"><span>User permissions</span></a></li>
+                            <li><a href="index.php?sid=8d7527c1ede56ede082d1bfaa302a670&amp;i=acp_permissions&amp;icat=12&amp;mode=setting_user_local"><span>User forum permissions</span></a></li>
+                            <li><a href="index.php?sid=8d7527c1ede56ede082d1bfaa302a670&amp;i=acp_profile&amp;mode=profile"><span>Custom profile fields</span></a></li>
+                            <li><a href="index.php?sid=8d7527c1ede56ede082d1bfaa302a670&amp;i=acp_prune&amp;mode=users"><span>Prune users</span></a></li>
+                            <li><a href="index.php?sid=8d7527c1ede56ede082d1bfaa302a670&amp;i=acp_ranks&amp;mode=ranks"><span>Manage ranks</span></a></li>
+                        </ul>
+                    </div>
+                    <div class="menu-block">
+                        <a class="header" href="javascript:void(0);">Groups</a>
+                        <ul>
+                            <li><a href="index.php?sid=8d7527c1ede56ede082d1bfaa302a670&amp;i=acp_groups&amp;icat=12&amp;mode=manage"><span>Manage groups</span></a></li>
+                            <li><a href="index.php?sid=8d7527c1ede56ede082d1bfaa302a670&amp;i=acp_groups&amp;mode=position"><span>Manage group positions</span></a></li>
+                            <li><a href="index.php?sid=8d7527c1ede56ede082d1bfaa302a670&amp;i=acp_permissions&amp;mode=setting_group_global"><span>Group permissions</span></a></li>
+                            <li><a href="index.php?sid=8d7527c1ede56ede082d1bfaa302a670&amp;i=acp_permissions&amp;icat=12&amp;mode=setting_group_local"><span>Group forum permissions</span></a></li>
+                        </ul>
+                    </div>
+                    <div class="menu-block">
+                        <a class="header" href="javascript:void(0);">User security</a>
+                        <ul>
+                            <li><a href="index.php?sid=8d7527c1ede56ede082d1bfaa302a670&amp;i=acp_ban&amp;mode=email"><span>Ban emails</span></a></li>
+                            <li><a href="index.php?sid=8d7527c1ede56ede082d1bfaa302a670&amp;i=acp_ban&amp;mode=ip"><span>Ban IPs</span></a></li>
+                            <li><a href="index.php?sid=8d7527c1ede56ede082d1bfaa302a670&amp;i=acp_ban&amp;mode=user"><span>Ban users</span></a></li>
+                            <li><a href="index.php?sid=8d7527c1ede56ede082d1bfaa302a670&amp;i=acp_disallow&amp;mode=usernames"><span>Disallow usernames</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="main">
+                    <div class="main">
+                        <a id="maincontent"></a>
+                        <h1>Inactive users</h1>
+                        <p>This is a list of users who have registered but whose accounts are inactive. You can activate, delete or remind (by sending an email) these users if you wish.</p>
+                        <form id="inactive" method="post" action="index.php?i=acp_inactive&amp;sid=8d7527c1ede56ede082d1bfaa302a670&amp;mode=list&amp;st=0&amp;sk=i&amp;sd=d&amp;users_per_page=25&amp;start=0">
+                            <table class="table1 zebra-table">
+                                <thead>
+                                    <tr>
+                                        <th>Username</th>
+                                        <th>Email</th>
+                                        <th>Joined</th>
+                                        <th>Inactive date</th>
+                                        <th>Last visit</th>
+                                        <th>Reason</th>
+                                        <th>Mark</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="7" style="text-align: center;">No inactive users</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <fieldset class="display-options">
+                                Display entries from previous: &nbsp;
+                                <select name="st" id="st">
+                                    <option value="0" selected="selected">All entries</option>
+                                    <option value="1">1 day</option>
+                                    <option value="7">7 days</option>
+                                    <option value="14">2 weeks</option>
+                                    <option value="30">1 month</option>
+                                    <option value="90">3 months</option>
+                                    <option value="180">6 months</option>
+                                    <option value="365">1 year</option>
+                                </select>
+                                &nbsp;Sort by:
+                                <select name="sk" id="sk">
+                                    <option value="i" selected="selected">Inactive date</option>
+                                    <option value="j">Registration date</option>
+                                    <option value="l">Last visit</option>
+                                    <option value="d">Last reminded</option>
+                                    <option value="r">Reason</option>
+                                    <option value="u">Username</option>
+                                    <option value="p">Posts</option>
+                                    <option value="e">Reminder sent</option>
+                                </select>
+                                <select name="sd" id="sd">
+                                    <option value="a">Ascending</option>
+                                    <option value="d" selected="selected">Descending</option>
+                                </select>
+                                <input class="button2" type="submit" value="Go" name="sort" />
+                            </fieldset>
+                            <hr />
+                            <fieldset class="quick">
+                                <select name="action">
+                                    <option value="activate">Activate</option>
+                                    <option value="delete">Delete</option>
+                                    <option value="remind">Remind</option>
+                                </select>
+                                <input class="button2" type="submit" name="submit" value="Submit" />
+                                <p class="small"><a href="#" onclick="marklist('inactive', 'mark', true); return false;">Mark all</a> &bull; <a href="#" onclick="marklist('inactive', 'mark', false); return false;">Unmark all</a></p>
+                                <input type="hidden" name="creation_time" value="1739829073" />
+                                <input type="hidden" name="form_token" value="afea0c4cf81ce431da4409cec35d1a38e60d7aad" />
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+                <!-- /#main -->
+            </div>
+        </div>
+        <!-- /#acp -->
+    </div>
+    <div id="page-footer">
+        <div class="copyright">
+            Powered by <a href="https://www.phpbb.com/">phpBB</a>&reg; Forum Software &copy; phpBB Limited
+        </div>
+        <div id="darkenwrapper" data-ajax-error-title="AJAX error" data-ajax-error-text="Something went wrong when processing your request." data-ajax-error-text-abort="User aborted request." data-ajax-error-text-timeout="Your request timed out; please try again." data-ajax-error-text-parsererror="Something went wrong with the request and the server returned an invalid reply.">
+            <div id="darken">&nbsp;</div>
+        </div>
+        <div id="loading_indicator"></div>
+        <div id="phpbb_alert" class="phpbb_alert" data-l-err="Error" data-l-timeout-processing-req="Request timed out.">
+            <a href="#" class="alert_close"></a>
+            <h3 class="alert_title">&nbsp;</h3>
+            <p class="alert_text"></p>
+        </div>
+        <div id="phpbb_confirm" class="phpbb_alert">
+            <a href="#" class="alert_close"></a>
+            <div class="alert_text"></div>
+        </div>
+    </div>
+</div>

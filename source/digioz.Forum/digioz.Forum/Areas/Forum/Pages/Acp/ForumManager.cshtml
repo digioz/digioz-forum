@@ -1,0 +1,135 @@
+﻿@page
+@model digioz.Forum.Areas.Forum.Pages.Acp.ForumManagerModel
+@{
+    Layout = "/Pages/Shared/_LayoutAcp.cshtml";
+}
+
+<div id="wrap">
+    <div id="page-header">
+        <h1>Administration Control Panel</h1>
+        <p><a href="index.php?sid=8d7527c1ede56ede082d1bfaa302a670">Admin index</a> &bull; <a href="./../index.php?sid=8d7527c1ede56ede082d1bfaa302a670">Board index</a></p>
+        <p id="skip"><a href="#acp">Skip to content</a></p>
+    </div>
+    <div id="page-body">
+        <div id="tabs">
+            <ul>
+                <li class="tab"><a href="/Forum/Acp/Index&amp;i=1">General</a></li>
+                <li class="tab activetab"><a href="/Forum/Acp/ForumManager">Forums</a></li>
+                <li class="tab"><a href="/Forum/Acp/PostManager">Posting</a></li>
+                <li class="tab"><a href="/Forum/Acp/UsersAndGroupsManager">Users and Groups</a></li>
+                <li class="tab"><a href="/Forum/Acp/PermissionsManager">Permissions</a></li>
+                <li class="tab"><a href="/Forum/Acp/CustomizationManager">Customise</a></li>
+                <li class="tab"><a href="/Forum/Acp/MaintenanceManager">Maintenance</a></li>
+                <li class="tab"><a href="/Forum/Acp/SystemSettingsManager">System</a></li>
+            </ul>
+        </div>
+        <div id="acp">
+            <div id="content">
+                <div id="menu">
+                    <p>You are logged in as:<br /><strong>admin</strong> [&nbsp;<a href="./../ucp.php?mode=logout&amp;sid=8d7527c1ede56ede082d1bfaa302a670">Logout</a>&nbsp;][&nbsp;<a href="index.php?action=admlogout&amp;sid=8d7527c1ede56ede082d1bfaa302a670">ACP&nbsp;Logout</a>&nbsp;]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                    <div class="menu-block">
+                        <a class="header" href="javascript:void(0);">Manage forums</a>
+                        <ul>
+                            <li id="activemenu"><a href="index.php?sid=8d7527c1ede56ede082d1bfaa302a670&amp;i=acp_forums&amp;icat=6&amp;mode=manage"><span>Manage forums</span></a></li>
+                            <li><a href="index.php?sid=8d7527c1ede56ede082d1bfaa302a670&amp;i=acp_prune&amp;mode=forums"><span>Prune forums</span></a></li>
+                        </ul>
+                    </div>
+                    <div class="menu-block">
+                        <a class="header" href="javascript:void(0);">Forum based permissions</a>
+                        <ul>
+                            <li><a href="index.php?sid=8d7527c1ede56ede082d1bfaa302a670&amp;i=acp_permissions&amp;mode=setting_forum_local"><span>Forum permissions</span></a></li>
+                            <li><a href="index.php?sid=8d7527c1ede56ede082d1bfaa302a670&amp;i=acp_permissions&amp;mode=setting_forum_copy"><span>Copy forum permissions</span></a></li>
+                            <li><a href="index.php?sid=8d7527c1ede56ede082d1bfaa302a670&amp;i=acp_permissions&amp;mode=setting_mod_local"><span>Forum moderators</span></a></li>
+                            <li><a href="index.php?sid=8d7527c1ede56ede082d1bfaa302a670&amp;i=acp_permissions&amp;mode=setting_user_local"><span>User forum permissions</span></a></li>
+                            <li><a href="index.php?sid=8d7527c1ede56ede082d1bfaa302a670&amp;i=acp_permissions&amp;mode=setting_group_local"><span>Group forum permissions</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="main">
+                    <div class="main">
+                        <a id="maincontent"></a>
+                        <script>
+                            // <![CDATA[
+                             /**
+                             * Popup search progress bar
+                             */
+                             function popup_progress_bar()
+                             {
+                                 var close_waitscreen = 0;
+                                 // no scrollbars...
+                                 popup('index.php?i=acp_forums&amp;sid=8d7527c1ede56ede082d1bfaa302a670&amp;icat=7&amp;mode=manage&amp;action=progress_bar', 400, 240, '_sync');
+                             }
+                            // ]]>
+                        </script>
+                        <h1>Forum administration</h1>
+                        <p>In phpBB3 everything is forum based. A category is just a special type of forum. Each forum can have an unlimited number of sub-forums and you can determine whether each may be posted to or not (i.e. whether it acts like an old category). Here you can add, edit, delete, lock, unlock individual forums as well as set certain additional controls. If your posts and topics have got out of sync you can also resynchronise a forum. <strong>You need to copy or set appropriate permissions for newly created forums to have them displayed.</strong></p>
+                        <p><strong>Board index</strong></p>
+                        <table class="table1 forums">
+                            <col class="row1" />
+                            <col class="row1" />
+                            <col class="row2" />
+                            <tbody>
+                                <tr>
+                                    <td class="folder"><img src="images/icon_subfolder.gif" alt="Subforum" /></td>
+                                    <td class="forum-desc">
+                                        <strong><a href="index.php?i=acp_forums&amp;sid=8d7527c1ede56ede082d1bfaa302a670&amp;icat=7&amp;mode=manage&amp;parent_id=1">Your first category</a></strong>
+                                    </td>
+                                    <td class="actions">
+                                        <span class="up-disabled" style="display:none;"><i class="icon acp-icon acp-icon-disabled fa-arrow-circle-up fa-fw" title="Move up"></i></span>
+                                        <span class="up"><a href="index.php?i=acp_forums&amp;sid=8d7527c1ede56ede082d1bfaa302a670&amp;icat=7&amp;mode=manage&amp;parent_id=0&amp;f=1&amp;action=move_up" data-ajax="row_up"><i class="icon acp-icon acp-icon-move-up fa-arrow-circle-up fa-fw" title="Move up"></i></a></span>
+                                        <span class="down-disabled" style="display:none;"><i class="icon acp-icon acp-icon-disabled fa-arrow-circle-down fa-fw" title="Move down"></i></span>
+                                        <span class="down"><a href="index.php?i=acp_forums&amp;sid=8d7527c1ede56ede082d1bfaa302a670&amp;icat=7&amp;mode=manage&amp;parent_id=0&amp;f=1&amp;action=move_down" data-ajax="row_down"><i class="icon acp-icon acp-icon-move-down fa-arrow-circle-down fa-fw" title="Move down"></i></a></span>
+                                        <a href="index.php?i=acp_forums&amp;sid=8d7527c1ede56ede082d1bfaa302a670&amp;icat=7&amp;mode=manage&amp;parent_id=0&amp;f=1&amp;action=edit"><i class="icon acp-icon acp-icon-settings fa-cog fa-fw" title="Edit"></i></a>
+                                        <a href="index.php?i=acp_forums&amp;sid=8d7527c1ede56ede082d1bfaa302a670&amp;icat=7&amp;mode=manage&amp;parent_id=0&amp;f=1&amp;action=sync" onclick="popup_progress_bar();"><i class="icon acp-icon acp-icon-resync fa-refresh fa-fw" title="Resynchronise"></i></a>
+                                        <a href="index.php?i=acp_forums&amp;sid=8d7527c1ede56ede082d1bfaa302a670&amp;icat=7&amp;mode=manage&amp;parent_id=0&amp;f=1&amp;action=delete"><i class="icon acp-icon acp-icon-delete fa-times-circle fa-fw" title="Delete"></i></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <form id="fselect" method="post" action="index.php?i=acp_forums&amp;sid=8d7527c1ede56ede082d1bfaa302a670&amp;icat=7&amp;mode=manage">
+                            <fieldset class="quick">
+                                Select a forum:
+                                <select name="parent_id" onchange="if(this.options[this.selectedIndex].value != -1){ this.form.submit(); }">
+                                    <option value="1">Your first category</option>
+                                    <option value="2">&nbsp; &nbsp;Your first forum</option>
+                                </select>
+                                <input class="button2" type="submit" value="Go" />
+                                <input type="hidden" name="creation_time" value="1739828484" />
+                                <input type="hidden" name="form_token" value="436979dc98ce51abcb0e3e18bd63db5495bc89cb" />
+                            </fieldset>
+                        </form>
+                        <form id="forums" method="post" action="index.php?i=acp_forums&amp;sid=8d7527c1ede56ede082d1bfaa302a670&amp;icat=7&amp;mode=manage&amp;parent_id=0">
+                            <fieldset class="quick">
+                                <input type="hidden" name="action" value="add" />
+                                <input type="text" name="forum_name" value="" maxlength="255" />
+                                <input class="button2" name="addforum" type="submit" value="Create new forum" />
+                                <input type="hidden" name="creation_time" value="1739828484" />
+                                <input type="hidden" name="form_token" value="436979dc98ce51abcb0e3e18bd63db5495bc89cb" />
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+                <!-- /#main -->
+            </div>
+        </div>
+        <!-- /#acp -->
+    </div>
+    <div id="page-footer">
+        <div class="copyright">
+            Powered by <a href="https://www.phpbb.com/">phpBB</a>&reg; Forum Software &copy; phpBB Limited
+        </div>
+        <div id="darkenwrapper" data-ajax-error-title="AJAX error" data-ajax-error-text="Something went wrong when processing your request." data-ajax-error-text-abort="User aborted request." data-ajax-error-text-timeout="Your request timed out; please try again." data-ajax-error-text-parsererror="Something went wrong with the request and the server returned an invalid reply.">
+            <div id="darken">&nbsp;</div>
+        </div>
+        <div id="loading_indicator"></div>
+        <div id="phpbb_alert" class="phpbb_alert" data-l-err="Error" data-l-timeout-processing-req="Request timed out.">
+            <a href="#" class="alert_close"></a>
+            <h3 class="alert_title">&nbsp;</h3>
+            <p class="alert_text"></p>
+        </div>
+        <div id="phpbb_confirm" class="phpbb_alert">
+            <a href="#" class="alert_close"></a>
+            <div class="alert_text"></div>
+        </div>
+    </div>
+</div>
