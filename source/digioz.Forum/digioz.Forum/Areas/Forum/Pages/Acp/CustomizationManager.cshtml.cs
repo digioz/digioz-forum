@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 namespace digioz.Forum.Areas.Forum.Pages.Acp
 {
     [Authorize(Roles = "Administrators")]
-    public class IndexModel : PageModel
+    public class CustomizationManagerModel : PageModel
     {
         public void OnGet()
         {

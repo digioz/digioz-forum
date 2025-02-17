@@ -15,6 +15,7 @@ builder.Services.AddDbContext<DigiozForumContext>(options => options.UseSqlServe
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()   // Add this line to enable roles
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
 // Add custom services
@@ -82,6 +83,8 @@ else
 
 app.UseStaticFiles();
 app.UseRouting();
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseSession();

@@ -1,0 +1,175 @@
+﻿@page
+@model digioz.Forum.Areas.Forum.Pages.Acp.MaintenanceManagerModel
+@{
+    Layout = "/Pages/Shared/_LayoutAcp.cshtml";
+}
+
+<div id="wrap">
+    <div id="page-header">
+        <h1>Administration Control Panel</h1>
+        <p><a href="index.php?sid=8d7527c1ede56ede082d1bfaa302a670">Admin index</a> &bull; <a href="./../index.php?sid=8d7527c1ede56ede082d1bfaa302a670">Board index</a></p>
+        <p id="skip"><a href="#acp">Skip to content</a></p>
+    </div>
+    <div id="page-body">
+        <div id="tabs">
+            <ul>
+                <li class="tab"><a href="/Forum/Acp/Index&amp;i=1">General</a></li>
+                <li class="tab"><a href="/Forum/Acp/ForumManager">Forums</a></li>
+                <li class="tab"><a href="/Forum/Acp/PostManager">Posting</a></li>
+                <li class="tab"><a href="/Forum/Acp/UsersAndGroupsManager">Users and Groups</a></li>
+                <li class="tab"><a href="/Forum/Acp/PermissionsManager">Permissions</a></li>
+                <li class="tab"><a href="/Forum/Acp/CustomizationManager">Customise</a></li>
+                <li class="tab activetab"><a href="/Forum/Acp/MaintenanceManager">Maintenance</a></li>
+                <li class="tab"><a href="/Forum/Acp/SystemSettingsManager">System</a></li>
+            </ul>
+        </div>
+        <div id="acp">
+            <div id="content">
+                <div id="menu">
+                    <p>You are logged in as:<br /><strong>admin</strong> [&nbsp;<a href="./../ucp.php?mode=logout&amp;sid=8d7527c1ede56ede082d1bfaa302a670">Logout</a>&nbsp;][&nbsp;<a href="index.php?action=admlogout&amp;sid=8d7527c1ede56ede082d1bfaa302a670">ACP&nbsp;Logout</a>&nbsp;]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                    <div class="menu-block">
+                        <a class="header" href="javascript:void(0);">Forum logs</a>
+                        <ul>
+                            <li id="activemenu"><a href="index.php?sid=8d7527c1ede56ede082d1bfaa302a670&amp;i=acp_logs&amp;mode=admin"><span>Admin log</span></a></li>
+                            <li><a href="index.php?sid=8d7527c1ede56ede082d1bfaa302a670&amp;i=acp_logs&amp;icat=25&amp;mode=mod"><span>Moderator log</span></a></li>
+                            <li><a href="index.php?sid=8d7527c1ede56ede082d1bfaa302a670&amp;i=acp_logs&amp;mode=users"><span>User logs</span></a></li>
+                            <li><a href="index.php?sid=8d7527c1ede56ede082d1bfaa302a670&amp;i=acp_logs&amp;mode=critical"><span>Error log</span></a></li>
+                        </ul>
+                    </div>
+                    <div class="menu-block">
+                        <a class="header" href="javascript:void(0);">Database</a>
+                        <ul>
+                            <li><a href="index.php?sid=8d7527c1ede56ede082d1bfaa302a670&amp;i=acp_database&amp;mode=backup"><span>Backup</span></a></li>
+                            <li><a href="index.php?sid=8d7527c1ede56ede082d1bfaa302a670&amp;i=acp_database&amp;mode=restore"><span>Restore</span></a></li>
+                            <li><a href="index.php?sid=8d7527c1ede56ede082d1bfaa302a670&amp;i=acp_search&amp;mode=index"><span>Search index</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="main">
+                    <div class="main">
+                        <a id="maincontent"></a>
+                        <h1>Admin log</h1>
+                        <p>This lists all the actions carried out by board administrators. You can sort by username, date, IP or action. If you have appropriate permissions you can also clear individual operations or the log as a whole.</p>
+                        <form id="list" method="post" action="index.php?i=acp_logs&amp;sid=8d7527c1ede56ede082d1bfaa302a670&amp;mode=admin&amp;st=0&amp;sk=t&amp;sd=d&amp;start=0">
+                            <fieldset class="display-options search-box">
+                                Search for keywords:
+                                <input type="text" name="keywords" value="" />&nbsp;
+                                <input type="submit" class="button2" name="filter" value="Search" />
+                            </fieldset>
+                            <table class="table1 zebra-table fixed-width-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 15%;">Username</th>
+                                        <th style="width: 15%;">User IP</th>
+                                        <th style="width: 20%;">Time</th>
+                                        <th>Action</th>
+                                        <th style="width: 50px;">Mark</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <a href="index.php?i=users&amp;mode=overview&amp;sid=8d7527c1ede56ede082d1bfaa302a670&amp;u=2" style="color: #AA0000;" class="username-coloured">admin</a>
+                                        </td>
+                                        <td style="text-align: center;">::1</td>
+                                        <td style="text-align: center;">Mon Feb 17, 2025 7:00 pm</td>
+                                        <td><strong>Added new style</strong><br />» scaffoldBB</td>
+                                        <td style="text-align: center;"><input type="checkbox" class="radio" name="mark[]" value="10" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href="index.php?i=users&amp;mode=overview&amp;sid=8d7527c1ede56ede082d1bfaa302a670&amp;u=2" style="color: #AA0000;" class="username-coloured">admin</a>
+                                        </td>
+                                        <td style="text-align: center;">::1</td>
+                                        <td style="text-align: center;">Mon Feb 17, 2025 7:00 pm</td>
+                                        <td><strong>Successful administration login</strong></td>
+                                        <td style="text-align: center;"><input type="checkbox" class="radio" name="mark[]" value="8" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href="index.php?i=users&amp;mode=overview&amp;sid=8d7527c1ede56ede082d1bfaa302a670&amp;u=2" style="color: #AA0000;" class="username-coloured">admin</a>
+                                        </td>
+                                        <td style="text-align: center;">::1</td>
+                                        <td style="text-align: center;">Tue Feb 04, 2025 5:03 pm</td>
+                                        <td><strong>Installed phpBB 3.3.14</strong></td>
+                                        <td style="text-align: center;"><input type="checkbox" class="radio" name="mark[]" value="5" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span class="username">Anonymous</span>
+                                        </td>
+                                        <td style="text-align: center;">::1</td>
+                                        <td style="text-align: center;">Tue Feb 04, 2025 5:03 pm</td>
+                                        <td><strong>Module added</strong><br />» ACP_VIGLINK_SETTINGS</td>
+                                        <td style="text-align: center;"><input type="checkbox" class="radio" name="mark[]" value="2" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span class="username">Anonymous</span>
+                                        </td>
+                                        <td style="text-align: center;">::1</td>
+                                        <td style="text-align: center;">Tue Feb 04, 2025 5:03 pm</td>
+                                        <td><strong>Extension enabled</strong><br />» phpbb/viglink</td>
+                                        <td style="text-align: center;"><input type="checkbox" class="radio" name="mark[]" value="3" /></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <fieldset class="display-options">
+                                Display entries from previous: &nbsp;
+                                <select name="st" id="st">
+                                    <option value="0" selected="selected">All entries</option>
+                                    <option value="1">1 day</option>
+                                    <option value="7">7 days</option>
+                                    <option value="14">2 weeks</option>
+                                    <option value="30">1 month</option>
+                                    <option value="90">3 months</option>
+                                    <option value="180">6 months</option>
+                                    <option value="365">1 year</option>
+                                </select>
+                                &nbsp;Sort by:
+                                <select name="sk" id="sk">
+                                    <option value="u">Username</option>
+                                    <option value="t" selected="selected">Date</option>
+                                    <option value="i">IP address</option>
+                                    <option value="o">Log action</option>
+                                </select>
+                                <select name="sd" id="sd">
+                                    <option value="a">Ascending</option>
+                                    <option value="d" selected="selected">Descending</option>
+                                </select>
+                                <input class="button2" type="submit" value="Go" name="sort" />
+                            </fieldset>
+                            <hr />
+                            <fieldset class="quick">
+                                <input class="button2" type="submit" name="delall" value="Delete all" />&nbsp;
+                                <input class="button2" type="submit" name="delmarked" value="Delete marked" />
+                                <br />
+                                <p class="small"><a href="#" onclick="marklist('list', 'mark', true); return false;">Mark all</a> &bull; <a href="#" onclick="marklist('list', 'mark', false); return false;">Unmark all</a></p>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+                <!-- /#main -->
+            </div>
+        </div>
+        <!-- /#acp -->
+    </div>
+    <div id="page-footer">
+        <div class="copyright">
+            Powered by <a href="https://www.phpbb.com/">phpBB</a>&reg; Forum Software &copy; phpBB Limited
+        </div>
+        <div id="darkenwrapper" data-ajax-error-title="AJAX error" data-ajax-error-text="Something went wrong when processing your request." data-ajax-error-text-abort="User aborted request." data-ajax-error-text-timeout="Your request timed out; please try again." data-ajax-error-text-parsererror="Something went wrong with the request and the server returned an invalid reply.">
+            <div id="darken">&nbsp;</div>
+        </div>
+        <div id="loading_indicator"></div>
+        <div id="phpbb_alert" class="phpbb_alert" data-l-err="Error" data-l-timeout-processing-req="Request timed out.">
+            <a href="#" class="alert_close"></a>
+            <h3 class="alert_title">&nbsp;</h3>
+            <p class="alert_text"></p>
+        </div>
+        <div id="phpbb_confirm" class="phpbb_alert">
+            <a href="#" class="alert_close"></a>
+            <div class="alert_text"></div>
+        </div>
+    </div>
+</div>
