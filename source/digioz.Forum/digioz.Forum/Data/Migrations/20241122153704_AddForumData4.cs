@@ -15,7 +15,7 @@ namespace digioz.Forum.Data.Migrations
                 columnTypes: new[] {
                     "varchar(255)",  // TopicTitle
                     "int",           // TopicPoster
-                    "int",           // TopicTime
+                    "datetime",      // TopicTime
                     "bigint",        // TopicViews
                     "bigint",        // TopicPostsApproved
                     "bigint",        // TopicPostsUnapproved
@@ -31,8 +31,8 @@ namespace digioz.Forum.Data.Migrations
                     "varchar(255)",  // TopicLastPosterName
                     "varchar(6)",    // TopicLastPosterColor
                     "varchar(255)",  // TopicLastPostSubject
-                    "int",           // TopicLastPostTime
-                    "int",           // TopicLastViewTime
+                    "datetime",      // TopicLastPostTime
+                    "datetime",      // TopicLastViewTime
                     "varchar(255)",  // PollTitle
                     "tinyint"        // TopicVisibility
                 },
@@ -65,7 +65,7 @@ namespace digioz.Forum.Data.Migrations
                 {
                     "Welcome to DigiozBB!",   // TopicTitle
                     2,                        // TopicPoster
-                    972086460,                // TopicTime
+                    DateTime.Now,             // TopicTime
                     0,                        // TopicViews
                     1,                        // TopicPostsApproved
                     0,                        // TopicPostsUnapproved
@@ -81,8 +81,8 @@ namespace digioz.Forum.Data.Migrations
                     "Admin",                  // TopicLastPosterName
                     "AA0000",                 // TopicLastPosterColor
                     "Welcome to DigiozBB!",   // TopicLastPostSubject
-                    972086460,                // TopicLastPostTime
-                    972086460,                // TopicLastViewTime
+                    DateTime.Now,             // TopicLastPostTime
+                    DateTime.Now,             // TopicLastViewTime
                     "",                       // PollTitle
                     1                         // TopicVisibility
                 });
@@ -94,7 +94,7 @@ namespace digioz.Forum.Data.Migrations
                     "bigint",        // ForumId
                     "int",           // PosterId
                     "bigint",        // IconId
-                    "int",           // PostTime
+                    "datetime",      // PostTime
                     "varchar(255)",  // PostUsername
                     "varchar(40)",   // PosterIp
                     "varchar(255)",  // PostSubject
@@ -124,7 +124,7 @@ namespace digioz.Forum.Data.Migrations
                     2,                                              // ForumId
                     2,                                              // PosterId
                     0,                                              // IconId
-                    972086460,                                      // PostTime
+                    DateTime.Now,                                   // PostTime
                     "",                                             // PostUsername
                     "127.0.0.1",                                    // PosterIp
                     "Welcome to DigiozBB",                          // PostSubject

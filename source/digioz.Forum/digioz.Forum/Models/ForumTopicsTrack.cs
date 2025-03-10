@@ -11,5 +11,5 @@ public partial class ForumTopicsTrack
 
     public long ForumId { get; set; }
 
-    public long MarkTime { get; set; }
+    public DateTime? MarkTime { get; set; }
 }

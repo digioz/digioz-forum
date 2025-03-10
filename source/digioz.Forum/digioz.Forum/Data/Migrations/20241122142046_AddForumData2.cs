@@ -40,7 +40,7 @@ namespace digioz.Forum.Data.Migrations
                     "varchar(255)", // ForumLastPosterName
                     "varchar(6)",   // ForumLastPosterColour
                     "varchar(255)", // ForumLastPostSubject
-                    "int",          // ForumLastPostTime
+                    "datetime",     // ForumLastPostTime
                     "varchar(255)", // ForumLink
                     "varchar(255)", // ForumPassword
                     "varchar(255)", // ForumImage
@@ -84,7 +84,7 @@ namespace digioz.Forum.Data.Migrations
                         "Admin", // ForumLastPosterName
                         "AA0000", // ForumLastPosterColour
                         "", // ForumLastPostSubject
-                        972086460, // ForumLastPostTime
+                        DateTime.Now, // ForumLastPostTime
                         "", // ForumLink
                         "", // ForumPassword
                         "", // ForumImage
@@ -116,7 +116,7 @@ namespace digioz.Forum.Data.Migrations
                         "Admin", // ForumLastPosterName
                         "AA0000", // ForumLastPosterColour
                         "Welcome to DigiozBB!", // ForumLastPostSubject
-                        972086460, // ForumLastPostTime
+                        DateTime.Now, // ForumLastPostTime
                         "", // ForumLink
                         "", // ForumPassword
                         "", // ForumImage

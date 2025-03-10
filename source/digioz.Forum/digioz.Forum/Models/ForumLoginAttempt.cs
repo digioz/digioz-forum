@@ -11,7 +11,7 @@ public partial class ForumLoginAttempt
 
     public string AttemptForwardedFor { get; set; } = null!;
 
-    public long AttemptTime { get; set; }
+    public DateTime? AttemptTime { get; set; }
 
     public int UserId { get; set; }
 
