@@ -21,7 +21,7 @@ public partial class ForumLog
 
     public string LogIp { get; set; } = null!;
 
-    public long LogTime { get; set; }
+    public DateTime? LogTime { get; set; }
 
     public string LogOperation { get; set; } = null!;
 

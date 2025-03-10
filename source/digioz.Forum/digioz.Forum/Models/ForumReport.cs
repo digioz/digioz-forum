@@ -17,7 +17,7 @@ public partial class ForumReport
 
     public byte ReportClosed { get; set; }
 
-    public long ReportTime { get; set; }
+    public DateTime? ReportTime { get; set; }
 
     public string ReportText { get; set; } = null!;
 

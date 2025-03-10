@@ -19,7 +19,7 @@ public partial class ForumTopic
 
     public int TopicPoster { get; set; }
 
-    public long TopicTime { get; set; }
+    public DateTime? TopicTime { get; set; }
 
     public long TopicTimeLimit { get; set; }
 
@@ -45,9 +45,9 @@ public partial class ForumTopic
 
     public string TopicLastPostSubject { get; set; } = null!;
 
-    public long TopicLastPostTime { get; set; }
+    public DateTime? TopicLastPostTime { get; set; }
 
-    public long TopicLastViewTime { get; set; }
+    public DateTime? TopicLastViewTime { get; set; }
 
     public int TopicMovedId { get; set; }
 
@@ -57,19 +57,19 @@ public partial class ForumTopic
 
     public string PollTitle { get; set; } = null!;
 
-    public long PollStart { get; set; }
+    public DateTime? PollStart { get; set; }
 
     public int PollLength { get; set; }
 
     public byte PollMaxOptions { get; set; }
 
-    public long PollLastVote { get; set; }
+    public DateTime? PollLastVote { get; set; }
 
     public byte PollVoteChange { get; set; }
 
     public byte TopicVisibility { get; set; }
 
-    public long TopicDeleteTime { get; set; }
+    public DateTime? TopicDeleteTime { get; set; }
 
     public string TopicDeleteReason { get; set; } = null!;
 

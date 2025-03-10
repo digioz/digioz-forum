@@ -19,7 +19,7 @@ public partial class ForumUser
 
     public string UserIp { get; set; } = null!;
 
-    public long UserRegdate { get; set; }
+    public DateTime? UserRegdate { get; set; }
 
     public string UserName { get; set; } = null!;
 
@@ -29,29 +29,29 @@ public partial class ForumUser
 
     public string UserBirthday { get; set; } = null!;
 
-    public long UserLastVisit { get; set; }
+    public DateTime? UserLastVisit { get; set; }
 
-    public long UserLastActive { get; set; }
+    public DateTime? UserLastActive { get; set; }
 
-    public long UserLastMark { get; set; }
+    public DateTime? UserLastMark { get; set; }
 
-    public long UserLastPostTime { get; set; }
+    public DateTime? UserLastPostTime { get; set; }
 
     public string UserLastPage { get; set; } = null!;
 
     public string UserLastConfirmKey { get; set; } = null!;
 
-    public int UserLastSearch { get; set; }
+    public DateTime? UserLastSearch { get; set; }
 
     public byte UserWarnings { get; set; }
 
-    public long UserLastWarning { get; set; }
+    public DateTime? UserLastWarning { get; set; }
 
     public byte UserLoginAttempts { get; set; }
 
     public byte UserInactiveReason { get; set; }
 
-    public long UserInactiveTime { get; set; }
+    public DateTime? UserInactiveTime { get; set; }
 
     public long UserPosts { get; set; }
 
@@ -71,13 +71,13 @@ public partial class ForumUser
 
     public int UserUnreadPrivmsg { get; set; }
 
-    public long UserLastPrivmsg { get; set; }
+    public DateTime? UserLastPrivmsg { get; set; }
 
     public byte UserMessageRules { get; set; }
 
     public int UserFullFolder { get; set; }
 
-    public long UserEmailTime { get; set; }
+    public DateTime? UserEmailTime { get; set; }
 
     public short UserTopicShowDays { get; set; }
 
@@ -125,11 +125,11 @@ public partial class ForumUser
 
     public string UserActkey { get; set; } = null!;
 
-    public long UserActkeyExpiration { get; set; }
+    public DateTime? UserActkeyExpiration { get; set; }
 
     public string ResetToken { get; set; } = null!;
 
-    public long ResetTokenExpiration { get; set; }
+    public DateTime? ResetTokenExpiration { get; set; }
 
     public string UserNewpasswd { get; set; } = null!;
 
@@ -139,5 +139,5 @@ public partial class ForumUser
 
     public byte UserReminded { get; set; }
 
-    public long UserRemindedTime { get; set; }
+    public DateTime? UserRemindedTime { get; set; }
 }

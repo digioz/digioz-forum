@@ -18,7 +18,7 @@ namespace digioz.Forum.Data.Migrations
             // Generate unique values
             var userId1 = "18b0b36f-f6b5-4a8f-a06b-bb9443549bb4";
             var securityStamp = Guid.NewGuid().ToString();
-            var concurrencyStamp = Guid.NewGuid().ToString();      
+            var concurrencyStamp = Guid.NewGuid().ToString();
             var roleId1 = "58b72395-0601-4349-9353-d93a101746d2";
 
             // Create admin user
@@ -187,7 +187,7 @@ namespace digioz.Forum.Data.Migrations
                         "bigint",       // GroupId
                         "varchar(255)", // UserName
                         "varchar(255)", // UserNameClean
-                        "int",          // UserRegdate
+                        "datetime",     // UserRegdate
                         "varchar(100)", // UserEmail
                         "varchar(30)",  // UserLang
                         "bigint",       // UserStyle
@@ -208,41 +208,41 @@ namespace digioz.Forum.Data.Migrations
                         "varchar(8)",   // UserSigBbcodeUid
                         "varchar(255)", // UserJabber
                         "varchar(32)",  // UserActkey
-                        "int",          // UserActkeyExpiration
-                        "varchar(255)",  // UserNewpasswd
+                        "datetime",     // UserActkeyExpiration
+                        "varchar(255)", // UserNewpasswd
                         "tinyint"       // UserAllowMassemail
                 },
                 columns: new[] {
-                        "UserId", "UserType", "GroupId", "UserName", "UserNameClean", "UserRegdate",
-                        "UserEmail", "UserLang", "UserStyle", "UserRank", "UserColor",
-                        "UserPosts", "UserPermissions", "UserIp", "UserBirthday",
-                        "UserLastPage", "UserLastConfirmKey", "UserPostSortbyType",
-                        "UserPostSortbyDir", "UserTopicSortbyType", "UserTopicSortbyDir",
-                        "UserAvatar", "UserSig", "UserSigBbcodeUid", "UserJabber",
-                        "UserActkey", "UserActkeyExpiration", "UserNewpasswd", "UserAllowMassemail"
+                    "UserId", "UserType", "GroupId", "UserName", "UserNameClean", "UserRegdate",
+                    "UserEmail", "UserLang", "UserStyle", "UserRank", "UserColor",
+                    "UserPosts", "UserPermissions", "UserIp", "UserBirthday",
+                    "UserLastPage", "UserLastConfirmKey", "UserPostSortbyType",
+                    "UserPostSortbyDir", "UserTopicSortbyType", "UserTopicSortbyDir",
+                    "UserAvatar", "UserSig", "UserSigBbcodeUid", "UserJabber",
+                    "UserActkey", "UserActkeyExpiration", "UserNewpasswd", "UserAllowMassemail"
                 },
                 values: new object[,]
                 {
-                        {
-                            // Anonymous user
-                            userId2, 2, 1, "Anonymous", "anonymous", 0,
-                            "", "en", 1, 0, "",
-                            0, "", "", "",
-                            "", "", "t",
-                            "a", "t", "d",
-                            "", "", "", "",
-                            "", 0, "", 0
-                        },
-                        {
-                            // Admin user
-                            userId1, 3, 5, "Admin", "admin", 0,
-                            "admin@yourdomain.com", "en", 1, 1, "AA0000",
-                            1, "", "", "",
-                            "", "", "t",
-                            "a", "t", "d",
-                            "", "", "", "",
-                            "", 0, "", 1
-                        }
+                    {
+                        // Anonymous user
+                        userId2, 2, 1, "Anonymous", "anonymous", DateTime.Now,
+                        "", "en", 1, 0, "",
+                        0, "", "", "",
+                        "", "", "t",
+                        "a", "t", "d",
+                        "", "", "", "",
+                        "", null, "", 0
+                    },
+                    {
+                        // Admin user
+                        userId1, 3, 5, "Admin", "admin", DateTime.Now,
+                        "admin@yourdomain.com", "en", 1, 1, "AA0000",
+                        1, "", "", "",
+                        "", "", "t",
+                        "a", "t", "d",
+                        "", "", "", "",
+                        "", null, "", 1
+                    }
                 });
 
             // Insert roles

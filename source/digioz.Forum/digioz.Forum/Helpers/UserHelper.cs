@@ -74,7 +74,7 @@ namespace digioz.Forum.Helpers
 
         public ForumUser GetDefaultUser()
         {
-            var dateStamp = DateTime.Now.Ticks;
+            var dateStamp = DateTime.Now;
 
             var user = new ForumUser()
             {
@@ -93,15 +93,15 @@ namespace digioz.Forum.Helpers
                 UserLastVisit = dateStamp,
                 UserLastActive = dateStamp,
                 UserLastMark = dateStamp,
-                UserLastPostTime = 0,
+                UserLastPostTime = null,
                 UserLastPage = string.Empty,
                 UserLastConfirmKey = string.Empty,
-                UserLastSearch = 0,
+                UserLastSearch = null,
                 UserWarnings = 0,
-                UserLastWarning = 0,
+                UserLastWarning = null,
                 UserLoginAttempts = 0,
                 UserInactiveReason = 0,
-                UserInactiveTime = 0,
+                UserInactiveTime = null,
                 UserPosts = 0,
                 UserLang = "en",
                 UserTimeZone = "UTC",
@@ -111,10 +111,10 @@ namespace digioz.Forum.Helpers
                 UserColor = string.Empty,
                 UserNewPrivmsg = 0,
                 UserUnreadPrivmsg = 0,
-                UserLastPrivmsg = 0,
+                UserLastPrivmsg = null,
                 UserMessageRules = 0,
                 UserFullFolder = -3,
-                UserEmailTime = 0,
+                UserEmailTime = null,
                 UserTopicShowDays = 0,
                 UserTopicSortbyType = "t",
                 UserTopicSortbyDir = "d",
@@ -138,14 +138,14 @@ namespace digioz.Forum.Helpers
                 UserSigBbcodeBitfield = string.Empty,
                 UserJabber = string.Empty,
                 UserActkey = string.Empty,
-                UserActkeyExpiration = 0,
+                UserActkeyExpiration = null,
                 ResetToken = string.Empty,
-                ResetTokenExpiration = 0,
+                ResetTokenExpiration = null,
                 UserNewpasswd = string.Empty,
                 UserFormSalt = string.Empty,
                 UserNew = 1,
                 UserReminded = 0,
-                UserRemindedTime = 0
+                UserRemindedTime = null
             };
             return user;
         }

@@ -44,7 +44,7 @@ namespace digioz.Forum.Helpers
                 {
                     var ipAddressHelper = new IpAddressHelper();
 
-                    var dateTimeInt = DateTime.Now.Ticks;
+                    var dateTimeInt = DateTime.Now;
                     var ipAddress = ipAddressHelper.GetIpAddress(httpContext);
                     var browser = ipAddressHelper.GetBrowser(httpContext);
                     var forumUserId = GetForumUserId(sessionUserId);
@@ -85,7 +85,7 @@ namespace digioz.Forum.Helpers
         {
             var ipAddressHelper = new IpAddressHelper();
             var session = _forumSessionService.Get(sessionId);
-            var dateTimeInt = DateTime.Now.Ticks;
+            var dateTimeInt = DateTime.Now;
             var ipAddress = ipAddressHelper.GetIpAddress(httpContext);
             var browser = ipAddressHelper.GetBrowser(httpContext);
             if (session != null)
