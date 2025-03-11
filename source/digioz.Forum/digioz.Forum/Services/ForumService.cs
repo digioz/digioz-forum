@@ -25,6 +25,14 @@ namespace digioz.Forum.Services
             return models;
         }
 
+        public List<Models.Forum> GetAllByRoleId(string roleId)
+        {
+            var forumIds = _context.ForumPermissions.Where(x => x.RoleId == roleId).Select(x => x.ForumId).ToList();
+
+            var models = _context.Forums.Where (x => forumIds.Contains(x.ForumId)).ToList();
+            return models;
+        }
+
         public void Add(Models.Forum forum)
         {
             _context.Forums.Add(forum);

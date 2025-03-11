@@ -4,9 +4,11 @@
 @using digioz.Forum.Services.Interfaces
 @inject ILayoutService LayoutService
 @inject IHttpContextAccessor HttpContextAccessor
+@inject IRoleService RoleService
+@inject IUserRoleService UserRoleService
 @{
     var layoutModel = LayoutService.GetLayoutData();
-    var userHelper = new UserHelper(HttpContextAccessor);
+    var userHelper = new UserHelper(HttpContextAccessor, RoleService, UserRoleService);
     var userId = userHelper.GetUserId();
     var loggedInUser = userHelper.GetForumUser(userId);
 }

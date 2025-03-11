@@ -10,22 +10,49 @@ namespace digioz.Forum.Areas.Forum.Pages
 {
     public class IndexModel : PageModel
     {
+        [BindProperty]
+        public List<digioz.Forum.Models.Forum> ForumList { get; set; }
+
         private readonly IForumSessionService _forumSessionService;
         private readonly ILogger<IndexModel> _logger;
+        private readonly IForumService _forumService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IRoleService _roleService;
+        private readonly IUserRoleService _userRoleService;
 
-        public IndexModel(ILogger<IndexModel> logger, IForumSessionService forumSessionService)
+        public IndexModel(ILogger<IndexModel> logger, IForumSessionService forumSessionService
+                         , IForumService forumService, IHttpContextAccessor httpContextAccessor
+                         , IRoleService roleService, IUserRoleService userRoleService)
         {
             _logger = logger;
             _forumSessionService = forumSessionService;
+            _forumService = forumService;
+            _httpContextAccessor = httpContextAccessor;
+            _roleService = roleService;
+            _userRoleService = userRoleService;
         }
 
         public void OnGet()
         {
             var forumSessionHelper = new ForumSessionHelper(_forumSessionService);
             forumSessionHelper.GetSession(HttpContext, User);
+            var userHelper = new UserHelper(_httpContextAccessor, _roleService, _userRoleService);
 
             var context = new DigiozForumContext();
             var users = context.AspNetUsers.ToList();
+            var userRoleId = string.Empty;
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                userRoleId = userHelper.GetUserRoleId(userId);
+            }
+            else
+            {
+                userRoleId = userHelper.GetUserRoleId(null);
+            }
+
+            ForumList = _forumService.GetAllByRoleId(userRoleId);
         }
     }
 }

@@ -250,9 +250,9 @@ public partial class DigiozForumContext : DbContext
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasDefaultValue("");
-            entity.Property(e => e.ForumPostsApproved).HasColumnName("ForumPosts_approved");
-            entity.Property(e => e.ForumPostsSoftdeleted).HasColumnName("ForumPosts_softdeleted");
-            entity.Property(e => e.ForumPostsUnapproved).HasColumnName("ForumPosts_unapproved");
+            //entity.Property(e => e.ForumPostsApproved).HasColumnName("ForumPosts_approved");
+            //entity.Property(e => e.ForumPostsSoftdeleted).HasColumnName("ForumPosts_softdeleted");
+            //entity.Property(e => e.ForumPostsUnapproved).HasColumnName("ForumPosts_unapproved");
             entity.Property(e => e.ForumRules).HasColumnType("text");
             entity.Property(e => e.ForumRulesBitfield)
                 .HasMaxLength(255)
@@ -267,9 +267,9 @@ public partial class DigiozForumContext : DbContext
                 .HasMaxLength(8)
                 .IsUnicode(false)
                 .HasDefaultValue("");
-            entity.Property(e => e.ForumTopicsApproved).HasColumnName("ForumTopics_approved");
-            entity.Property(e => e.ForumTopicsSoftdeleted).HasColumnName("ForumTopics_softdeleted");
-            entity.Property(e => e.ForumTopicsUnapproved).HasColumnName("ForumTopics_unapproved");
+            //entity.Property(e => e.ForumTopicsApproved).HasColumnName("ForumTopics_approved");
+            //entity.Property(e => e.ForumTopicsSoftdeleted).HasColumnName("ForumTopics_softdeleted");
+            //entity.Property(e => e.ForumTopicsUnapproved).HasColumnName("ForumTopics_unapproved");
             entity.Property(e => e.PruneShadowDays).HasDefaultValue(7L);
             entity.Property(e => e.PruneShadowFreq).HasDefaultValue(1L);
         });

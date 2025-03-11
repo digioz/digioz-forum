@@ -1,14 +1,20 @@
 ﻿using digioz.Forum.Models;
+using digioz.Forum.Services.Interfaces;
+using Microsoft.IdentityModel.Tokens;
 
 namespace digioz.Forum.Helpers
 {
     public class UserHelper
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IRoleService _roleService;
+        private readonly IUserRoleService _userRoleService;
 
-        public UserHelper(IHttpContextAccessor httpContextAccessor)
+        public UserHelper(IHttpContextAccessor httpContextAccessor, IRoleService roleService, IUserRoleService userRoleService)
         {
             _httpContextAccessor = httpContextAccessor;
+            _roleService = roleService;
+            _userRoleService = userRoleService;
         }
 
         public string GetUserId()
@@ -148,6 +154,39 @@ namespace digioz.Forum.Helpers
                 UserRemindedTime = null
             };
             return user;
+        }
+
+        public string GetUserRoleId(string aspNetUserId)
+        {
+            var roleId = string.Empty;
+            var roles = _roleService.GetAllDictionary();
+            var userRoles = _userRoleService.GetAllDictionary();
+
+            if (aspNetUserId.IsNullOrEmpty())
+            {
+                roleId = roles.FirstOrDefault(x => x.Value == "Guests").Key;
+            }
+            else
+            {
+                if (userRoles.ContainsKey("Administrators"))
+                {
+                    roleId = userRoles[aspNetUserId];
+                }
+                else if (userRoles.ContainsKey("Moderators"))
+                {
+                    roleId = userRoles[aspNetUserId];
+                }
+                else if (userRoles.ContainsKey("Registered"))
+                {
+                    roleId = userRoles[aspNetUserId];
+                }
+                else
+                {
+                    roleId = roles.FirstOrDefault(x => x.Value == "Guests").Key;
+                }
+            }
+
+            return roleId;
         }
     }
 }

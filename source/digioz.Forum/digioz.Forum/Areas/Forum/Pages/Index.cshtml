@@ -6,49 +6,62 @@
 }
 
 <div id="page-body" class="page-body" role="main">
-    <p class="right responsive-center time">It is currently Fri Nov 22, 2024 4:40 pm</p>
+    <p class="right responsive-center time">It is currently @DateTime.Now</p>
     <div class="forabg">
         <div class="inner">
-            <ul class="topiclist">
-                <li class="header">
-                    <dl class="row-item">
-                        <dt>
-                            <div class="list-inner"><a href="/Forum/Forum?f=1">Your first category</a></div>
-                        </dt>
-                        <dd class="topics">Topics</dd>
-                        <dd class="posts">Posts</dd>
-                        <dd class="lastpost"><span>Last post</span></dd>
-                    </dl>
-                </li>
-            </ul>
-            <ul class="topiclist forums">
-                <li class="row">
-                    <dl class="row-item forum_read">
-                        <dt title="No unread posts">
-                            <div class="list-inner">
-                                <a href="/Forum/Forum?f=2" class="forumtitle">Your first forum</a>
-                                <br />Description of your first forum.
-                                <div class="responsive-show" style="display: none;">
-                                    Topics: <strong>5</strong>
-                                </div>
-                            </div>
-                        </dt>
-                        <dd class="topics">5 <dfn>Topics</dfn></dd>
-                        <dd class="posts">9 <dfn>Posts</dfn></dd>
-                        <dd class="lastpost">
-                            <span>
-                                <dfn>Last post</dfn>
-                                <a href="/Forum/Topic?p=9#p9" title="Test 9/20/24 - 1" class="lastsubject">Test 9/20/24 - 1</a> <br />
-                                by <a href="/Forum/Members?mode=viewprofile&amp;u=2" style="color: #AA0000;" class="username-coloured">admin</a>
-                                <a href="/Forum/Topic?p=9#p9" title="View the latest post">
-                                    <i class="icon fa-external-link-square fa-fw icon-lightgray icon-md" aria-hidden="true"></i><span class="sr-only">View the latest post</span>
-                                </a>
-                                <br /><time datetime="2024-09-21T01:40:00+00:00">Sat Sep 21, 2024 1:40 am</time>
-                            </span>
-                        </dd>
-                    </dl>
-                </li>
-            </ul>
+            @{
+                var categories = Model.ForumList.Where(x => x.ForumType == 0).ToList();
+
+                foreach (var category in categories)
+                {
+                    <ul class="topiclist">
+                        <li class="header">
+                            <dl class="row-item">
+                                <dt>
+                                    <div class="list-inner"><a href="/Forum/Forum?f=@category.ForumId">@category.ForumName</a></div>
+                                </dt>
+                                <dd class="topics">Topics</dd>
+                                <dd class="posts">Posts</dd>
+                                <dd class="lastpost"><span>Last post</span></dd>
+                            </dl>
+                        </li>
+                    </ul>
+
+                    var forums = Model.ForumList.Where(x => x.ForumType == 1 && x.ParentId == category.ForumId).ToList();
+
+                    foreach (var forum in forums)
+                    {
+                        <ul class="topiclist forums">
+                            <li class="row">
+                                <dl class="row-item forum_read">
+                                    <dt title="No unread posts">
+                                        <div class="list-inner">
+                                            <a href="/Forum/Forum?f=@forum.ForumId" class="forumtitle">@forum.ForumName</a>
+                                            <br />@forum.ForumDesc
+                                            <div class="responsive-show" style="display: none;">
+                                                Topics: <strong>@forum.ForumTopicsApproved</strong>
+                                            </div>
+                                        </div>
+                                    </dt>
+                                    <dd class="topics">@forum.ForumTopicsApproved <dfn>Topics</dfn></dd>
+                                    <dd class="posts">@forum.ForumPostsApproved <dfn>Posts</dfn></dd>
+                                    <dd class="lastpost">
+                                        <span>
+                                            <dfn>Last post</dfn>
+                                            <a href="/Forum/Topic?p=@forum.ForumLastPostId#p@forum.ForumLastPostId" title="@forum.ForumLastPostSubject" class="lastsubject">@forum.ForumLastPostSubject</a> <br />
+                                            by <a href="/Forum/Members?mode=viewprofile&amp;u=@forum.ForumLastPosterId" style="color: @forum.ForumLastPosterColour;" class="username-coloured">@forum.ForumLastPosterName</a>
+                                            <a href="/Forum/Topic?p=@forum.ForumLastPostId#p@forum.ForumLastPostId" title="View the latest post">
+                                                <i class="icon fa-external-link-square fa-fw icon-lightgray icon-md" aria-hidden="true"></i><span class="sr-only">View the latest post</span>
+                                            </a>
+                                            <br /><time datetime="@forum.ForumLastPostTime">@forum.ForumLastPostTime</time>
+                                        </span>
+                                    </dd>
+                                </dl>
+                            </li>
+                        </ul>
+                    }
+                }
+            }
         </div>
     </div>
     @if (!User.Identity.IsAuthenticated)
@@ -61,7 +74,7 @@
     <div class="stat-block statistics">
         <h3>Statistics</h3>
         <p>
-            Total posts <strong>9</strong> &bull; Total topics <strong>5</strong> &bull; Total members <strong>1</strong> &bull; Our newest member <strong><a href="/Forum/Members?mode=viewprofile&amp;u=2" style="color: #AA0000;" class="username-coloured">admin</a></strong>
+            Total posts <strong>@Model.ForumList.Sum(f => f.ForumPostsApproved)</strong> &bull; Total topics <strong>@Model.ForumList.Sum(f => f.ForumTopicsApproved)</strong> &bull; Total members <strong>1</strong> &bull; Our newest member <strong><a href="/Forum/Members?mode=viewprofile&amp;u=2" style="color: #AA0000;" class="username-coloured">admin</a></strong>
         </p>
     </div>
 </div>
