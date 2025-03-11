@@ -1,6 +1,7 @@
 ﻿using digioz.Forum.Models;
 using digioz.Forum.Services;
 using digioz.Forum.Services.Interfaces;
+using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 
 namespace digioz.Forum.Helpers

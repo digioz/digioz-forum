@@ -23,6 +23,8 @@ builder.Services.AddScoped<IForumConfigService, ForumConfigService>();
 builder.Services.AddScoped<IForumSessionService, ForumSessionService>();
 builder.Services.AddScoped<IForumUserService, ForumUserService>();
 builder.Services.AddScoped<IForumService, ForumService>();
+builder.Services.AddScoped<IRoleService, RoleService>();
+builder.Services.AddScoped<IUserRoleService, UserRoleService>();
 
 builder.Services.AddRazorPages();
 builder.Services.AddSingleton<ILayoutService, LayoutService>();

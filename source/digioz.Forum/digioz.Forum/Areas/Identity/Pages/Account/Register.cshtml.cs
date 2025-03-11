@@ -34,6 +34,8 @@ namespace digioz.Forum.Areas.Identity.Pages.Account
         private readonly IEmailSender _emailSender;
         private readonly IForumSessionService _forumSessionService;
         private readonly IForumUserService _forumUserService;
+        private readonly IRoleService _roleService;
+        private readonly IUserRoleService _userRoleService;
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
@@ -42,7 +44,9 @@ namespace digioz.Forum.Areas.Identity.Pages.Account
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
             IForumSessionService forumSessionService,
-            IForumUserService forumUserService)
+            IForumUserService forumUserService,
+            IRoleService roleService,
+            IUserRoleService userRoleService)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -52,6 +56,8 @@ namespace digioz.Forum.Areas.Identity.Pages.Account
             _emailSender = emailSender;
             _forumSessionService = forumSessionService;
             _forumUserService = forumUserService;
+            _roleService = roleService;
+            _userRoleService = userRoleService;
         }
 
         /// <summary>
@@ -154,8 +160,8 @@ namespace digioz.Forum.Areas.Identity.Pages.Account
 
                     var userId = await _userManager.GetUserIdAsync(user);
 
-                    // Create Forum User Record
-                    var userHelper = new UserHelper(HttpContext.RequestServices.GetService<IHttpContextAccessor>());
+                    // Update the constructor call to include the missing 'roleService' parameter
+                    var userHelper = new UserHelper(HttpContext.RequestServices.GetService<IHttpContextAccessor>(), _roleService, _userRoleService);
                     var userIPHelper = new IpAddressHelper();
                     var forumUser = userHelper.GetDefaultUser();
 
