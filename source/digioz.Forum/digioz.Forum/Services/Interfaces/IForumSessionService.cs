@@ -12,5 +12,6 @@ namespace digioz.Forum.Services.Interfaces
         void Edit(ForumSession session);
         void Delete(int id);
         WhoIsOnlineViewModel GetWhoIsOnline(int duration);
+        StatisticsViewModel GetStatistics();
     }
 }

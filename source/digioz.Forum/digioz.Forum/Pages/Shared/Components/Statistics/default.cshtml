@@ -1,0 +1,22 @@
+﻿@using digioz.Forum.Services
+@using digioz.Forum.Services.Interfaces
+@using digioz.Forum.Models
+
+@inject IForumSessionService ForumSessionService
+
+@{
+    var stats = ForumSessionService.GetStatistics();
+}
+
+<div class="stat-block statistics">
+	<h3>Statistics</h3>
+	<p>
+		Total posts <strong>@stats.TotalPosts</strong> 
+		&bull; Total topics <strong>@stats.TotalTopics</strong>
+		&bull; Total members <strong>@stats.TotalMembers</strong>
+		&bull; Our newest member
+		<strong>
+			<a href="/Forum/Members?mode=viewprofile&amp;u=@stats.NewestMember.ForumUserId" style="color: #@stats.NewestMember.UserColor;" class="username-coloured">@stats.NewestMember.UserName</a>
+		</strong>
+	</p>
+</div>

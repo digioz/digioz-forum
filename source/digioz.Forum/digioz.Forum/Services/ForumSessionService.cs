@@ -75,5 +75,18 @@ namespace digioz.Forum.Services
 
             return model;
         }
+
+        public StatisticsViewModel GetStatistics()
+        {
+            var model = new StatisticsViewModel();
+            model.TotalMembers = _context.ForumUsers.Count();
+            model.TotalPosts = _context.ForumPosts.Count();
+            model.TotalTopics = _context.ForumTopics.Count();
+            #pragma warning disable CS8601 // Possible null reference assignment.
+            model.NewestMember = _context.ForumUsers.OrderByDescending(x => x.UserRegdate).FirstOrDefault();
+            #pragma warning restore CS8601 // Possible null reference assignment.
+
+            return model;
+        }
     }
 }
