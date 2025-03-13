@@ -1,5 +1,6 @@
 ﻿using digioz.Forum.Models;
 using digioz.Forum.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace digioz.Forum.Services
 {
@@ -38,6 +39,7 @@ namespace digioz.Forum.Services
 
             if (model != null)
             {
+                _context.Entry(model).State = EntityState.Detached;
                 _context.ForumConfigs.Update(forumConfig);
                 _context.SaveChanges();
             }

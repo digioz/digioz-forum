@@ -1,4 +1,5 @@
 ﻿using digioz.Forum.Models;
+using digioz.Forum.Models.ViewModels;
 
 namespace digioz.Forum.Services.Interfaces
 {
@@ -10,5 +11,6 @@ namespace digioz.Forum.Services.Interfaces
         void Add(ForumSession session);
         void Edit(ForumSession session);
         void Delete(int id);
+        WhoIsOnlineViewModel GetWhoIsOnline(int duration);
     }
 }

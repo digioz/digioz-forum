@@ -48,9 +48,9 @@
                                     <dd class="lastpost">
                                         <span>
                                             <dfn>Last post</dfn>
-                                            <a href="/Forum/Topic?p=@forum.ForumLastPostId#p@forum.ForumLastPostId" title="@forum.ForumLastPostSubject" class="lastsubject">@forum.ForumLastPostSubject</a> <br />
-                                            by <a href="/Forum/Members?mode=viewprofile&amp;u=@forum.ForumLastPosterId" style="color: @forum.ForumLastPosterColour;" class="username-coloured">@forum.ForumLastPosterName</a>
-                                            <a href="/Forum/Topic?p=@forum.ForumLastPostId#p@forum.ForumLastPostId" title="View the latest post">
+                                            <a href="/Forum/Topic?p=@forum.ForumLastPostId#p@(forum.ForumLastPostId)" title="@forum.ForumLastPostSubject" class="lastsubject">@forum.ForumLastPostSubject</a> <br />
+                                            by <a href="/Forum/Members?mode=viewprofile&amp;u=@forum.ForumLastPosterId" style="color: #@(forum.ForumLastPosterColour);" class="username-coloured">@forum.ForumLastPosterName</a>
+                                            <a href="/Forum/Topic?p=@forum.ForumLastPostId#p@(forum.ForumLastPostId)" title="View the latest post">
                                                 <i class="icon fa-external-link-square fa-fw icon-lightgray icon-md" aria-hidden="true"></i><span class="sr-only">View the latest post</span>
                                             </a>
                                             <br /><time datetime="@forum.ForumLastPostTime">@forum.ForumLastPostTime</time>
@@ -74,7 +74,10 @@
     <div class="stat-block statistics">
         <h3>Statistics</h3>
         <p>
-            Total posts <strong>@Model.ForumList.Sum(f => f.ForumPostsApproved)</strong> &bull; Total topics <strong>@Model.ForumList.Sum(f => f.ForumTopicsApproved)</strong> &bull; Total members <strong>1</strong> &bull; Our newest member <strong><a href="/Forum/Members?mode=viewprofile&amp;u=2" style="color: #AA0000;" class="username-coloured">admin</a></strong>
+            Total posts <strong>@Model.ForumList.Sum(f => f.ForumPostsApproved)</strong> &bull; 
+            Total topics <strong>@Model.ForumList.Sum(f => f.ForumTopicsApproved)</strong> &bull; 
+            Total members <strong>1</strong> &bull; Our newest member <strong>
+            <a href="/Forum/Members?mode=viewprofile&amp;u=2" style="color: #AA0000;" class="username-coloured">admin</a></strong>
         </p>
     </div>
 </div>
