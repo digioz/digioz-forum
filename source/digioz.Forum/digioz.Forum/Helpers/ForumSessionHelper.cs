@@ -1,4 +1,5 @@
 ﻿using digioz.Forum.Models;
+using digioz.Forum.Models.ViewModels;
 using digioz.Forum.Services;
 using digioz.Forum.Services.Interfaces;
 using Microsoft.IdentityModel.Tokens;
@@ -99,6 +100,13 @@ namespace digioz.Forum.Helpers
                 session.SessionUserId = GetForumUserId(sessionUserId);
                 _forumSessionService.Edit(session);
             }
+        }
+
+        public StatisticsViewModel GetStatistics()
+        {
+            var stats = _forumSessionService.GetStatistics();
+
+            return stats;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using digioz.Forum.Models;
+using digioz.Forum.Models.ViewModels;
 using digioz.Forum.Services.Interfaces;
 using Microsoft.Build.Framework;
 
@@ -63,6 +64,29 @@ namespace digioz.Forum.Services
                 _context.ForumSessions.Remove(model);
                 _context.SaveChanges();
             }
+        }
+
+        public WhoIsOnlineViewModel GetWhoIsOnline(int duration)
+        {
+            var model = new WhoIsOnlineViewModel();
+            model.UsersOnline = _context.ForumSessions.Where(x => x.SessionTime > System.DateTime.Now.AddMinutes(-duration)).Count();
+            model.UsersRegistered = _context.ForumSessions.Where(x => x.SessionTime > System.DateTime.Now.AddMinutes(-duration) && x.SessionUserId != 0).Count();
+            model.UsersGuests = model.UsersOnline - model.UsersRegistered;
+
+            return model;
+        }
+
+        public StatisticsViewModel GetStatistics()
+        {
+            var model = new StatisticsViewModel();
+            model.TotalMembers = _context.ForumUsers.Count();
+            model.TotalPosts = _context.ForumPosts.Count();
+            model.TotalTopics = _context.ForumTopics.Count();
+            #pragma warning disable CS8601 // Possible null reference assignment.
+            model.NewestMember = _context.ForumUsers.OrderByDescending(x => x.UserRegdate).FirstOrDefault();
+            #pragma warning restore CS8601 // Possible null reference assignment.
+
+            return model;
         }
     }
 }
