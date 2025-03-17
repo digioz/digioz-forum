@@ -8,6 +8,8 @@ namespace digioz.Forum.Areas.Forum.Pages
 {
     public class McpModel : PageModel
     {
+        public string UniqueSessionId { get; private set; }
+
         private readonly IForumSessionService _forumSessionService;
 
         public McpModel(IForumSessionService forumSessionService)
@@ -17,8 +19,15 @@ namespace digioz.Forum.Areas.Forum.Pages
 
         public void OnGet()
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("UniqueSessionId")))
+            {
+                HttpContext.Session.SetString("UniqueSessionId", Guid.NewGuid().ToString());
+            }
+
+            UniqueSessionId = HttpContext.Session.GetString("UniqueSessionId");
+
             var forumSessionHelper = new ForumSessionHelper(_forumSessionService);
-            forumSessionHelper.GetSession(HttpContext, User);
+            forumSessionHelper.GetSession(HttpContext, User, UniqueSessionId);
         }
     }
 }

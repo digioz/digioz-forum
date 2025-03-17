@@ -20,6 +20,8 @@ namespace digioz.Forum.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class RegisterConfirmationModel : PageModel
     {
+        public string UniqueSessionId { get; private set; }
+
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IEmailSender _sender;
         private readonly IForumSessionService _forumSessionService;
@@ -51,8 +53,15 @@ namespace digioz.Forum.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnGetAsync(string email, string returnUrl = null)
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("UniqueSessionId")))
+            {
+                HttpContext.Session.SetString("UniqueSessionId", Guid.NewGuid().ToString());
+            }
+
+            UniqueSessionId = HttpContext.Session.GetString("UniqueSessionId");
+
             var forumSessionHelper = new ForumSessionHelper(_forumSessionService);
-            forumSessionHelper.GetSession(HttpContext, User);
+            forumSessionHelper.GetSession(HttpContext, User, UniqueSessionId);
 
             if (email == null)
             {

@@ -8,19 +8,26 @@ namespace digioz.Forum.Areas.Forum.Pages
 {
     public class PrivacyModel : PageModel
     {
-        private readonly IForumSessionService _forumSessionService;
-        private readonly ILogger<PrivacyModel> _logger;
+        public string UniqueSessionId { get; private set; }
 
-        public PrivacyModel(ILogger<PrivacyModel> logger, IForumSessionService forumSessionService)
+        private readonly IForumSessionService _forumSessionService;
+
+        public PrivacyModel(IForumSessionService forumSessionService)
         {
-            _logger = logger;
             _forumSessionService = forumSessionService;
         }
 
         public void OnGet()
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("UniqueSessionId")))
+            {
+                HttpContext.Session.SetString("UniqueSessionId", Guid.NewGuid().ToString());
+            }
+
+            UniqueSessionId = HttpContext.Session.GetString("UniqueSessionId");
+
             var forumSessionHelper = new ForumSessionHelper(_forumSessionService);
-            forumSessionHelper.GetSession(HttpContext, User);
+            forumSessionHelper.GetSession(HttpContext, User, UniqueSessionId);
         }
     }
 

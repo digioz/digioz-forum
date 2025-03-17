@@ -16,9 +16,9 @@ namespace digioz.Forum.Helpers
             _forumSessionService = forumSessionService;
         }
 
-        public void GetSession(HttpContext httpContext, ClaimsPrincipal user)
+        public void GetSession(HttpContext httpContext, ClaimsPrincipal user, string uniqueSessionId)
         {
-            var sessionId = httpContext.Session.Id;
+            var sessionId = uniqueSessionId;
             var pageName = httpContext.Request.Path;
             var sessionUserId = user.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
             AddSession(httpContext, sessionId, pageName, sessionUserId);

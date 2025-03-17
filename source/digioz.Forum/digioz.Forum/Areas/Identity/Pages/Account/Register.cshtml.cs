@@ -26,6 +26,8 @@ namespace digioz.Forum.Areas.Identity.Pages.Account
 {
     public class RegisterModel : PageModel
     {
+        public string UniqueSessionId { get; private set; }
+
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IUserStore<IdentityUser> _userStore;
@@ -126,8 +128,15 @@ namespace digioz.Forum.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("UniqueSessionId")))
+            {
+                HttpContext.Session.SetString("UniqueSessionId", Guid.NewGuid().ToString());
+            }
+
+            UniqueSessionId = HttpContext.Session.GetString("UniqueSessionId");
+
             var forumSessionHelper = new ForumSessionHelper(_forumSessionService);
-            forumSessionHelper.GetSession(HttpContext, User);
+            forumSessionHelper.GetSession(HttpContext, User, UniqueSessionId);
 
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();

@@ -19,6 +19,8 @@ namespace digioz.Forum.Areas.Identity.Pages.Account
 {
     public class LoginWith2faModel : PageModel
     {
+        public string UniqueSessionId { get; private set; }
+
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger<LoginWith2faModel> _logger;
@@ -81,8 +83,15 @@ namespace digioz.Forum.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnGetAsync(bool rememberMe, string returnUrl = null)
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("UniqueSessionId")))
+            {
+                HttpContext.Session.SetString("UniqueSessionId", Guid.NewGuid().ToString());
+            }
+
+            UniqueSessionId = HttpContext.Session.GetString("UniqueSessionId");
+
             var forumSessionHelper = new ForumSessionHelper(_forumSessionService);
-            forumSessionHelper.GetSession(HttpContext, User);
+            forumSessionHelper.GetSession(HttpContext, User, UniqueSessionId);
 
             // Ensure the user has gone through the username & password screen first
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();

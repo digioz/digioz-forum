@@ -19,6 +19,8 @@ namespace digioz.Forum.Areas.Identity.Pages.Account
 {
     public class ConfirmEmailModel : PageModel
     {
+        public string UniqueSessionId { get; private set; }
+
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IForumSessionService _forumSessionService;
 
@@ -36,8 +38,15 @@ namespace digioz.Forum.Areas.Identity.Pages.Account
         public string StatusMessage { get; set; }
         public async Task<IActionResult> OnGetAsync(string userId, string code)
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("UniqueSessionId")))
+            {
+                HttpContext.Session.SetString("UniqueSessionId", Guid.NewGuid().ToString());
+            }
+
+            UniqueSessionId = HttpContext.Session.GetString("UniqueSessionId");
+
             var forumSessionHelper = new ForumSessionHelper(_forumSessionService);
-            forumSessionHelper.GetSession(HttpContext, User);
+            forumSessionHelper.GetSession(HttpContext, User, UniqueSessionId);
 
             if (userId == null || code == null)
             {
