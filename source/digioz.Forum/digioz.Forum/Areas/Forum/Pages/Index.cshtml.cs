@@ -13,6 +13,8 @@ namespace digioz.Forum.Areas.Forum.Pages
         [BindProperty]
         public List<digioz.Forum.Models.Forum> ForumList { get; set; }
 
+        public string UniqueSessionId { get; private set; }
+
         private readonly IForumSessionService _forumSessionService;
         private readonly ILogger<IndexModel> _logger;
         private readonly IForumService _forumService;
@@ -34,8 +36,15 @@ namespace digioz.Forum.Areas.Forum.Pages
 
         public void OnGet()
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("UniqueSessionId")))
+            {
+                HttpContext.Session.SetString("UniqueSessionId", Guid.NewGuid().ToString());
+            }
+
+            UniqueSessionId = HttpContext.Session.GetString("UniqueSessionId");
+
             var forumSessionHelper = new ForumSessionHelper(_forumSessionService);
-            forumSessionHelper.GetSession(HttpContext, User);
+            forumSessionHelper.GetSession(HttpContext, User, UniqueSessionId);
             var userHelper = new UserHelper(_httpContextAccessor, _roleService, _userRoleService);
 
             var context = new DigiozForumContext();

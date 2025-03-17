@@ -69,8 +69,13 @@ namespace digioz.Forum.Services
         public WhoIsOnlineViewModel GetWhoIsOnline(int duration)
         {
             var model = new WhoIsOnlineViewModel();
-            model.UsersOnline = _context.ForumSessions.Where(x => x.SessionTime > System.DateTime.Now.AddMinutes(-duration)).Count();
-            model.UsersRegistered = _context.ForumSessions.Where(x => x.SessionTime > System.DateTime.Now.AddMinutes(-duration) && x.SessionUserId != 0).Count();
+            model.UsersOnline = _context.ForumSessions
+                .Where(x => x.SessionTime > System.DateTime.Now.AddMinutes(-duration))
+                .GroupBy(x => new { x.SessionIp, x.SessionId })
+                .Count();
+            model.UsersRegistered = _context.ForumSessions.Where(x => x.SessionTime > System.DateTime.Now.AddMinutes(-duration) && x.SessionUserId != 0)
+                .GroupBy(x => new { x.SessionIp, x.SessionId })
+                .Count();
             model.UsersGuests = model.UsersOnline - model.UsersRegistered;
 
             return model;
