@@ -16,7 +16,7 @@ namespace digioz.Forum.Areas.Forum.Pages
         public string UniqueSessionId { get; private set; }
 
         [BindProperty]
-        public string RoleId { get; set; } = string.Empty;
+        public AspNetRole Role { get; set; }
 
         private readonly IForumSessionService _forumSessionService;
         private readonly ILogger<IndexModel> _logger;
@@ -50,19 +50,17 @@ namespace digioz.Forum.Areas.Forum.Pages
             forumSessionHelper.GetSession(HttpContext, User, UniqueSessionId);
             var userHelper = new UserHelper(_httpContextAccessor, _roleService, _userRoleService);
 
-            var userRoleId = string.Empty;
-
             if (User.Identity.IsAuthenticated)
             {
                 var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-                userRoleId = userHelper.GetUserRoleId(userId);
+                Role = userHelper.GetUserRoleId(userId);
             }
             else
             {
-                userRoleId = userHelper.GetUserRoleId(null);
+                Role = userHelper.GetUserRoleId(null);
             }
 
-            ForumList = _forumService.GetAllByRoleId(userRoleId);
+            ForumList = _forumService.GetAllByRoleId(Role.Id);
         }
     }
 }

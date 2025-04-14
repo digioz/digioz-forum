@@ -156,9 +156,10 @@ namespace digioz.Forum.Helpers
             return user;
         }
 
-        public string GetUserRoleId(string aspNetUserId)
+        public AspNetRole GetUserRoleId(string aspNetUserId)
         {
             var roleId = string.Empty;
+            var role = new AspNetRole();
             var roles = _roleService.GetAllDictionary();
             var userRoles = _userRoleService.GetAllDictionary();
 
@@ -186,7 +187,9 @@ namespace digioz.Forum.Helpers
                 }
             }
 
-            return roleId;
+            role = _roleService.Get(roleId);
+
+            return role;
         }
     }
 }

@@ -20,7 +20,7 @@ namespace digioz.Forum.Areas.Forum.Pages
         public string UniqueSessionId { get; private set; }
 
         [BindProperty]
-        public string RoleId { get; set; } = string.Empty;
+        public AspNetRole Role { get; set; }
 
         private readonly IForumSessionService _forumSessionService;
         private readonly ILogger<IndexModel> _logger;
@@ -60,20 +60,17 @@ namespace digioz.Forum.Areas.Forum.Pages
             // Get Forum Instance
             if (f > 0)
             {
-                var userRoleId = string.Empty;
-
                 if (User.Identity.IsAuthenticated)
                 {
                     var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-                    userRoleId = userHelper.GetUserRoleId(userId);
-                    RoleId = userRoleId;
+                    Role = userHelper.GetUserRoleId(userId);
                 }
                 else
                 {
-                    userRoleId = userHelper.GetUserRoleId(null);
+                    Role = userHelper.GetUserRoleId(null);
                 }
 
-                var forums = _forumService.GetAllByRoleId(userRoleId);
+                var forums = _forumService.GetAllByRoleId(Role.Id);
 
                 ForumInstance = forums.Where(x => x.ForumId == f).SingleOrDefault();
 
