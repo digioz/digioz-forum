@@ -5,7 +5,7 @@ namespace digioz.Forum.Models;
 
 public partial class ForumLog
 {
-    public int LogId { get; set; }
+    public long LogId { get; set; }
 
     public byte LogType { get; set; }
 

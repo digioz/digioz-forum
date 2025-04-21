@@ -289,7 +289,7 @@ namespace digioz.Forum.Data.Migrations
                 name: "ForumLog",
                 columns: table => new
                 {
-                    LogId = table.Column<int>(type: "int", nullable: false)
+                    LogId = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     LogType = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
                     UserId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
@@ -876,7 +876,7 @@ namespace digioz.Forum.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     PostId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
-                    LogId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    LogId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     WarningTime = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
