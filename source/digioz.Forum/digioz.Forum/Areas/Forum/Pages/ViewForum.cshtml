@@ -48,32 +48,39 @@
                 </li>
             </ul>
             <ul class="topiclist topics">
+            @foreach (var topic in Model.Topics)
+            {
                 <li class="row bg1">
                     <dl class="row-item topic_read_mine">
                         <dt title="No unread posts">
                             <div class="list-inner">
-                                <a href="/Forum/ViewTopic?t=1" class="topictitle">Welcome to phpBB3</a>																								<br>
+                                <a href="/Forum/ViewTopic?t=@topic.TopicId" class="topictitle">@topic.TopicTitle</a><br>
                                 <div class="responsive-show" style="display: none;">
-                                    Last post by <a href="/Forum/Members?mode=viewprofile&amp;u=2" style="color: #AA0000;" class="username-coloured">admin</a> « 
-                                        <a href="/Forum/ViewTopic?p=1#p1" title="Go to last post"><time datetime="2025-02-04T17:03:24+00:00">Tue Feb 04, 2025 5:03 pm</time></a>
+                                        Last post by <a href="/Forum/Members?mode=viewprofile&amp;u=@topic.TopicLastPosterId" style="color: #@topic.TopicLastPosterColor;" class="username-coloured">@topic.TopicLastPosterName</a> «
+                                    <a href="/Forum/ViewTopic?p=@topic.TopicLastPostId#p@topic.LastPostId" title="Go to last post">
+                                        <time datetime="@topic.TopicLastPostTime">@topic.TopicLastPostTime</time>
+                                    </a>
                                 </div>
                                 <div class="topic-poster responsive-hide left-box">
-                                    by <a href="/Forum/Members?mode=viewprofile&amp;u=2" style="color: #AA0000;" class="username-coloured">admin</a> » <time datetime="2025-02-04T17:03:24+00:00">Tue Feb 04, 2025 5:03 pm</time>
+                                        by <a href="/Forum/Members?mode=viewprofile&amp;u=@topic.TopicLastPosterId" style="color: #@topic.TopicLastPosterColor;" class="username-coloured">@topic.TopicLastPosterName</a> »
+                                    <time datetime="@topic.TopicLastPostTime">@topic.TopicLastPostTime</time>
                                 </div>
                             </div>
                         </dt>
-                        <dd class="posts">0 <dfn>Replies</dfn></dd>
-                        <dd class="views">2 <dfn>Views</dfn></dd>
+                        <dd class="posts">@topic.TopicPostsApproved<dfn>Replies</dfn></dd>
+                        <dd class="views">@topic.TopicViews <dfn>Views</dfn></dd>
                         <dd class="lastpost">
                             <span>
-                                <dfn>Last post </dfn>by <a href="/Forum/Members?mode=viewprofile&amp;u=2" style="color: #AA0000;" class="username-coloured">admin</a>													<a href="/Forum/ViewTopic?p=1#p1" title="Go to last post">
+                                    <dfn>Last post </dfn>by <a href="/Forum/Members?mode=viewprofile&amp;u=@topic.TopicLastPosterId" style="color: #@topic.TopicLastPosterColor;" class="username-coloured">@topic.TopicLastPosterName</a>
+                                <a href="/Forum/ViewTopic?p=@topic.TopicLastPostId#p@topic.LastPostId" title="Go to last post">
                                     <i class="icon fa-external-link-square fa-fw icon-lightgray icon-md" aria-hidden="true"></i><span class="sr-only"></span>
                                 </a>
-                                <br><time datetime="2025-02-04T17:03:24+00:00">Tue Feb 04, 2025 5:03 pm</time>
+                                <br><time datetime="@topic.TopicLastPostTime">@topic.TopicLastPostTime</time>
                             </span>
                         </dd>
                     </dl>
                 </li>
+            }
             </ul>
         </div>
     </div>

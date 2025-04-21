@@ -15,7 +15,7 @@ namespace digioz.Forum.Areas.Forum.Pages
         public digioz.Forum.Models.Forum ForumInstance { get; set; }
 
         [BindProperty]
-        public List<ForumPost> Posts { get; set; }
+        public List<ForumTopic> Topics { get; set; }
 
         public string UniqueSessionId { get; private set; }
 
@@ -29,11 +29,12 @@ namespace digioz.Forum.Areas.Forum.Pages
         private readonly IRoleService _roleService;
         private readonly IUserRoleService _userRoleService;
         private readonly IForumPostService _forumPostService;
+        private readonly IForumTopicService _forumTopicService;
 
         public ViewForumModel(ILogger<IndexModel> logger, IForumSessionService forumSessionService
                          , IForumService forumService, IHttpContextAccessor httpContextAccessor
                          , IRoleService roleService, IUserRoleService userRoleService
-                         , IForumPostService forumPostService)
+                         , IForumPostService forumPostService, IForumTopicService forumTopicService)
         {
             _logger = logger;
             _forumSessionService = forumSessionService;
@@ -42,6 +43,7 @@ namespace digioz.Forum.Areas.Forum.Pages
             _roleService = roleService;
             _userRoleService = userRoleService;
             _forumPostService = forumPostService;
+            _forumTopicService = forumTopicService;
         }
 
         public void OnGet(int f)
@@ -85,7 +87,7 @@ namespace digioz.Forum.Areas.Forum.Pages
             // Get all Forum Posts by Forum Id
             if (ForumInstance != null)
             {
-                Posts = _forumPostService.GetAllByForumId(ForumInstance.ForumId).Where(x => x.PostVisibility == 1).ToList();
+                Topics = _forumTopicService.GetAllByForumId(ForumInstance.ForumId).Where(x => x.TopicVisibility == 1).ToList();
             }
         }
     }
