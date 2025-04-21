@@ -6,13 +6,13 @@ using System.Security.Claims;
 
 namespace digioz.Forum.Areas.Forum.Pages
 {
-    public class ForumModel : PageModel
+    public class ViewTopicModel : PageModel
     {
         public string UniqueSessionId { get; private set; }
 
         private readonly IForumSessionService _forumSessionService;
 
-        public ForumModel(IForumSessionService forumSessionService)
+        public ViewTopicModel(IForumSessionService forumSessionService)
         {
             _forumSessionService = forumSessionService;
         }

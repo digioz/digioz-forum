@@ -9,9 +9,9 @@ public partial class ForumWarning
 
     public int UserId { get; set; }
 
-    public int PostId { get; set; }
+    public long PostId { get; set; }
 
-    public int LogId { get; set; }
+    public long LogId { get; set; }
 
     public DateTime? WarningTime { get; set; }
 }

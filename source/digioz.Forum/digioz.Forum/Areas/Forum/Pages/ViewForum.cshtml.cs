@@ -1,17 +1,21 @@
-using digioz.Forum.Data;
 using digioz.Forum.Helpers;
 using digioz.Forum.Models;
+using digioz.Forum.Services;
 using digioz.Forum.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.ComponentModel;
 using System.Security.Claims;
 
 namespace digioz.Forum.Areas.Forum.Pages
 {
-    public class IndexModel : PageModel
+    public class ViewForumModel : PageModel
     {
         [BindProperty]
-        public List<digioz.Forum.Models.Forum> ForumList { get; set; }
+        public digioz.Forum.Models.Forum ForumInstance { get; set; }
+
+        [BindProperty]
+        public List<ForumPost> Posts { get; set; }
 
         public string UniqueSessionId { get; private set; }
 
@@ -24,10 +28,12 @@ namespace digioz.Forum.Areas.Forum.Pages
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IRoleService _roleService;
         private readonly IUserRoleService _userRoleService;
+        private readonly IForumPostService _forumPostService;
 
-        public IndexModel(ILogger<IndexModel> logger, IForumSessionService forumSessionService
+        public ViewForumModel(ILogger<IndexModel> logger, IForumSessionService forumSessionService
                          , IForumService forumService, IHttpContextAccessor httpContextAccessor
-                         , IRoleService roleService, IUserRoleService userRoleService)
+                         , IRoleService roleService, IUserRoleService userRoleService
+                         , IForumPostService forumPostService)
         {
             _logger = logger;
             _forumSessionService = forumSessionService;
@@ -35,9 +41,10 @@ namespace digioz.Forum.Areas.Forum.Pages
             _httpContextAccessor = httpContextAccessor;
             _roleService = roleService;
             _userRoleService = userRoleService;
+            _forumPostService = forumPostService;
         }
 
-        public void OnGet()
+        public void OnGet(int f)
         {
             if (string.IsNullOrEmpty(HttpContext.Session.GetString("UniqueSessionId")))
             {
@@ -50,17 +57,36 @@ namespace digioz.Forum.Areas.Forum.Pages
             forumSessionHelper.GetSession(HttpContext, User, UniqueSessionId);
             var userHelper = new UserHelper(_httpContextAccessor, _roleService, _userRoleService);
 
-            if (User.Identity.IsAuthenticated)
+            // Get Forum Instance
+            if (f > 0)
             {
-                var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-                Role = userHelper.GetUserRoleId(userId);
-            }
-            else
-            {
-                Role = userHelper.GetUserRoleId(null);
+                if (User.Identity.IsAuthenticated)
+                {
+                    var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                    Role = userHelper.GetUserRoleId(userId);
+                }
+                else
+                {
+                    Role = userHelper.GetUserRoleId(null);
+                }
+
+                var forums = _forumService.GetAllByRoleId(Role.Id);
+
+                ForumInstance = forums.Where(x => x.ForumId == f).SingleOrDefault();
+
+                if (ForumInstance == null)
+                {
+                    // Redirect to Forum Index since user does not
+                    // have permission to view this forum
+                    Response.Redirect("/Forum/Index");
+                }
             }
 
-            ForumList = _forumService.GetAllByRoleId(Role.Id);
+            // Get all Forum Posts by Forum Id
+            if (ForumInstance != null)
+            {
+                Posts = _forumPostService.GetAllByForumId(ForumInstance.ForumId).Where(x => x.PostVisibility == 1).ToList();
+            }
         }
     }
 }

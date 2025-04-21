@@ -5,7 +5,7 @@ namespace digioz.Forum.Models;
 
 public partial class ForumTopic
 {
-    public int TopicId { get; set; }
+    public long TopicId { get; set; }
 
     public long ForumId { get; set; }
 
@@ -29,13 +29,13 @@ public partial class ForumTopic
 
     public byte TopicType { get; set; }
 
-    public int TopicFirstPostId { get; set; }
+    public long TopicFirstPostId { get; set; }
 
     public string TopicFirstPosterName { get; set; } = null!;
 
     public string TopicFirstPosterColor { get; set; } = null!;
 
-    public int TopicLastPostId { get; set; }
+    public long TopicLastPostId { get; set; }
 
     public int TopicLastPosterId { get; set; }
 
@@ -49,7 +49,7 @@ public partial class ForumTopic
 
     public DateTime? TopicLastViewTime { get; set; }
 
-    public int TopicMovedId { get; set; }
+    public long TopicMovedId { get; set; }
 
     public byte TopicBumped { get; set; }
 

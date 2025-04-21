@@ -7,9 +7,9 @@ public partial class ForumAttachment
 {
     public int AttachId { get; set; }
 
-    public int PostMsgId { get; set; }
+    public long PostMsgId { get; set; }
 
-    public int TopicId { get; set; }
+    public long TopicId { get; set; }
 
     public byte InMessage { get; set; }
 

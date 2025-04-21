@@ -5,7 +5,7 @@ namespace digioz.Forum.Models;
 
 public partial class ForumTopicsWatch
 {
-    public int TopicId { get; set; }
+    public long TopicId { get; set; }
 
     public int UserId { get; set; }
 
