@@ -37,7 +37,7 @@ namespace digioz.Forum.Data.Migrations
                     ForumTopicsPerPage = table.Column<short>(type: "smallint", nullable: false, defaultValue: 0),
                     ForumType = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
                     ForumStatus = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
-                    ForumLastPostId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    ForumLastPostId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     ForumLastPosterId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     ForumLastPostSubject = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
                     ForumLastPostTime = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -77,8 +77,8 @@ namespace digioz.Forum.Data.Migrations
                 {
                     AttachId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    PostMsgId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
-                    TopicId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    PostMsgId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
+                    TopicId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     InMessage = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
                     PosterId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     IsOrphan = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 1),
@@ -141,7 +141,7 @@ namespace digioz.Forum.Data.Migrations
                 name: "ForumBookmark",
                 columns: table => new
                 {
-                    TopicId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    TopicId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     UserId = table.Column<int>(type: "int", nullable: false, defaultValue: 0)
                 },
                 constraints: table =>
@@ -186,7 +186,7 @@ namespace digioz.Forum.Data.Migrations
                     DraftId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
-                    TopicId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    TopicId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     ForumId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     SaveTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DraftSubject = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
@@ -294,8 +294,8 @@ namespace digioz.Forum.Data.Migrations
                     LogType = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
                     UserId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     ForumId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
-                    TopicId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
-                    PostId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    TopicId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
+                    PostId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     ReporteeId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     LogIp = table.Column<string>(type: "varchar(40)", nullable: false, defaultValue: ""),
                     LogTime = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -347,7 +347,7 @@ namespace digioz.Forum.Data.Migrations
                 columns: table => new
                 {
                     PollOptionId = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
-                    TopicId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    TopicId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     PollOptionText = table.Column<string>(type: "text", nullable: false),
                     PollOptionTotal = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0)
                 },
@@ -360,7 +360,7 @@ namespace digioz.Forum.Data.Migrations
                 name: "ForumPollVote",
                 columns: table => new
                 {
-                    TopicId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    TopicId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     PollOptionId = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
                     VoteUserId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     VoteUserIp = table.Column<string>(type: "varchar(40)", nullable: false, defaultValue: "")
@@ -374,9 +374,9 @@ namespace digioz.Forum.Data.Migrations
                 name: "ForumPost",
                 columns: table => new
                 {
-                    PostId = table.Column<long>(type: "int", nullable: false)
+                    PostId = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TopicId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    TopicId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     ForumId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     PosterId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     IconId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
@@ -591,7 +591,7 @@ namespace digioz.Forum.Data.Migrations
                     ReportId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ReasonId = table.Column<short>(type: "smallint", nullable: false, defaultValue: 0),
-                    PostId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    PostId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     UserId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     UserNotify = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
                     ReportClosed = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
@@ -691,7 +691,7 @@ namespace digioz.Forum.Data.Migrations
                 name: "ForumTopic",
                 columns: table => new
                 {
-                    TopicId = table.Column<int>(type: "int", nullable: false)
+                    TopicId = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ForumId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     IconId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
@@ -704,17 +704,17 @@ namespace digioz.Forum.Data.Migrations
                     TopicViews = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     TopicStatus = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
                     TopicType = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
-                    TopicFirstPostId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    TopicFirstPostId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     TopicFirstPosterName = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
                     TopicFirstPosterColor = table.Column<string>(type: "varchar(6)", nullable: false, defaultValue: ""),
-                    TopicLastPostId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    TopicLastPostId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     TopicLastPosterId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     TopicLastPosterName = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
                     TopicLastPosterColor = table.Column<string>(type: "varchar(6)", nullable: false, defaultValue: ""),
                     TopicLastPostSubject = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
                     TopicLastPostTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     TopicLastViewTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    TopicMovedId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    TopicMovedId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     TopicBumped = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0),
                     TopicBumper = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     PollTitle = table.Column<string>(type: "varchar(255)", nullable: false, defaultValue: ""),
@@ -741,7 +741,7 @@ namespace digioz.Forum.Data.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
-                    TopicId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    TopicId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     TopicPosted = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0)
                 },
                 constraints: table =>
@@ -754,7 +754,7 @@ namespace digioz.Forum.Data.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
-                    TopicId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    TopicId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     ForumId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     MarkTime = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
@@ -767,7 +767,7 @@ namespace digioz.Forum.Data.Migrations
                 name: "ForumTopicsWatch",
                 columns: table => new
                 {
-                    TopicId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    TopicId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     UserId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     NotifyStatus = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: 0)
                 },
@@ -875,7 +875,7 @@ namespace digioz.Forum.Data.Migrations
                     WarningId = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
-                    PostId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    PostId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
                     LogId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     WarningTime = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },

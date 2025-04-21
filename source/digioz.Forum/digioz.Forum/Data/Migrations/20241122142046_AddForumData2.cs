@@ -35,7 +35,7 @@ namespace digioz.Forum.Data.Migrations
                     "bigint",       // ForumTopicsApproved
                     "bigint",       // ForumTopicsUnapproved
                     "bigint",       // ForumTopicsSoftDeleted
-                    "int",          // ForumLastPostId
+                    "bigint",       // ForumLastPostId
                     "int",          // ForumLastPosterId
                     "varchar(255)", // ForumLastPosterName
                     "varchar(6)",   // ForumLastPosterColour

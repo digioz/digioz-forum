@@ -5,9 +5,9 @@ namespace digioz.Forum.Models;
 
 public partial class ForumPost
 {
-    public int PostId { get; set; }
+    public long PostId { get; set; }
 
-    public int TopicId { get; set; }
+    public long TopicId { get; set; }
 
     public long ForumId { get; set; }
 

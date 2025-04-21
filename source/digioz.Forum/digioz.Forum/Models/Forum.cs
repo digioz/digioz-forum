@@ -49,7 +49,7 @@ public partial class Forum
 
     public byte ForumStatus { get; set; }
 
-    public int ForumLastPostId { get; set; }
+    public long ForumLastPostId { get; set; }
 
     public int ForumLastPosterId { get; set; }
 

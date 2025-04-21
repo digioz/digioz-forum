@@ -7,7 +7,7 @@ public partial class ForumTopicsPosted
 {
     public int UserId { get; set; }
 
-    public int TopicId { get; set; }
+    public long TopicId { get; set; }
 
     public byte TopicPosted { get; set; }
 }

@@ -23,10 +23,10 @@ namespace digioz.Forum.Data.Migrations
                     "bigint",        // ForumId
                     "tinyint",       // TopicStatus
                     "tinyint",       // TopicType
-                    "int",           // TopicFirstPostId
+                    "bigint",        // TopicFirstPostId
                     "varchar(255)",  // TopicFirstPosterName
                     "varchar(6)",    // TopicFirstPosterColor
-                    "int",           // TopicLastPostId
+                    "bigint",        // TopicLastPostId
                     "int",           // TopicLastPosterId
                     "varchar(255)",  // TopicLastPosterName
                     "varchar(6)",    // TopicLastPosterColor
@@ -90,7 +90,7 @@ namespace digioz.Forum.Data.Migrations
             migrationBuilder.InsertData(
                 table: "ForumPost",
                 columnTypes: new[] {
-                    "int",           // TopicId
+                    "bigint",        // TopicId
                     "bigint",        // ForumId
                     "int",           // PosterId
                     "bigint",        // IconId
@@ -138,7 +138,7 @@ namespace digioz.Forum.Data.Migrations
                 table: "ForumTopicsPosted",
                 columnTypes: new[] {
                     "int",           // UserId
-                    "int",           // TopicId
+                    "bigint",        // TopicId
                     "tinyint"        // TopicPosted
                 },
                 columns: new[]

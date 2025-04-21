@@ -13,9 +13,9 @@ public partial class ForumLog
 
     public long ForumId { get; set; }
 
-    public int TopicId { get; set; }
+    public long TopicId { get; set; }
 
-    public int PostId { get; set; }
+    public long PostId { get; set; }
 
     public int ReporteeId { get; set; }
 
