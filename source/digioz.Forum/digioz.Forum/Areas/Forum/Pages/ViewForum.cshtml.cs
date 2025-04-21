@@ -85,7 +85,7 @@ namespace digioz.Forum.Areas.Forum.Pages
             // Get all Forum Posts by Forum Id
             if (ForumInstance != null)
             {
-                Posts = _forumPostService.GetAllByForumId(ForumInstance.ForumId);
+                Posts = _forumPostService.GetAllByForumId(ForumInstance.ForumId).Where(x => x.PostVisibility == 1).ToList();
             }
         }
     }
