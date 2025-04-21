@@ -374,7 +374,7 @@ namespace digioz.Forum.Data.Migrations
                 name: "ForumPost",
                 columns: table => new
                 {
-                    PostId = table.Column<int>(type: "int", nullable: false)
+                    PostId = table.Column<long>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TopicId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     ForumId = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0),
