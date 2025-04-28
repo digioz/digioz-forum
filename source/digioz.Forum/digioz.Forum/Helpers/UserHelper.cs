@@ -161,7 +161,7 @@ namespace digioz.Forum.Helpers
             var roleId = string.Empty;
             var role = new AspNetRole();
             var roles = _roleService.GetAllDictionary();
-            var userRoles = _userRoleService.GetAllDictionary();
+            var userRoles = _userRoleService.GetAllDictionary(aspNetUserId);
 
             if (aspNetUserId.IsNullOrEmpty())
             {
@@ -169,17 +169,17 @@ namespace digioz.Forum.Helpers
             }
             else
             {
-                if (userRoles.ContainsKey("Administrators"))
+                if (userRoles.ContainsValue("Administrators"))
                 {
-                    roleId = userRoles[aspNetUserId];
+                    roleId = roles.FirstOrDefault(x => x.Value == "Administrators").Key;
                 }
-                else if (userRoles.ContainsKey("Moderators"))
+                else if (userRoles.ContainsValue("Moderators"))
                 {
-                    roleId = userRoles[aspNetUserId];
+                    roleId = roles.FirstOrDefault(x => x.Value == "Moderators").Key;
                 }
-                else if (userRoles.ContainsKey("Registered"))
+                else if (userRoles.ContainsValue("Registered"))
                 {
-                    roleId = userRoles[aspNetUserId];
+                    roleId = roles.FirstOrDefault(x => x.Value == "Registered").Key; 
                 }
                 else
                 {

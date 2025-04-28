@@ -22,6 +22,9 @@ namespace digioz.Forum.Areas.Forum.Pages
         [BindProperty]
         public AspNetRole Role { get; set; }
 
+        [BindProperty]
+        public List<ForumPermission> Permissions { get; set; }
+
         private readonly IForumSessionService _forumSessionService;
         private readonly ILogger<IndexModel> _logger;
         private readonly IForumService _forumService;
@@ -30,11 +33,13 @@ namespace digioz.Forum.Areas.Forum.Pages
         private readonly IUserRoleService _userRoleService;
         private readonly IForumPostService _forumPostService;
         private readonly IForumTopicService _forumTopicService;
+        private readonly IForumPermissionService _forumPermissionService;
 
         public ViewForumModel(ILogger<IndexModel> logger, IForumSessionService forumSessionService
                          , IForumService forumService, IHttpContextAccessor httpContextAccessor
                          , IRoleService roleService, IUserRoleService userRoleService
-                         , IForumPostService forumPostService, IForumTopicService forumTopicService)
+                         , IForumPostService forumPostService, IForumTopicService forumTopicService
+                         , IForumPermissionService forumPermissionService)
         {
             _logger = logger;
             _forumSessionService = forumSessionService;
@@ -44,6 +49,7 @@ namespace digioz.Forum.Areas.Forum.Pages
             _userRoleService = userRoleService;
             _forumPostService = forumPostService;
             _forumTopicService = forumTopicService;
+            _forumPermissionService = forumPermissionService;
         }
 
         public void OnGet(int f)
@@ -88,6 +94,12 @@ namespace digioz.Forum.Areas.Forum.Pages
             if (ForumInstance != null)
             {
                 Topics = _forumTopicService.GetAllByForumId(ForumInstance.ForumId).Where(x => x.TopicVisibility == 1).ToList();
+            }
+
+            // Get Forum Permissions
+            if (ForumInstance != null)
+            {
+                Permissions = _forumPermissionService.GetAllByForumId(ForumInstance.ForumId);
             }
         }
     }

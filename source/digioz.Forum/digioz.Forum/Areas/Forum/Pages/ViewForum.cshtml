@@ -3,6 +3,9 @@
 @{
     ViewData["Title"] = "Forum";
     Layout = "~/Pages/Shared/_Layout.cshtml";
+
+    var forumPermission = Model.Permissions.Where(x => x.ForumId == Model.ForumInstance.ForumId && x.RoleId == Model.Role.Id).SingleOrDefault();
+    var isReadOnly = forumPermission.IsReadOnly == null ? false : forumPermission.IsReadOnly;
 }
 
 <div id="page-body" class="page-body" role="main">
@@ -11,9 +14,14 @@
         <div style="display: none !important;">Description of your first forum.<br></div>
     </div>
     <div class="action-bar bar-top">
-        <a href="/Forum/Posting?mode=post&amp;f=2" class="button" title="Post a new topic">
-            <span>New Topic</span> <i class="icon fa-pencil fa-fw" aria-hidden="true"></i>
-        </a>
+        @{
+            if (!isReadOnly)
+            {
+                <a href="/Forum/Posting?mode=post&amp;f=2" class="button" title="Post a new topic">
+                    <span>New Topic</span> <i class="icon fa-pencil fa-fw" aria-hidden="true"></i>
+                </a>
+            }
+        }
         <div class="search-box" role="search">
             <form method="get" id="forum-search" action="/Forum/Search">
                 <fieldset>
@@ -85,9 +93,14 @@
         </div>
     </div>
     <div class="action-bar bar-bottom">
-        <a href="/Forum/Posting?mode=post&amp;f=2" class="button" title="Post a new topic">
-            <span>New Topic</span> <i class="icon fa-pencil fa-fw" aria-hidden="true"></i>
-        </a>
+        @{
+            if (!isReadOnly)
+            {
+                <a href="/Forum/Posting?mode=post&amp;f=2" class="button" title="Post a new topic">
+                    <span>New Topic</span> <i class="icon fa-pencil fa-fw" aria-hidden="true"></i>
+                </a>
+            }
+        }
         <form method="post" action="/Forum/ViewForum?f=2">
             <div class="dropdown-container dropdown-container-left dropdown-button-control sort-tools">
                 <span title="Display and sorting options" class="button button-secondary dropdown-trigger dropdown-select dropdown-toggle">

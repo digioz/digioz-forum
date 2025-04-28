@@ -55,5 +55,11 @@ namespace digioz.Forum.Services
             var models = _context.ForumPermissions.Where(x => forumIds.Contains(x.ForumId)).ToList();
             return models;
         }
+
+        public List<ForumPermission> GetAllByForumId(long forumId)
+        {
+            var models = _context.ForumPermissions.Where(x => x.ForumId == forumId).ToList();
+            return models;
+        }
     }
 }
