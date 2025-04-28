@@ -1,6 +1,7 @@
 ﻿using digioz.Forum.Models;
 using digioz.Forum.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
+using SQLitePCL;
 
 namespace digioz.Forum.Services
 {
@@ -8,16 +9,33 @@ namespace digioz.Forum.Services
     {
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<IdentityUser> _userManager;
+        private DigiozForumContext _context;
 
-        public UserRoleService(RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager)
+        public UserRoleService(DigiozForumContext context, RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager)
         {
             _roleManager = roleManager;
             _userManager = userManager;
+            _context = context;
         }
 
-        public AspNetRole Get(string id)
+        public AspNetRole Get(string userId, string id)
         {
-            var role = _roleManager.FindByIdAsync(id).Result;
+            var user = _userManager.FindByIdAsync(userId).Result;
+            if (user != null)
+            {
+                var roles = _userManager.GetRolesAsync(user).Result;
+                if (roles.Any(roleName => _roleManager.Roles.Any(r => r.Id == id && r.Name == roleName)))
+                {
+                    return null;
+                }
+            }
+
+            var role = _roleManager.FindByIdAsync(userId).Result;
+            if (role == null)
+            {
+                return null;
+            }
+
             return new AspNetRole
             {
                 Id = role.Id,
@@ -27,58 +45,73 @@ namespace digioz.Forum.Services
             };
         }
 
-        public List<AspNetRole> GetAll()
+        public List<AspNetRole> GetAll(string userId)
         {
-            return _roleManager.Roles.Select(role => new AspNetRole
-            {
-                Id = role.Id,
-                Name = role.Name,
-                NormalizedName = role.NormalizedName,
-                ConcurrencyStamp = role.ConcurrencyStamp
-            }).ToList();
+            return _roleManager.Roles
+                .Where(role => _userManager.IsInRoleAsync(_userManager.FindByIdAsync(userId).Result, role.Name).Result)
+                .Select(role => new AspNetRole
+                {
+                    Id = role.Id,
+                    Name = role.Name,
+                    NormalizedName = role.NormalizedName,
+                    ConcurrencyStamp = role.ConcurrencyStamp
+                }).ToList();
         }
 
-        public Dictionary<string, string> GetAllDictionary()
+        public Dictionary<string, string> GetAllDictionary(string userId)
         {
-            return _roleManager.Roles.ToDictionary(role => role.Id, role => role.Name);
+            var user = _userManager.FindByIdAsync(userId).Result;
+            if (user == null)
+            {
+                return new Dictionary<string, string>();
+            }
+
+            var userRoles = _userManager.GetRolesAsync(user).Result;
+            var roleDictionary = _roleManager.Roles
+                .Where(role => userRoles.Contains(role.Name))
+                .ToDictionary(role => role.Id, role => role.Name);
+
+            return roleDictionary;
         }
 
-        public void Add(AspNetRole role)
+        public void Add(AspNetRole role, string userId)
         {
-            var identityRole = new IdentityRole
+            var user = _userManager.FindByIdAsync(userId).Result;
+            if (user != null)
             {
-                Id = role.Id,
-                Name = role.Name,
-                NormalizedName = role.NormalizedName,
-                ConcurrencyStamp = role.ConcurrencyStamp
-            };
-            _roleManager.CreateAsync(identityRole).Wait();
-        }
-
-        public void Edit(AspNetRole role)
-        {
-            var identityRole = _roleManager.FindByIdAsync(role.Id).Result;
-            if (identityRole != null)
-            {
-                identityRole.Name = role.Name;
-                identityRole.NormalizedName = role.NormalizedName;
-                identityRole.ConcurrencyStamp = role.ConcurrencyStamp;
-                _roleManager.UpdateAsync(identityRole).Wait();
+                var result = _userManager.AddToRoleAsync(user, role.Name).Result;
+                if (!result.Succeeded)
+                {
+                    throw new Exception(string.Join(", ", result.Errors.Select(e => e.Description)));
+                }
             }
         }
 
-        public void Delete(string id)
+        public void Delete(string id, string userId)
         {
-            var role = _roleManager.FindByIdAsync(id).Result;
-            if (role != null)
+            var user = _userManager.FindByIdAsync(userId).Result;
+            if (user != null)
             {
-                _roleManager.DeleteAsync(role).Wait();
+                var result = _userManager.RemoveFromRoleAsync(user, id).Result;
+                if (!result.Succeeded)
+                {
+                    throw new Exception(string.Join(", ", result.Errors.Select(e => e.Description)));
+                }
             }
         }
 
-        public int Count()
+        public int Count(string userId)
         {
-            return _roleManager.Roles.Count();
+            var user = _userManager.FindByIdAsync(userId).Result;
+            if (user != null)
+            {
+                var roles = _userManager.GetRolesAsync(user).Result;
+                return roles.Count();
+            }
+            else
+            {
+                return 0;
+            }
         }
     }
 }

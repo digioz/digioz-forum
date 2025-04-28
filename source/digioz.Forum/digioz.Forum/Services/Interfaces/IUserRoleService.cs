@@ -4,12 +4,11 @@ namespace digioz.Forum.Services.Interfaces
 {
     public interface IUserRoleService
     {
-        AspNetRole Get(string id);
-        List<AspNetRole> GetAll();
-        Dictionary<string, string> GetAllDictionary();
-        void Add(AspNetRole role);
-        void Edit(AspNetRole role);
-        void Delete(string id);
-        int Count();
+        AspNetRole Get(string userId, string id);
+        List<AspNetRole> GetAll(string userId);
+        Dictionary<string, string> GetAllDictionary(string userId);
+        void Add(AspNetRole role, string userId);
+        void Delete(string userId, string id);
+        int Count(string userId);
     }
 }

@@ -1,5 +1,6 @@
 using digioz.Forum.Helpers;
 using digioz.Forum.Models;
+using digioz.Forum.Pages.Shared;
 using digioz.Forum.Services;
 using digioz.Forum.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -9,70 +10,50 @@ using System.Security.Claims;
 
 namespace digioz.Forum.Areas.Forum.Pages
 {
-    public class ViewForumModel : PageModel
+    public class ViewForumModel : BasePageModel
     {
+        [BindProperty(SupportsGet = true)]
+        public int? f { get; set; }
+
+
         [BindProperty]
         public digioz.Forum.Models.Forum ForumInstance { get; set; }
 
         [BindProperty]
-        public List<ForumPost> Posts { get; set; }
-
-        public string UniqueSessionId { get; private set; }
-
-        [BindProperty]
-        public AspNetRole Role { get; set; }
+        public List<ForumTopic> Topics { get; set; }
 
         private readonly IForumSessionService _forumSessionService;
         private readonly ILogger<IndexModel> _logger;
         private readonly IForumService _forumService;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly IRoleService _roleService;
-        private readonly IUserRoleService _userRoleService;
         private readonly IForumPostService _forumPostService;
+        private readonly IForumTopicService _forumTopicService;
+        private readonly IForumPermissionService _forumPermissionService;
 
         public ViewForumModel(ILogger<IndexModel> logger, IForumSessionService forumSessionService
                          , IForumService forumService, IHttpContextAccessor httpContextAccessor
                          , IRoleService roleService, IUserRoleService userRoleService
-                         , IForumPostService forumPostService)
+                         , IForumPostService forumPostService, IForumTopicService forumTopicService
+                         , IForumPermissionService forumPermissionService) 
+                         : base(forumSessionService, forumPermissionService, roleService, userRoleService)
         {
             _logger = logger;
             _forumSessionService = forumSessionService;
             _forumService = forumService;
-            _httpContextAccessor = httpContextAccessor;
-            _roleService = roleService;
-            _userRoleService = userRoleService;
             _forumPostService = forumPostService;
+            _forumTopicService = forumTopicService;
+            _forumPermissionService = forumPermissionService;
         }
 
-        public void OnGet(int f)
+        public override void OnGet()
         {
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString("UniqueSessionId")))
+            base.OnGet();
+
+            if (f.HasValue)
             {
-                HttpContext.Session.SetString("UniqueSessionId", Guid.NewGuid().ToString());
-            }
-
-            UniqueSessionId = HttpContext.Session.GetString("UniqueSessionId");
-
-            var forumSessionHelper = new ForumSessionHelper(_forumSessionService);
-            forumSessionHelper.GetSession(HttpContext, User, UniqueSessionId);
-            var userHelper = new UserHelper(_httpContextAccessor, _roleService, _userRoleService);
-
-            // Get Forum Instance
-            if (f > 0)
-            {
-                if (User.Identity.IsAuthenticated)
-                {
-                    var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-                    Role = userHelper.GetUserRoleId(userId);
-                }
-                else
-                {
-                    Role = userHelper.GetUserRoleId(null);
-                }
-
+                // Get Forum Instance
                 var forums = _forumService.GetAllByRoleId(Role.Id);
 
-                ForumInstance = forums.Where(x => x.ForumId == f).SingleOrDefault();
+                ForumInstance = forums.Where(x => x.ForumId == f.Value).SingleOrDefault();
 
                 if (ForumInstance == null)
                 {
@@ -80,12 +61,12 @@ namespace digioz.Forum.Areas.Forum.Pages
                     // have permission to view this forum
                     Response.Redirect("/Forum/Index");
                 }
-            }
 
-            // Get all Forum Posts by Forum Id
-            if (ForumInstance != null)
-            {
-                Posts = _forumPostService.GetAllByForumId(ForumInstance.ForumId).Where(x => x.PostVisibility == 1).ToList();
+                // Get all Forum Posts by Forum Id
+                Topics = _forumTopicService.GetAllByForumId(ForumInstance.ForumId).Where(x => x.TopicVisibility == 1).ToList();
+
+                // Get Forum Permissions
+                Permissions = _forumPermissionService.GetAllByForumId(ForumInstance.ForumId);
             }
         }
     }

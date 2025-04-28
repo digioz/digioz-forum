@@ -27,6 +27,7 @@ builder.Services.AddScoped<IRoleService, RoleService>();
 builder.Services.AddScoped<IUserRoleService, UserRoleService>();
 builder.Services.AddScoped<IForumPostService, ForumPostService>();
 builder.Services.AddScoped<IForumPermissionService, ForumPermissionService>();
+builder.Services.AddScoped<IForumTopicService, ForumTopicService>();
 
 builder.Services.AddRazorPages();
 builder.Services.AddSingleton<ILayoutService, LayoutService>();
