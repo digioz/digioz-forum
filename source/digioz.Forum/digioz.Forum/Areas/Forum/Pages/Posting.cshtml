@@ -6,8 +6,8 @@
 }
 
 <div id="page-body" class="page-body" role="main">
-    <h2 class="posting-title"><a href="./viewforum?f=2">Your first forum</a></h2>
-    <form id="postform" method="post" action="./posting?mode=post&amp;f=2" enctype="multipart/form-data">
+    <h2 class="posting-title"><a href="~/viewforum?f=2">Your first forum</a></h2>
+    <form id="postform" method="post" action="~/posting?mode=post&amp;f=2" enctype="multipart/form-data">
         <div class="panel" id="postingbox">
             <div class="inner">
                 <h3>Post a new topic</h3>
@@ -33,7 +33,7 @@
 
                         // Define the bbCode tags
                         var bbcode = new Array();
-                        var bbtags = new Array('[b]','[/b]','[i]','[/i]','[u]','[/u]','[quote]','[/quote]','[code]','[/code]','[list]','[/list]','[list=]','[/list]','[img]','[/img]','[url]','[/url]','[flash=]', '[/flash]','[size=]','[/size]');
+                        var bbtags = new Array('[b]','[/b]','[i]','[/i]','[u]','[/u]','[quote]','[/quote]','[code]','[/code]','[list]','[/list]','[list=]','[/list]','[img]','[/img]','[url]','[/url]','[size=]','[/size]');
                         var imageTag = false;
 
                         function change_palette()
@@ -228,9 +228,6 @@
                         <button type="button" class="button button-icon-only bbcode-url" accesskey="w" name="addbbcode16" value="URL" onclick="bbstyle(16)" title="Insert URL: [url]http://url[/url] or [url=http://url]URL text[/url]">
                             <i class="icon fa-link fa-fw" aria-hidden="true"></i>
                         </button>
-                        <button type="button" class="button button-icon-only bbcode-flash" accesskey="d" name="addbbcode18" value="Flash" onclick="bbstyle(18)" title="Flash: [flash=width,height]http://url[/flash]">
-                            <i class="icon fa-flash fa-fw" aria-hidden="true"></i>
-                        </button>
                         <button type="button" class="button button-icon-only bbcode-color" name="bbpalette" id="bbpalette" value="Font colour" onclick="change_palette();" title="Font colour: [color=red]text[/color] or [color=#FF0000]text[/color]">
                             <i class="icon fa-tint fa-fw" aria-hidden="true"></i>
                         </button>
@@ -272,7 +269,6 @@
                             <hr>
                             <a href="/app/help/bbcode">BBCode</a> is <em>ON</em><br>
                             [img] is <em>ON</em><br>
-                            [flash] is <em>ON</em><br>
                             [url] is <em>ON</em><br>
                             Smilies are <em>ON</em>
                         </div>
@@ -444,7 +440,7 @@
             },
             config: {
                 runtimes: 'html5',
-                url: './posting.php?mode=post&f=2',
+                url: '~/posting.php?mode=post&f=2',
                 max_file_size: '262144b',
                 chunk_size: '1048576b',
                 unique_names: true,
