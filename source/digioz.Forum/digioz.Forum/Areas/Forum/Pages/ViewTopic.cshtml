@@ -4,3 +4,32 @@
     ViewData["Title"] = "Topic";
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
+
+<div id="page-body" class="page-body" role="main">
+    <h2 class="topic-title"><a href="#">@Model.Topic.TopicTitle</a></h2>
+    <div class="action-bar bar-top"></div>
+
+    @foreach(var post in Model.Posts)
+    {
+        <div id="p@(post.PostId)" class="post bg2">
+            <dl class="postprofile">
+                <dd class="profile-rank"></dd>
+                <dd class="profile-posts"></dd>
+                <dd class="profile-joined"></dd>
+            </dl>
+            <div class="inner">
+                <div class="postbody">
+                    <h3 class="first">@post.PostSubject</h3>
+                    <p class="author">
+                        by
+                        <strong><a href="/members">@post.PostUsername</a></strong>
+                        <time>@post.PostTime</time>
+                    </p>
+                    <div class="content">
+                        @post.PostText
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

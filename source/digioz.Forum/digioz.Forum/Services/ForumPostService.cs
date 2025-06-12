@@ -32,6 +32,23 @@ namespace digioz.Forum.Services
             return models;
         }
 
+        public List<ForumPost> GetAllWithUsers()
+        {
+            var models = (from post in _context.ForumPosts
+                          join user in _context.ForumUsers
+                          on post.PosterId equals user.ForumUserId into postWithUser
+                          select new ForumPost
+                          {
+                              
+                          }).ToList();
+            
+            //OR
+
+            var models = _context.ForumPosts.Select(x => x.FormUser); //user would be FormUser object joined on ForumUserId
+
+            return models;
+        }
+
         public List<ForumPost> GetAllByForumId(long forumId)
         {
             var models = _context.ForumPosts.Where(x => x.ForumId == forumId).ToList();
@@ -41,6 +58,12 @@ namespace digioz.Forum.Services
         public List<ForumPost> GetAllByUserId(int userId)
         {
             var models = _context.ForumPosts.Where(x => x.PosterId == userId).ToList();
+            return models;
+        }
+
+        public List<ForumPost> GetAllByTopicId(int topicId)
+        {
+            var models = _context.ForumPosts.Where(x => x.TopicId == topicId).ToList();
             return models;
         }
 

@@ -62,4 +62,5 @@ public partial class ForumPost
     public string PostDeleteReason { get; set; } = null!;
 
     public int PostDeleteUser { get; set; }
+    public ForumUser FormUser { get; set; } // for the linking
 }
