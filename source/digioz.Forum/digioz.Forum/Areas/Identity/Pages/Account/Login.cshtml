@@ -5,53 +5,56 @@
     ViewData["Title"] = "Log in";
 }
 
-<div class="panel">
-    <div class="inner">
-        <div class="content">
-            <h2 class="login-title">@ViewData["Title"]</h2>
-            <form id="account" method="post">
-                <div asp-validation-summary="ModelOnly" class="error" role="alert"></div>
-                <fieldset class="fields1">
-                    <dl>
-                        <dt><label for="username">Username or Email:</label></dt>
-                        <dd>
-                            <input asp-for="Input.Email" class="inputbox autowidth" autocomplete="username" aria-required="true" placeholder="" />
-                            <span asp-validation-for="Input.Email" class="error"></span>
-                        </dd>
-                    </dl> 
-                    <dl>
-                        <dt><label asp-for="Input.Password" class="form-label">Password</label></dt>
-                        <dd>
-                            <input asp-for="Input.Password" class="inputbox autowidth" autocomplete="current-password" aria-required="true" placeholder="" />
-                            <span asp-validation-for="Input.Password" class="error"></span>
-                        </dd>
-                        <dd><a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a></dd>
-                    </dl>
-                    <dl>
-                        <dt>&nbsp;</dt>
-                        <dd>
-                            <label asp-for="Input.RememberMe" class="form-label">
-                                <input class="form-check-input" asp-for="Input.RememberMe" />
-                                @Html.DisplayNameFor(m => m.Input.RememberMe)
-                            </label>
-                        </dd>
-                        <dd><label for="viewonline"><input type="checkbox" name="viewonline" id="viewonline" tabindex="5"> Hide my online status this session</label></dd>
-                    </dl>
-                    <dl>
-                        <dt>&nbsp;</dt>
-                        <dd>
-                            <input id="login-submit" type="submit" class="button1" value="Login">
-                        </dd>
-                    </dl>
-                    <dl>
-                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a> |
-                        <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
-                    </dl>
-                </fieldset>
-            </form>
+<div class="text-center">
+    <div class="panel">
+        <div class="inner">
+            <div class="content">
+                <h2 class="login-title">@ViewData["Title"]</h2>
+                <form id="account" method="post">
+                    <div asp-validation-summary="ModelOnly" class="error" role="alert"></div>
+                    <fieldset class="fields1">
+                        <dl>
+                            <dt><label for="username">Username or Email:</label></dt>
+                            <dd>
+                                <input asp-for="Input.Email" class="inputbox autowidth" autocomplete="username" aria-required="true" placeholder="" />
+                                <span asp-validation-for="Input.Email" class="error"></span>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt><label asp-for="Input.Password" class="form-label">Password</label></dt>
+                            <dd>
+                                <input asp-for="Input.Password" class="inputbox autowidth" autocomplete="current-password" aria-required="true" placeholder="" />
+                                <span asp-validation-for="Input.Password" class="error"></span>
+                            </dd>
+                            <dd><a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a></dd>
+                        </dl>
+                        <dl>
+                            <dt>&nbsp;</dt>
+                            <dd>
+                                <label asp-for="Input.RememberMe" class="form-label">
+                                    <input class="form-check-input" asp-for="Input.RememberMe" />
+                                    @Html.DisplayNameFor(m => m.Input.RememberMe)
+                                </label>
+                            </dd>
+                            <dd><label for="viewonline"><input type="checkbox" name="viewonline" id="viewonline" tabindex="5"> Hide my online status this session</label></dd>
+                        </dl>
+                        <dl>
+                            <dt>&nbsp;</dt>
+                            <dd>
+                                <input id="login-submit" type="submit" class="button1" value="Login">
+                            </dd>
+                        </dl>
+                        <dl>
+                            <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a> |
+                            <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
+                        </dl>
+                    </fieldset>
+                </form>
+            </div>
         </div>
     </div>
-</div>
+</center>
+
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

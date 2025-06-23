@@ -1,40 +1,12 @@
-﻿@using digioz.Forum.Services
-@using digioz.Forum.Services.Interfaces
-@inject ILayoutService LayoutService
-
-@{
-    var layoutModel = LayoutService.GetLayoutData();
-}
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="~/assets/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="~/styles/@(layoutModel.ForumStyle.StyleName)/theme/stylesheet.css" />
-    <link rel="stylesheet" href="~/styles/@(layoutModel.ForumStyle.StyleName)/theme/en/stylesheet.css?assets_version=9" />
 
-</head>
+    @await RenderSectionAsync("Headers", required: false)
+
 <body id="phpbb" class="nojs notouch section-index ltr ">
-    <div id="wrap" class="wrap">
-        <div id="wrap" class="wrap">
-            <a id="top" class="top-anchor" accesskey="t"></a>
-            @await Component.InvokeAsync("PageHeader")
-            <a id="start_here" class="anchor"></a>
-            @RenderBody()
-            @await Component.InvokeAsync("PageFooter")
-        </div>
-    </div>
-    <div>
-        <a id="bottom" class="anchor" accesskey="z"></a>
-        <img class="sr-only" aria-hidden="true" src="" width="1" height="1" alt="">
-    </div>
-
-    <script src="~/assets/javascript/jquery-3.6.0.min.js"></script>
-    <script src="~/assets/javascript/core.js"></script>
-    <script src="~/styles/@(layoutModel.ForumStyle.StyleName)/template/forum_fn.js"></script>
-    <script src="~/styles/@(layoutModel.ForumStyle.StyleName)/template/ajax.js"></script>
+    @await Component.InvokeAsync("PageHeader")
+    @RenderBody()
+    @await Component.InvokeAsync("PageFooter")
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

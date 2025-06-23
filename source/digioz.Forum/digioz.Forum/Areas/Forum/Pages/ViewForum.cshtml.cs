@@ -22,6 +22,9 @@ namespace digioz.Forum.Areas.Forum.Pages
         [BindProperty]
         public List<ForumTopic> Topics { get; set; }
 
+        [BindProperty]
+        public bool IsReadOnly { get; set; } = false;
+
         private readonly IForumSessionService _forumSessionService;
         private readonly ILogger<IndexModel> _logger;
         private readonly IForumService _forumService;
@@ -51,19 +54,22 @@ namespace digioz.Forum.Areas.Forum.Pages
             if (f.HasValue)
             {
                 // Get Forum Instance
-                var forums = _forumService.GetAllByRoleId(Role.Id);
+                var forums = _forumService.GetAllByRoleId(Role?.Id);
 
-                ForumInstance = forums.Where(x => x.ForumId == f.Value).SingleOrDefault();
+                ForumInstance = forums.SingleOrDefault(x => x.ForumId == f.Value);
 
                 if (ForumInstance == null)
                 {
                     // Redirect to Forum Index since user does not
                     // have permission to view this forum
                     Response.Redirect("/Forum/Index");
+                    return; // Ensure no further code is executed
                 }
 
                 // Get all Forum Posts by Forum Id
-                Topics = _forumTopicService.GetAllByForumId(ForumInstance.ForumId).Where(x => x.TopicVisibility == 1).ToList();
+                Topics = _forumTopicService.GetAllByForumId(ForumInstance.ForumId)
+                    .Where(x => x.TopicVisibility == 1)
+                    .ToList();
 
                 // Get Forum Permissions
                 Permissions = _forumPermissionService.GetAllByForumId(ForumInstance.ForumId);
