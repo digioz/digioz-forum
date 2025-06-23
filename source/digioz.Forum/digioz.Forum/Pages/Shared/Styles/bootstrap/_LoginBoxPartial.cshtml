@@ -1,0 +1,49 @@
+@using digioz.Forum.Services
+@using digioz.Forum.Services.Interfaces
+@inject ILayoutService LayoutService
+
+@{
+    var layoutModel = LayoutService.GetLayoutData();
+}
+
+<form method="post" action="/Identity/Account/Login" class="container py-3">
+    @Html.AntiForgeryToken()
+    <h3>
+        <a href="/Identity/Account/Login?redirect=index">Login</a>
+        &nbsp; &bull; &nbsp;
+        <a href="/Ucp?mode=register">Register</a>
+    </h3>
+    <fieldset class="border p-3 rounded bg-light">
+        <div class="mb-3">
+            <label for="Input_Email" class="form-label">
+                Username:
+            </label>
+            <input class="form-control" autocomplete="username" aria-required="true" type="email"
+                   data-val="true" data-val-email="The Email field is not a valid e-mail address."
+                   data-val-required="The Email field is required."
+                   id="Input_Email" name="Input.Email" value="">
+            <span class="text-danger field-validation-valid" data-valmsg-for="Input.Email" data-valmsg-replace="true"></span>
+        </div>
+        <div class="mb-3">
+            <label for="Input_Password" class="form-label">
+                Password:
+            </label>
+            <input class="form-control" autocomplete="current-password" aria-required="true" type="password"
+                   data-val="true" data-val-required="The Password field is required."
+                   id="Input_Password" name="Input.Password">
+            <span class="text-danger field-validation-valid" data-valmsg-for="Input.Password" data-valmsg-replace="true"></span>
+        </div>
+        <div class="mb-3 d-flex align-items-center">
+            <a href="/Identity/Account/Register" class="me-2">I forgot my password</a>
+            <span class="d-none d-md-inline mx-2">|</span>
+            <div class="form-check ms-2">
+                <input class="form-check-input" type="checkbox" data-val="true" data-val-required="The Remember me? field is required."
+                       id="Input_RememberMe" name="Input.RememberMe" value="true">
+                <label class="form-check-label" for="Input_RememberMe">
+                    Remember me?
+                </label>
+            </div>
+        </div>
+        <button type="submit" tabindex="5" name="login" class="btn btn-primary">Login</button>
+    </fieldset>
+</form>
