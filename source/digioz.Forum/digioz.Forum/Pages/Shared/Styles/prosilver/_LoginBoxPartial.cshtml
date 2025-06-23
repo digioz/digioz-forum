@@ -1,0 +1,31 @@
+@using digioz.Forum.Services
+@using digioz.Forum.Services.Interfaces
+@inject ILayoutService LayoutService
+
+@{
+    var layoutModel = LayoutService.GetLayoutData();
+}
+
+<form method="post" action="/Identity/Account/Login" class="headerspace">
+    @Html.AntiForgeryToken()
+    <h3><a href="/Identity/Account/Login?redirect=index">Login</a>&nbsp; &bull; &nbsp;<a href="/Ucp?mode=register">Register</a></h3>
+    <fieldset class="quick-login">
+        <label for="username">
+            <span>Username:</span>
+            <input class="inputbox autowidth" autocomplete="username" aria-required="true" placeholder="" type="email" data-val="true" data-val-email="The Email field is not a valid e-mail address." data-val-required="The Email field is required." id="Input_Email" name="Input.Email" value="">
+            <span class="error field-validation-valid" data-valmsg-for="Input.Email" data-valmsg-replace="true"></span>
+        </label>
+        <label for="password">
+            <span>Password:</span>
+            <input class="inputbox autowidth" autocomplete="current-password" aria-required="true" placeholder="" type="password" data-val="true" data-val-required="The Password field is required." id="Input_Password" name="Input.Password">
+            <span class="error field-validation-valid" data-valmsg-for="Input.Password" data-valmsg-replace="true"></span>
+        </label>
+        <a href="/Identity/Account/Register">I forgot my password</a>
+        <span class="responsive-hide">|</span>
+        <label class="form-label" for="Input_RememberMe">
+            <input class="form-check-input" type="checkbox" data-val="true" data-val-required="The Remember me? field is required." id="Input_RememberMe" name="Input.RememberMe" value="true">
+            Remember me?
+        </label>
+        <input type="submit" tabindex="5" name="login" value="Login" class="button2" />
+    </fieldset>
+</form>
