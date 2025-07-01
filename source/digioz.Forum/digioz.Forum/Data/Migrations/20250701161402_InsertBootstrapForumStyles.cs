@@ -16,8 +16,8 @@ namespace digioz.Forum.Data.Migrations
                 columnTypes: new[] { "int", "nvarchar(255)", "nvarchar(255)", "int", "nvarchar(255)", "nvarchar(255)", "int", "nvarchar(255)" },
                 values: new object[,]
                 {
-                    { 3, "bootstrap", "&copy; DigiOz Multimedia, Inc", 0, "bootstrap", "//g=", 0, "" },
-                    { 4, "bootstrap_dark", "&copy; DigiOz Multimedia, Inc", 0, "bootstrap_dark", "//g=", 0, "" }
+                    { 3, "bootstrap", "&copy; Bootstrap", 0, "bootstrap", "//g=", 0, "" },
+                    { 4, "bootstrap_dark", "&copy; Bootstrap", 0, "bootstrap_dark", "//g=", 0, "" }
                 });
         }
 
