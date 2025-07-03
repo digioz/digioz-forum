@@ -53,6 +53,9 @@ namespace digioz.Forum.Areas.Forum.Pages
 
             if (f.HasValue)
             {
+                // Determine if forum is read-only
+                IsReadOnly = _forumPermissionService.IsReadOnly(f.Value, Role?.Id);
+
                 // Get Forum Instance
                 var forums = _forumService.GetAllByRoleId(Role?.Id);
 
