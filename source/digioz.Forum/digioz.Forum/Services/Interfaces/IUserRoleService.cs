@@ -8,6 +8,7 @@ namespace digioz.Forum.Services.Interfaces
         List<AspNetRole> GetAll(string userId);
         Dictionary<string, string> GetAllDictionary(string userId);
         void Add(AspNetRole role, string userId);
+        void AddByRoleName(string roleName, string userId);
         void Delete(string userId, string id);
         int Count(string userId);
     }
