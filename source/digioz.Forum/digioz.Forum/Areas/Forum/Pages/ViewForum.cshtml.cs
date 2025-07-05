@@ -15,7 +15,6 @@ namespace digioz.Forum.Areas.Forum.Pages
         [BindProperty(SupportsGet = true)]
         public int? f { get; set; }
 
-
         [BindProperty]
         public digioz.Forum.Models.Forum ForumInstance { get; set; }
 
