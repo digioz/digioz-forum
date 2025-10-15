@@ -1,5 +1,16 @@
-﻿
+﻿@model digioz.Forum.Areas.Forum.Pages.ViewTopicModel
+@using digioz.Forum.Services
+@using digioz.Forum.Services.Interfaces
+@inject ILayoutService LayoutService
+@inject IForumSessionService ForumSessionService
+@inject IForumService ForumService
+@inject IForumPostService ForumPostService
+@inject IForumTopicService ForumTopicService
+@inject IForumPermissionService ForumPermissionService
 
+@{
+    var layoutModel = LayoutService.GetLayoutData();
+}
 
 <div id="page-body" class="page-body" role="main">
     <h2 class="topic-title"><a href="./viewtopic?t=1">Welcome to phpBB3</a></h2>
@@ -237,7 +248,7 @@
                         </a>
                         <span class="responsive-hide">by <strong><a href="./memberlist?mode=viewprofile&amp;u=2" style="color: #AA0000;" class="username-coloured">admin</a></strong> » </span><time datetime="2025-04-29T18:47:00+00:00">Tue Apr 29, 2025 6:47 pm</time>
                     </p>
-                    <div class="content">First reply to thread 1.  <img class="smilies" src="./images/smilies/icon_e_smile.gif" width="15" height="17" alt=":)" title="Smile"></div>
+                    <div class="content">First reply to thread 1.  <img class="smilies" src="~/images/smilies/icon_e_smile.gif" width="15" height="17" alt=":)" title="Smile"></div>
                 </div>
             </div>
             <div class="back2top">
@@ -330,7 +341,7 @@
                         </a>
                         <span class="responsive-hide">by <strong><a href="./memberlist?mode=viewprofile&amp;u=2" style="color: #AA0000;" class="username-coloured">admin</a></strong> » </span><time datetime="2025-04-29T18:47:16+00:00">Tue Apr 29, 2025 6:47 pm</time>
                     </p>
-                    <div class="content">Second reply to thread 1.  <img class="smilies" src="./images/smilies/icon_idea.gif" width="15" height="17" alt=":idea:" title="Idea"></div>
+                    <div class="content">Second reply to thread 1.  <img class="smilies" src="~/images/smilies/icon_idea.gif" width="15" height="17" alt=":idea:" title="Idea"></div>
                 </div>
             </div>
             <div class="back2top">
@@ -423,7 +434,7 @@
                         </a>
                         <span class="responsive-hide">by <strong><a href="./memberlist?mode=viewprofile&amp;u=2" style="color: #AA0000;" class="username-coloured">admin</a></strong> » </span><time datetime="2025-04-29T18:47:39+00:00">Tue Apr 29, 2025 6:47 pm</time>
                     </p>
-                    <div class="content">3rd reply to thread 1.  <img class="smilies" src="./images/smilies/icon_eek.gif" width="15" height="17" alt=":shock:" title="Shocked"></div>
+                    <div class="content">3rd reply to thread 1.  <img class="smilies" src="~/images/smilies/icon_eek.gif" width="15" height="17" alt=":shock:" title="Shocked"></div>
                 </div>
             </div>
             <div class="back2top">
