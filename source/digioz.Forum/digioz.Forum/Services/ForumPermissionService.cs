@@ -61,5 +61,18 @@ namespace digioz.Forum.Services
             var models = _context.ForumPermissions.Where(x => x.ForumId == forumId).ToList();
             return models;
         }
+
+        public bool IsReadOnly(long forumId, string roleId)
+        {
+            var permission = _context.ForumPermissions.FirstOrDefault(x => x.ForumId == forumId && x.RoleId == roleId);
+            if (permission != null)
+            {
+                return permission.IsReadOnly;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

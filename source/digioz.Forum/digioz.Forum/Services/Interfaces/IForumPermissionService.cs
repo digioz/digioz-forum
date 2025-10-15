@@ -11,5 +11,6 @@ namespace digioz.Forum.Services.Interfaces
         void Add(ForumPermission forumPermission);
         void Edit(ForumPermission forumPermission);
         void Delete(int id);
+        bool IsReadOnly(long forumId, string roleId);
     }
 }

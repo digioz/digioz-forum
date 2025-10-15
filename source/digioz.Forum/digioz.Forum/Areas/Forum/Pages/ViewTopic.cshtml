@@ -1,6 +1,21 @@
 ﻿@page
 @model digioz.Forum.Areas.Forum.Pages.ViewTopicModel
+@using digioz.Forum.Services
+@using digioz.Forum.Services.Interfaces
+@inject ILayoutService LayoutService
+@inject IForumSessionService ForumSessionService
+@inject IForumService ForumService
+@inject IForumPostService ForumPostService
+@inject IForumTopicService ForumTopicService
+@inject IForumPermissionService ForumPermissionService
+
 @{
-    ViewData["Title"] = "Topic";
+    ViewData["Title"] = Model.Topic?.TopicTitle ?? "Topic";
     Layout = "~/Pages/Shared/_Layout.cshtml";
+
+    var layoutModel = LayoutService.GetLayoutData();
+    var partialPath = $"/Pages/Shared/Styles/{layoutModel.ForumStyle.StyleName}/_ViewTopicPartial.cshtml";
 }
+
+@await Html.PartialAsync(partialPath, Model)
+

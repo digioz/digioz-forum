@@ -24,6 +24,18 @@ namespace digioz.Forum.Services
             return models;
         }
 
+        public string GetEmailByUserName(string username)
+        {
+            var model = _context.ForumUsers.Where(x => x.UserName == username).SingleOrDefault();
+
+            if (model == null)
+            {
+                return null;
+            }
+
+            return model?.UserEmail;
+        }
+
         public void Add(ForumUser ForumUser)
         {
             _context.ForumUsers.Add(ForumUser);

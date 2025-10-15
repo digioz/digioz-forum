@@ -183,6 +183,9 @@ namespace digioz.Forum.Areas.Identity.Pages.Account
 
                     _forumUserService.Add(forumUser);
 
+                    // Add Role Registered to the User
+                    _userRoleService.AddByRoleName("Registered", userId);
+
                     // Send Email Confirmation
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));

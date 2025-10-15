@@ -1,0 +1,292 @@
+﻿@model digioz.Forum.Areas.Forum.Pages.ViewTopicModel
+@using digioz.Forum.Services
+@using digioz.Forum.Services.Interfaces
+@inject ILayoutService LayoutService
+@inject IForumSessionService ForumSessionService
+@inject IForumService ForumService
+@inject IForumPostService ForumPostService
+@inject IForumTopicService ForumTopicService
+@inject IForumPermissionService ForumPermissionService
+
+@{
+    var layoutModel = LayoutService.GetLayoutData();
+    var topicId = Model.Topic?.TopicId;
+}
+
+<div id="page-body" class="page-body" role="main">
+    <h2 class="topic-title"><a href="/Forum/ViewTopic?t=@topicId">@Model.Topic?.TopicTitle</a></h2>
+    <!-- NOTE: remove the style="display: none" when you want to have the forum description on the topic body -->
+    <div style="display: none !important;">Description of forum for this topic.<br></div>
+
+    <div class="action-bar bar-top">
+        @if (!Model.IsReadOnly)
+        {
+            <a href="/Forum/Posting?mode=reply&amp;t=@topicId" class="button" title="Post a reply">
+                <span>Post Reply</span> <i class="icon fa-reply fa-fw" aria-hidden="true"></i>
+            </a>
+        }
+        <div class="dropdown-container dropdown-button-control topic-tools">
+            <span title="Topic tools" class="button button-secondary dropdown-trigger dropdown-select dropdown-toggle">
+                <i class="icon fa-wrench fa-fw" aria-hidden="true"></i>
+                <span class="caret"><i class="icon fa-sort-down fa-fw" aria-hidden="true"></i></span>
+            </span>
+            <div class="dropdown">
+                <div class="pointer"><div class="pointer-inner"></div></div>
+                <ul class="dropdown-contents">
+                    <li>
+                        <a href="/Forum/ViewTopic?watch=topic&amp;t=@topicId" class="watch-topic-link" title="Subscribe topic" data-ajax="toggle_link" data-toggle-class="icon fa-square-o fa-fw" data-toggle-text="Unsubscribe topic" data-toggle-url="/Forum/ViewTopic?unwatch=topic&amp;t=@topicId" data-update-all=".watch-topic-link">
+                            <i class="icon fa-check-square-o fa-fw" aria-hidden="true"></i><span>Subscribe topic</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Forum/ViewTopic?bookmark=1&amp;t=@topicId" class="bookmark-link" title="Bookmark topic" data-ajax="alt_text" data-alt-text="Remove from bookmarks" data-update-all=".bookmark-link">
+                            <i class="icon fa-bookmark-o fa-fw" aria-hidden="true"></i><span>Bookmark topic</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Forum/MemberList?mode=email&amp;t=@topicId" title="Email topic">
+                            <i class="icon fa-envelope-o fa-fw" aria-hidden="true"></i><span>Email topic</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Forum/ViewTopic?t=@topicId&amp;view=print" title="Print view" accesskey="p">
+                            <i class="icon fa-print fa-fw" aria-hidden="true"></i><span>Print view</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="search-box" role="search">
+            <form method="get" id="topic-search" action="/Forum/Search">
+                <fieldset>
+                    <input class="inputbox search tiny" type="search" name="keywords" id="search_keywords" size="20" placeholder="Search this topic…">
+                    <button class="button button-search" type="submit" title="Search">
+                        <i class="icon fa-search fa-fw" aria-hidden="true"></i><span class="sr-only">Search</span>
+                    </button>
+                    <a href="/Forum/Search" class="button button-search-end" title="Advanced search">
+                        <i class="icon fa-cog fa-fw" aria-hidden="true"></i><span class="sr-only">Advanced search</span>
+                    </a>
+                    <input type="hidden" name="t" value="@topicId">
+                    <input type="hidden" name="sf" value="msgonly">
+                </fieldset>
+            </form>
+        </div>
+        <div class="pagination">
+            @Model.Posts.Count post@(Model.Posts.Count == 1 ? "" : "s")
+            • Page <strong>1</strong> of <strong>1</strong>
+        </div>
+    </div>
+
+    @foreach (var post in Model.Posts)
+    {
+        var postAnchor = $"p{post.PostId}";
+        <div id="@postAnchor" class="post has-profile bg2">
+            <div class="inner">
+                <dl class="postprofile" id="profile@post.PostId">
+                    <dt class="has-profile-rank no-avatar">
+                        <div class="avatar-container">
+                            <!-- Avatar image unknown: keep placeholder element -->
+                        </div>
+                        <a href="/Forum/Members?mode=viewprofile&amp;u=@post.PosterId" class="username-coloured">@post.PostUsername</a>
+                    </dt>
+                    <dd class="profile-rank"> <!-- Rank unknown --> </dd>
+                    <dd class="profile-posts"><strong>Posts:</strong> <!-- Total posts unknown --></dd>
+                    <dd class="profile-joined"><strong>Joined:</strong> <!-- Joined date unknown --></dd>
+                    <dd class="profile-contact">
+                        <strong>Contact:</strong>
+                        <div class="dropdown-container dropdown-left">
+                            <a href="#" class="dropdown-trigger dropdown-toggle" title="Contact @post.PostUsername">
+                                <i class="icon fa-commenting-o fa-fw icon-lg" aria-hidden="true"></i><span class="sr-only">Contact @post.PostUsername</span>
+                            </a>
+                            <div class="dropdown">
+                                <div class="pointer"><div class="pointer-inner"></div></div>
+                                <div class="dropdown-contents contact-icons">
+                                    <div>
+                                        <a href="/Forum/Ucp?i=pm&amp;mode=compose&amp;action=quotepost&amp;p=@post.PostId" title="Send private message">
+                                            <span class="contact-icon pm-icon">Send private message</span>
+                                        </a>
+                                        <a href="mailto:<!-- email unknown -->" title="Send email" class="last-cell">
+                                            <span class="contact-icon email-icon">Send email</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </dd>
+                </dl>
+
+                <div class="postbody">
+                    <div id="post_content@post.PostId">
+                        <h3 class="@(post.PostId == Model.Topic?.TopicFirstPostId ? "first" : string.Empty)">
+                            <a href="/Forum/ViewTopic?p=@post.PostId#@postAnchor">@post.PostSubject</a>
+                        </h3>
+                        <ul class="post-buttons">
+                            <li>
+                                <a href="/Forum/Posting?mode=edit&amp;p=@post.PostId" title="Edit post" class="button button-icon-only">
+                                    <i class="icon fa-pencil fa-fw" aria-hidden="true"></i><span class="sr-only">Edit</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/Forum/Posting?mode=soft_delete&amp;p=@post.PostId" title="Delete post" class="button button-icon-only">
+                                    <i class="icon fa-times fa-fw" aria-hidden="true"></i><span class="sr-only">Delete</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/app/post/@post.PostId/report" title="Report this post" class="button button-icon-only">
+                                    <i class="icon fa-exclamation fa-fw" aria-hidden="true"></i><span class="sr-only">Report</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/Forum/Mcp?i=main&amp;mode=post_details&amp;p=@post.PostId" title="Information" class="button button-icon-only">
+                                    <i class="icon fa-info fa-fw" aria-hidden="true"></i><span class="sr-only">Information</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/Forum/Posting?mode=quote&amp;p=@post.PostId" title="Reply with quote" class="button button-icon-only">
+                                    <i class="icon fa-quote-left fa-fw" aria-hidden="true"></i><span class="sr-only">Quote</span>
+                                </a>
+                            </li>
+                            <li class="responsive-menu hidden dropdown-container">
+                                <a href="javascript:void(0);" class="js-responsive-menu-link responsive-menu-link dropdown-toggle"><i class="icon fa-bars fa-fw" aria-hidden="true"></i></a>
+                                <div class="dropdown">
+                                    <div class="pointer"><div class="pointer-inner"></div></div>
+                                    <ul class="dropdown-contents"></ul>
+                                </div>
+                            </li>
+                        </ul>
+                        <p class="author">
+                            <a class="unread" href="/Forum/ViewTopic?p=@post.PostId#@postAnchor" title="Post">
+                                <i class="icon fa-file fa-fw icon-lightgray icon-md" aria-hidden="true"></i><span class="sr-only">Post</span>
+                            </a>
+                            <span class="responsive-hide">by <strong><a href="/Forum/Members?mode=viewprofile&amp;u=@post.PosterId" class="username-coloured">@post.PostUsername</a></strong> » </span>
+                            <time datetime="@post.PostTime">@post.PostTime</time>
+                        </p>
+                        <div class="content">@post.PostText</div>
+                    </div>
+                </div>
+
+                <div class="back2top">
+                    <a href="#top" class="top" title="Top">
+                        <i class="icon fa-chevron-circle-up fa-fw icon-gray" aria-hidden="true"></i>
+                        <span class="sr-only">Top</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="action-bar bar-bottom">
+        @if (!Model.IsReadOnly)
+        {
+            <a href="/Forum/Posting?mode=reply&amp;t=@topicId" class="button" title="Post a reply">
+                <span>Post Reply</span> <i class="icon fa-reply fa-fw" aria-hidden="true"></i>
+            </a>
+        }
+        <div class="dropdown-container dropdown-button-control topic-tools">
+            <span title="Topic tools" class="button button-secondary dropdown-trigger dropdown-select dropdown-toggle">
+                <i class="icon fa-wrench fa-fw" aria-hidden="true"></i>
+                <span class="caret"><i class="icon fa-sort-down fa-fw" aria-hidden="true"></i></span>
+            </span>
+            <div class="dropdown">
+                <div class="pointer"><div class="pointer-inner"></div></div>
+                <ul class="dropdown-contents">
+                    <li>
+                        <a href="/Forum/ViewTopic?watch=topic&amp;t=@topicId" class="watch-topic-link" title="Subscribe topic" data-ajax="toggle_link" data-toggle-class="icon fa-square-o fa-fw" data-toggle-text="Unsubscribe topic" data-toggle-url="/Forum/ViewTopic?unwatch=topic&amp;t=@topicId" data-update-all=".watch-topic-link">
+                            <i class="icon fa-check-square-o fa-fw" aria-hidden="true"></i><span>Subscribe topic</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Forum/ViewTopic?bookmark=1&amp;t=@topicId" class="bookmark-link" title="Bookmark topic" data-ajax="alt_text" data-alt-text="Remove from bookmarks" data-update-all=".bookmark-link">
+                            <i class="icon fa-bookmark-o fa-fw" aria-hidden="true"></i><span>Bookmark topic</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Forum/MemberList?mode=email&amp;t=@topicId" title="Email topic">
+                            <i class="icon fa-envelope-o fa-fw" aria-hidden="true"></i><span>Email topic</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Forum/ViewTopic?t=@topicId&amp;view=print" title="Print view" accesskey="p">
+                            <i class="icon fa-print fa-fw" aria-hidden="true"></i><span>Print view</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <form method="post" action="/Forum/ViewTopic?t=@topicId">
+            <div class="dropdown-container dropdown-container-left dropdown-button-control sort-tools">
+                <span title="Display and sorting options" class="button button-secondary dropdown-trigger dropdown-select dropdown-toggle">
+                    <i class="icon fa-sort-amount-asc fa-fw" aria-hidden="true"></i>
+                    <span class="caret"><i class="icon fa-sort-down fa-fw" aria-hidden="true"></i></span>
+                </span>
+                <div class="dropdown hidden">
+                    <div class="pointer"><div class="pointer-inner"></div></div>
+                    <div class="dropdown-contents">
+                        <fieldset class="display-options">
+                            <label>
+                                Display:
+                                <select name="st" id="st">
+                                    <option value="0" selected="selected">All posts</option>
+                                    <option value="1">1 day</option>
+                                    <option value="7">7 days</option>
+                                    <option value="14">2 weeks</option>
+                                    <option value="30">1 month</option>
+                                    <option value="90">3 months</option>
+                                    <option value="180">6 months</option>
+                                    <option value="365">1 year</option>
+                                </select>
+                            </label>
+                            <label>
+                                Sort by:
+                                <select name="sk" id="sk">
+                                    <option value="a">Author</option>
+                                    <option value="t" selected="selected">Post time</option>
+                                    <option value="s">Subject</option>
+                                </select>
+                            </label>
+                            <label>
+                                Direction:
+                                <select name="sd" id="sd">
+                                    <option value="a" selected="selected">Ascending</option>
+                                    <option value="d">Descending</option>
+                                </select>
+                            </label>
+                            <hr class="dashed">
+                            <input type="submit" class="button2" name="sort" value="Go">
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="pagination">
+            @Model.Posts.Count post@(Model.Posts.Count == 1 ? "" : "s")
+            • Page <strong>1</strong> of <strong>1</strong>
+        </div>
+    </div>
+
+    <div class="action-bar actions-jump">
+        <p class="jumpbox-return">
+            <a href="/Forum/ViewForum?f=@Model.Topic?.ForumId" class="left-box arrow-left" accesskey="r">
+                <i class="icon fa-angle-left fa-fw icon-black" aria-hidden="true"></i><span>Return to Forum</span>
+            </a>
+        </p>
+        <div class="jumpbox dropdown-container dropdown-container-right dropdown-up dropdown-left dropdown-button-control" id="jumpbox">
+            <span title="Jump to" class="button button-secondary dropdown-trigger dropdown-select dropdown-toggle">
+                <span>Jump to</span>
+                <span class="caret"><i class="icon fa-sort-down fa-fw" aria-hidden="true"></i></span>
+            </span>
+            <div class="dropdown">
+                <div class="pointer"><div class="pointer-inner"></div></div>
+                <ul class="dropdown-contents">
+                    <!-- Jumpbox items unknown; leaving placeholders -->
+                    <li><a href="#" class="jumpbox-cat-link"><span> Category</span></a></li>
+                    <li><a href="#" class="jumpbox-sub-link"><span class="spacer"></span> <span>↳ &nbsp; Forum</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="stat-block online-list">
+        <h3><a href="/Forum/ViewOnline">Who is online</a></h3>
+        <p>Users browsing this topic: <!-- online users unknown --> and 0 guests</p>
+    </div>
+</div>

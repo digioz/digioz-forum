@@ -12,5 +12,6 @@ namespace digioz.Forum.Services.Interfaces
         bool DoesUserExist(string userId);
         bool DoesForumUserExist(int forumUserId);
         bool DoesForumUsernameExist(string username);
+        string GetEmailByUserName(string username);
     }
 }

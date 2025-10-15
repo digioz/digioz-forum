@@ -1,4 +1,126 @@
-﻿@page
-@model digioz.Forum.Areas.Forum.Pages.PostingModel
+﻿@page  
+@using digioz.Forum.Services  
+@using digioz.Forum.Services.Interfaces  
+@inject ILayoutService LayoutService 
+
+@model digioz.Forum.Areas.Forum.Pages.PostingModel  
 @{
+    ViewData["Title"] = "Post";  
+    Layout = "~/Pages/Shared/_Layout.cshtml";  
+
+    var layoutModel = LayoutService.GetLayoutData();
+    var partialPath = string.Empty;
+
+    if (Model.mode == "post" || Model.mode == "edit")  
+    {  
+        ViewData["Title"] = "Post";
+        partialPath = $"/Pages/Shared/Styles/{layoutModel.ForumStyle.StyleName}/_PostingPostPagePartial.cshtml";
+    }  
+    else if (Model.mode == "reply")  
+    {  
+        ViewData["Title"] = "Edit Post";  
+        partialPath = $"/Pages/Shared/Styles/{layoutModel.ForumStyle.StyleName}/_PostingReplyPagePartial.cshtml";
+    }  
+}  
+
+@await Html.PartialAsync(partialPath, Model)
+
+@{
+    if (layoutModel.ForumStyle.StyleName == "prosilver" || layoutModel.ForumStyle.StyleName == "prosilver_dark")
+    {
+        if (Model.mode == "post" || Model.mode == "edit" || Model.mode == "reply")  
+        {  
+            @section Scripts
+            {
+                <script>
+                    phpbb.plupload = {
+                        i18n: {
+                            'b': 'B',
+                            'kb': 'KB',
+                            'mb': 'MB',
+                            'gb': 'GB',
+                            'tb': 'TB',
+                            'Add Files': 'Add\u0020files',
+                            'Add files to the upload queue and click the start button.': 'Add\u0020files\u0020to\u0020the\u0020upload\u0020queue\u0020and\u0020click\u0020the\u0020start\u0020button.',
+                            'Close': 'Close',
+                            'Drag files here.': 'Drag\u0020files\u0020here.',
+                            'Duplicate file error.': 'Duplicate\u0020file\u0020error.',
+                            'File: %s': 'File\u003A\u0020\u0025s',
+                            'File: %s, size: %d, max file size: %d': 'File\u003A\u0020\u0025s,\u0020size\u003A\u0020\u0025d,\u0020max\u0020file\u0020size\u003A\u0020\u0025d',
+                            'File count error.': 'File\u0020count\u0020error.',
+                            'File extension error.': 'File\u0020extension\u0020error.',
+                            'File size error.': 'File\u0020size\u0020error.',
+                            'File too large:': 'File\u0020too\u0020large\u003A',
+                            'Filename': 'Filename',
+                            'Generic error.': 'Generic\u0020error.',
+                            'HTTP Error.': 'HTTP\u0020error.',
+                            'Image format either wrong or not supported.': 'Image\u0020format\u0020either\u0020wrong\u0020or\u0020not\u0020supported.',
+                            'Init error.': 'Init\u0020error.',
+                            'IO error.': 'IO\u0020error.',
+                            'Invalid file extension:': 'Invalid\u0020file\u0020extension\u003A',
+                            'N/A': 'N\/A',
+                            'Runtime ran out of available memory.': 'Runtime\u0020ran\u0020out\u0020of\u0020available\u0020memory.',
+                            'Security error.': 'Security\u0020error.',
+                            'Select files': 'Select\u0020files',
+                            'Size': 'Size',
+                            'Start Upload': 'Start\u0020upload',
+                            'Start uploading queue': 'Start\u0020uploading\u0020queue',
+                            'Status': 'Status',
+                            'Stop Upload': 'Stop\u0020upload',
+                            'Stop current upload': 'Stop\u0020current\u0020upload',
+                            "Upload URL might be wrong or doesn't exist.": 'Upload\u0020URL\u0020might\u0020be\u0020wrong\u0020or\u0020does\u0020not\u0020exist.',
+                            'Uploaded %d/%d files': 'Uploaded\u0020\u0025d\/\u0025d\u0020files',
+                            '%d files queued': '\u0025d\u0020files\u0020queued',
+                            '%s already present in the queue.': '\u0025s\u0020already\u0020present\u0020in\u0020the\u0020queue.'
+                        },
+                        config: {
+                            runtimes: 'html5',
+                            url: '~/posting.php?mode=post&f=2',
+                            max_file_size: '262144b',
+                            chunk_size: '1048576b',
+                            unique_names: true,
+                            filters: {
+                                mime_types: [
+                                    {title: 'Images', extensions: 'gif,png,jpeg,jpg,tif,tiff,tga', max_file_size: 0},{title: 'Archives', extensions: 'gtar,gz,tar,zip,rar,ace,torrent,tgz,bz2,7z', max_file_size: 0}
+                                ],
+                                mime_types_max_file_size: [
+                                    {title: 'Images', extensions: 'gif,png,jpeg,jpg,tif,tiff,tga', max_file_size: 0},{title: 'Archives', extensions: 'gtar,gz,tar,zip,rar,ace,torrent,tgz,bz2,7z', max_file_size: 0}
+                                ],
+                            },
+
+                            headers: {'X-PHPBB-USING-PLUPLOAD': '1', 'X-Requested-With': 'XMLHttpRequest'},
+                            file_data_name: 'fileupload',
+                            multipart_params: {'add_file': 'Add\u0020the\u0020file'},
+                            form_hook: '#postform',
+                            browse_button: 'add_files',
+                            drop_element : 'message',
+                        },
+                        lang: {
+                            ERROR: 'Error',
+                            TOO_MANY_ATTACHMENTS: 'Cannot\u0020add\u0020another\u0020attachment,\u00200\u0020is\u0020the\u0020maximum.',
+                            FORM_INVALID: 'The\u0020submitted\u0020form\u0020was\u0020invalid.\u0020Try\u0020submitting\u0020again.',
+                        },
+                        order: 'desc',
+                        maxFiles: 0,
+                        data: [],
+                    }
+                </script>
+                <!-- To Do: Update Style to use user default -->
+                <script src="/assets/javascript/editor.js?assets_version=2"></script>
+                <script src="/styles/prosilver/template/forum_fn.js?assets_version=2"></script>
+                <script src="/styles/prosilver/template/ajax.js?assets_version=2"></script>
+                <script src="/assets/plupload/plupload.full.min.js?assets_version=2"></script>
+                <script src="/assets/javascript/plupload.js?assets_version=2"></script>
+            }
+        }  
+        else if (Model.mode == "reply")  
+        {  
+            <script src="~/js/reply.js"></script>
+        }        
+    }
+    else if(layoutModel.ForumStyle.StyleName == "bootstrap" || layoutModel.ForumStyle.StyleName == "bootstrap_dark")
+    {
+        
+    }
+
 }

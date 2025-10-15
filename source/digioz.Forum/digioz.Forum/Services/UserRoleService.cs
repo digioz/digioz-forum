@@ -87,6 +87,19 @@ namespace digioz.Forum.Services
             }
         }
 
+        public void AddByRoleName(string roleName, string userId)
+        {
+            var user = _userManager.FindByIdAsync(userId).Result;
+            if (user != null)
+            {
+                var result = _userManager.AddToRoleAsync(user, roleName).Result;
+                if (!result.Succeeded)
+                {
+                    throw new Exception(string.Join(", ", result.Errors.Select(e => e.Description)));
+                }
+            }
+        }
+
         public void Delete(string id, string userId)
         {
             var user = _userManager.FindByIdAsync(userId).Result;

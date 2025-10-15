@@ -28,7 +28,7 @@ phpbb.plupload.initialize = function() {
 		// Hide the basic upload panel and remove the attach row template.
 		$('#attach-row-tpl, #attach-panel-basic').remove();
 		// Show multi-file upload options.
-		$('#attach-panel-multi').show();
+		$('#attach-panel-multi').show(); 
 	});
 
 	phpbb.plupload.uploader.bind('PostInit', function() {
