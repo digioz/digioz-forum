@@ -44,6 +44,12 @@ namespace digioz.Forum.Services
             return models;
         }
 
+        public List<ForumPost> GetAllByTopicId(long topicId)
+        {
+            var models = _context.ForumPosts.Where(x => x.TopicId == topicId).ToList();
+            return models;
+        }
+
         public void Edit(ForumPost post)
         {
             var model = _context.ForumPosts.Find(post.PostId);

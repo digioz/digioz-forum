@@ -10,7 +10,7 @@
 @inject IForumPermissionService ForumPermissionService
 
 @{
-    ViewData["Title"] = "Topic";
+    ViewData["Title"] = Model.Topic?.TopicTitle ?? "Topic";
     Layout = "~/Pages/Shared/_Layout.cshtml";
 
     var layoutModel = LayoutService.GetLayoutData();

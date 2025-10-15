@@ -8,6 +8,7 @@ namespace digioz.Forum.Services.Interfaces
         List<ForumPost> GetAll();
         List<ForumPost> GetAllByForumId(long forumId);
         List<ForumPost> GetAllByUserId(int userId);
+        List<ForumPost> GetAllByTopicId(long topicId);
         void Add(ForumPost forumPost);
         void Edit(ForumPost forumPost);
         void Delete(int id);
