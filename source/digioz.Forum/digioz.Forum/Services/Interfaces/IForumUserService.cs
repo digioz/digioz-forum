@@ -13,5 +13,7 @@ namespace digioz.Forum.Services.Interfaces
         bool DoesForumUserExist(int forumUserId);
         bool DoesForumUsernameExist(string username);
         string GetEmailByUserName(string username);
+        ForumUser GetByUserId(int userId);
+        List<ForumUser> GetByPosts(List<ForumPost> posts);
     }
 }

@@ -1,6 +1,8 @@
 ﻿@model digioz.Forum.Areas.Forum.Pages.ViewTopicModel
+@using digioz.Forum.Helpers
 @using digioz.Forum.Services
 @using digioz.Forum.Services.Interfaces
+@using System.Linq
 @inject ILayoutService LayoutService
 @inject IForumSessionService ForumSessionService
 @inject IForumService ForumService
@@ -11,6 +13,7 @@
 @{
     var layoutModel = LayoutService.GetLayoutData();
     var topicId = Model.Topic?.TopicId;
+    var configHelper = new ConfigHelper();
 }
 
 <div id="page-body" class="page-body" role="main">
@@ -80,12 +83,28 @@
     @foreach (var post in Model.Posts)
     {
         var postAnchor = $"p{post.PostId}";
+        var forumUser = Model.PostUsers?.FirstOrDefault(u => u.ForumUserId == post.PosterId);
+        var avatarFile = forumUser?.UserAvatar;
+        int avatarWidth = forumUser?.UserAvatarWidth ?? 0;
+        int avatarHeight = forumUser?.UserAvatarHeight ?? 0;
+
+        if (avatarWidth == 0 || avatarHeight == 0)
+        {
+            // Use default from config
+            avatarWidth = Convert.ToInt32(Model.Configs["avatar_max_width"]);
+            avatarHeight = Convert.ToInt32(Model.Configs["avatar_max_height"]);
+        }
+
         <div id="@postAnchor" class="post has-profile bg2">
             <div class="inner">
                 <dl class="postprofile" id="profile@post.PostId">
                     <dt class="has-profile-rank no-avatar">
                         <div class="avatar-container">
-                            <!-- Avatar image unknown: keep placeholder element -->
+                            @if (!string.IsNullOrWhiteSpace(avatarFile))
+                            {
+                                <img src="/images/avatars/upload/@avatarFile" alt="@forumUser?.UserName" title="@forumUser?.UserName" @if(avatarWidth > 0){<text> width="@avatarWidth"</text>} @if(avatarHeight > 0){<text> height="@avatarHeight"</text>} />
+                            }
+                            <!-- If no avatarFile, leave empty (no image) -->
                         </div>
                         <a href="/Forum/Members?mode=viewprofile&amp;u=@post.PosterId" class="username-coloured">@post.PostUsername</a>
                     </dt>

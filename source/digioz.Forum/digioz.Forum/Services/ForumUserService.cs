@@ -36,6 +36,19 @@ namespace digioz.Forum.Services
             return model?.UserEmail;
         }
 
+        public ForumUser GetByUserId(int userId)
+        {
+            var model = _context.ForumUsers.Where(x => x.UserId == userId.ToString()).SingleOrDefault();
+            return model;
+        }
+
+        public List<ForumUser> GetByPosts(List<ForumPost> posts)
+        {
+            var userIds = posts.Select(x => x.PosterId).Distinct().ToList();
+            var users = _context.ForumUsers.Where(x => userIds.Contains(x.ForumUserId)).ToList();
+            return users;
+        }
+
         public void Add(ForumUser ForumUser)
         {
             _context.ForumUsers.Add(ForumUser);
