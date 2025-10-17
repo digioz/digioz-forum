@@ -107,6 +107,7 @@
 						var postUser = Model.PostUsers?.FirstOrDefault(u => u.ForumUserId == post.PosterId);
 						var role = postUser != null ? userHelper.GetUserRoleId(postUser.UserId) : null;
 						var roleName = role?.Name ?? "Guests";
+						var postUsername = postUser != null ? postUser.UserName : "Guest";
 					}
                     <dt class="has-profile-rank @(string.IsNullOrWhiteSpace(postUser?.UserAvatar) ? "no-avatar" : "has-avatar")">
                         <div class="avatar-container">
@@ -115,8 +116,10 @@
                                 <img src="/images/avatars/upload/@avatarFile" alt="@forumUser?.UserName" title="@forumUser?.UserName" @if(avatarWidth > 0){<text> width="@avatarWidth"</text>} @if(avatarHeight > 0){<text> height="@avatarHeight"</text>} />
                             }
                         </div>
+                        <a href="/Forum/Members?mode=viewprofile&amp;u=@post.PosterId" class="username-coloured">
+                            <span style="color:#@(postUser?.UserColor ?? "000000")">@postUsername</span>
+                        </a>
                     </dt>
-				    <dd><a href="/Forum/Members?mode=viewprofile&amp;u=@post.PosterId" class="username-coloured">@post.PostUsername</a></dd>
                     <dd class="profile-rank"><b>@roleName</b></dd>
                     <dd class="profile-posts"><strong>Posts: </strong>@postUser?.UserPosts</dd>
                     <dd class="profile-joined"><strong>Joined: </strong> @postUser?.UserRegdate</dd>
