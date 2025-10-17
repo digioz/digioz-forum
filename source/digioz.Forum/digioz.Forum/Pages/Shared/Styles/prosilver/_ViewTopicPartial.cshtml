@@ -3,17 +3,22 @@
 @using digioz.Forum.Services
 @using digioz.Forum.Services.Interfaces
 @using System.Linq
+@using Microsoft.AspNetCore.Http
 @inject ILayoutService LayoutService
 @inject IForumSessionService ForumSessionService
 @inject IForumService ForumService
 @inject IForumPostService ForumPostService
 @inject IForumTopicService ForumTopicService
 @inject IForumPermissionService ForumPermissionService
+@inject IRoleService RoleService
+@inject IUserRoleService UserRoleService
+@inject IHttpContextAccessor HttpContextAccessor
 
 @{
     var layoutModel = LayoutService.GetLayoutData();
     var topicId = Model.Topic?.TopicId;
     var configHelper = new ConfigHelper();
+    var userHelper = new UserHelper(HttpContextAccessor, RoleService, UserRoleService);
 }
 
 <div id="page-body" class="page-body" role="main">
@@ -98,21 +103,23 @@
         <div id="@postAnchor" class="post has-profile bg2">
             <div class="inner">
                 <dl class="postprofile" id="profile@post.PostId">
-                    <dt class="has-profile-rank no-avatar">
+					@{
+						var postUser = Model.PostUsers?.FirstOrDefault(u => u.ForumUserId == post.PosterId);
+						var role = postUser != null ? userHelper.GetUserRoleId(postUser.UserId) : null;
+						var roleName = role?.Name ?? "Guests";
+					}
+                    <dt class="has-profile-rank @(string.IsNullOrWhiteSpace(postUser?.UserAvatar) ? "no-avatar" : "has-avatar")">
                         <div class="avatar-container">
                             @if (!string.IsNullOrWhiteSpace(avatarFile))
                             {
                                 <img src="/images/avatars/upload/@avatarFile" alt="@forumUser?.UserName" title="@forumUser?.UserName" @if(avatarWidth > 0){<text> width="@avatarWidth"</text>} @if(avatarHeight > 0){<text> height="@avatarHeight"</text>} />
                             }
                         </div>
-                        <a href="/Forum/Members?mode=viewprofile&amp;u=@post.PosterId" class="username-coloured">@post.PostUsername</a>
                     </dt>
-                    @{
-					    var postUser = Model.PostUsers?.FirstOrDefault(u => u.ForumUserId == post.PosterId);
-                    }
-                    <dd class="profile-rank"> <!-- Rank unknown --> </dd>
-                    <dd class="profile-posts"><strong>Posts: </strong>@postUser.UserPosts</dd>
-                    <dd class="profile-joined"><strong>Joined: </strong> @postUser.UserRegdate</dd>
+				    <dd><a href="/Forum/Members?mode=viewprofile&amp;u=@post.PosterId" class="username-coloured">@post.PostUsername</a></dd>
+                    <dd class="profile-rank"><b>@roleName</b></dd>
+                    <dd class="profile-posts"><strong>Posts: </strong>@postUser?.UserPosts</dd>
+                    <dd class="profile-joined"><strong>Joined: </strong> @postUser?.UserRegdate</dd>
                     <dd class="profile-contact">
                         <strong>Contact:</strong>
                         <div class="dropdown-container dropdown-left">
@@ -126,7 +133,7 @@
                                         <a href="/Forum/Ucp?i=pm&amp;mode=compose&amp;action=quotepost&amp;p=@post.PostId" title="Send private message">
                                             <span class="contact-icon pm-icon">Send private message</span>
                                         </a>
-                                        <a href="mailto: @postUser.UserEmail" title="Send email" class="last-cell">
+                                        <a href="mailto: @postUser?.UserEmail" title="Send email" class="last-cell">
                                             <span class="contact-icon email-icon">Send email</span>
                                         </a>
                                     </div>
