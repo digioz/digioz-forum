@@ -72,8 +72,8 @@ namespace digioz.Forum.Areas.Forum.Pages
             // Check if user is logged in
             if (User.Identity.IsAuthenticated)
             {
-                var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-                CurrentUser = _forumUserService.GetByUserId(userId);
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                CurrentUser = _forumUserService.GetByAspNetUserId(userId);
             }
 
             TopicId = t;

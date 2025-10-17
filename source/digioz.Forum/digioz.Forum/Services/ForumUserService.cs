@@ -42,6 +42,12 @@ namespace digioz.Forum.Services
             return model;
         }
 
+        public ForumUser GetByAspNetUserId(string aspNetUserId)
+        {
+            var model = _context.ForumUsers.Where(x => x.UserId == aspNetUserId).SingleOrDefault();
+            return model;
+        }
+
         public List<ForumUser> GetByPosts(List<ForumPost> posts)
         {
             var userIds = posts.Select(x => x.PosterId).Distinct().ToList();

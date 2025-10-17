@@ -14,6 +14,7 @@ namespace digioz.Forum.Services.Interfaces
         bool DoesForumUsernameExist(string username);
         string GetEmailByUserName(string username);
         ForumUser GetByUserId(int userId);
+        ForumUser GetByAspNetUserId(string aspNetUserId);
         List<ForumUser> GetByPosts(List<ForumPost> posts);
     }
 }
