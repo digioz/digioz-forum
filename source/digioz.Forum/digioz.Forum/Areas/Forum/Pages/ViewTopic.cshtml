@@ -11,10 +11,10 @@
 
 @{
     ViewData["Title"] = Model.Topic?.TopicTitle ?? "Topic";
-    Layout = "~/Pages/Shared/_Layout.cshtml";
+    Layout = "~/Areas/Forum/Pages/Shared/_Layout.cshtml";
 
     var layoutModel = LayoutService.GetLayoutData();
-    var partialPath = $"/Pages/Shared/Styles/{layoutModel.ForumStyle.StyleName}/_ViewTopicPartial.cshtml";
+    var partialPath = $"~/Areas/Forum/Pages/Shared/Styles/{layoutModel.ForumStyle.StyleName}/_ViewTopicPartial.cshtml";
 }
 
 @await Html.PartialAsync(partialPath, Model)

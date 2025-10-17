@@ -1,0 +1,27 @@
+@using System.Security.Claims
+@using digioz.Forum.Helpers
+@using digioz.Forum.Services
+@using digioz.Forum.Services.Interfaces
+@inject ILayoutService LayoutService
+@inject IHttpContextAccessor HttpContextAccessor
+@inject IRoleService RoleService
+@inject IUserRoleService UserRoleService
+@{
+    var layoutModel = LayoutService.GetLayoutData();
+    var userHelper = new UserHelper(HttpContextAccessor, RoleService, UserRoleService);
+    var userId = userHelper.GetUserId();
+    var loggedInUser = userHelper.GetForumUser(userId);
+}
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+<link rel="stylesheet" href="~/lib/jqueryui/jquery-ui.min.css" />
+<link rel="stylesheet" href="~/lib/jqueryui/jquery-ui.theme.css" />
+<style>
+    /* Set Body background to black */
+    body {
+        background-color: #000 !important;
+    }
+</style>

@@ -1,6 +1,6 @@
+using digioz.Forum.Areas.Forum.Pages.Shared;
 using digioz.Forum.Helpers;
 using digioz.Forum.Models;
-using digioz.Forum.Pages.Shared;
 using digioz.Forum.Services;
 using digioz.Forum.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;

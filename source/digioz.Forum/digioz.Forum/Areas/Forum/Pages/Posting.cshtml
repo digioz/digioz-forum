@@ -6,7 +6,7 @@
 @model digioz.Forum.Areas.Forum.Pages.PostingModel  
 @{
     ViewData["Title"] = "Post";  
-    Layout = "~/Pages/Shared/_Layout.cshtml";  
+    Layout = "~/Areas/Forum/Pages/Shared/_Layout.cshtml";
 
     var layoutModel = LayoutService.GetLayoutData();
     var partialPath = string.Empty;
@@ -14,12 +14,12 @@
     if (Model.mode == "post" || Model.mode == "edit")  
     {  
         ViewData["Title"] = "Post";
-        partialPath = $"/Pages/Shared/Styles/{layoutModel.ForumStyle.StyleName}/_PostingPostPagePartial.cshtml";
+        partialPath = $"~/Areas/Forum/Pages/Shared/Styles/{layoutModel.ForumStyle.StyleName}/_PostingPostPagePartial.cshtml";
     }  
     else if (Model.mode == "reply")  
     {  
         ViewData["Title"] = "Edit Post";  
-        partialPath = $"/Pages/Shared/Styles/{layoutModel.ForumStyle.StyleName}/_PostingReplyPagePartial.cshtml";
+        partialPath = $"~/Areas/Forum/Pages/Shared/Styles/{layoutModel.ForumStyle.StyleName}/_PostingReplyPagePartial.cshtml";
     }  
 }  
 

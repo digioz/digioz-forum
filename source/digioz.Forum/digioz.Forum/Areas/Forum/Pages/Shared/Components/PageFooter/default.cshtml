@@ -1,0 +1,10 @@
+﻿@using digioz.Forum.Services
+@using digioz.Forum.Services.Interfaces
+@inject ILayoutService LayoutService
+
+@{
+    var layoutModel = LayoutService.GetLayoutData();
+    var partialPath = $"~/Areas/Forum/Pages/Shared/Styles/{layoutModel.ForumStyle.StyleName}/_PageFooterPartial.cshtml";
+}
+
+<partial name="@partialPath" model="Model" />

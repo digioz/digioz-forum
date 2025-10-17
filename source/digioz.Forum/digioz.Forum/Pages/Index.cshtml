@@ -1,13 +1,22 @@
 ﻿@page
 @model digioz.Forum.Pages.IndexModel
-@using digioz.Forum.Services
-@using digioz.Forum.Services.Interfaces
-@inject ILayoutService LayoutService
-
 @{
-    ViewData["Title"] = "Home";
-    var layoutModel = LayoutService.GetLayoutData();
-    var partialPath = $"/Pages/Shared/Styles/{layoutModel.ForumStyle.StyleName}/_LandingPagePartial.cshtml";
+    Layout = null; // Do not use a layout; render a minimal HTML redirect page
 }
-
-@await Html.PartialAsync(partialPath, Model)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Redirecting…</title>
+    <meta http-equiv="refresh" content="0;url=/Forum/Index" />
+    <link rel="canonical" href="/Forum/Index" />
+    <meta name="robots" content="noindex" />
+    <script>
+        window.location.replace('/Forum/Index');
+    </script>
+</head>
+<body>
+    <p>Redirecting to <a href="/Forum/Index">/Forum/Index</a>…</p>
+</body>
+</html>
+        

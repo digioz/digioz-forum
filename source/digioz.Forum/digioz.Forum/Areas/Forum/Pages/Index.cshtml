@@ -6,10 +6,10 @@
 
 @{
     ViewData["Title"] = "Forum Index";
-    Layout = "~/Pages/Shared/_Layout.cshtml";
+    // Layout is set in Areas/Forum/Pages/_ViewStart.cshtml
 
     var layoutModel = LayoutService.GetLayoutData();
-    var partialPath = $"/Pages/Shared/Styles/{layoutModel.ForumStyle.StyleName}/_IndexPagePartial.cshtml";
+    var partialPath = $"~/Areas/Forum/Pages/Shared/Styles/{layoutModel.ForumStyle.StyleName}/_IndexPagePartial.cshtml";
 }
 
 @await Html.PartialAsync(partialPath, Model)

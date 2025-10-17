@@ -45,11 +45,4 @@
     <PackageReference Include="System.Text.Json" Version="9.0.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Pages\Shared\Styles\bootstrap\" />
-    <Folder Include="Pages\Shared\Styles\bootstrap_dark\" />
-    <Folder Include="Pages\Shared\Styles\prosilver_dark\" />
-    <Folder Include="Pages\Shared\Styles\prosilver\" />
-  </ItemGroup>
-
 </Project>

@@ -1,13 +1,8 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-
-    @await RenderSectionAsync("Headers", required: false)
-
-<body id="phpbb" class="nojs notouch section-index ltr ">
-    @await Component.InvokeAsync("PageHeader")
-    @RenderBody()
-    @await Component.InvokeAsync("PageFooter")
-
-    @await RenderSectionAsync("Scripts", required: false)
+<head>
+</head>
+<body>
+	@RenderBody()
 </body>
 </html>
