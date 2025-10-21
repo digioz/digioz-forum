@@ -1,4 +1,5 @@
 using digioz.Forum.Data;
+using digioz.Forum.Filters;
 using digioz.Forum.Logging;
 using digioz.Forum.Models;
 using digioz.Forum.Services;
@@ -35,7 +36,18 @@ builder.Services.AddScoped<IForumPermissionService, ForumPermissionService>();
 builder.Services.AddScoped<IForumTopicService, ForumTopicService>();
 builder.Services.AddScoped<IForumLogService, ForumLogService>();
 
-builder.Services.AddRazorPages();
+// IHttpContextAccessor for filters
+builder.Services.AddHttpContextAccessor();
+
+// Register page logger filter
+builder.Services.AddScoped<PageLoggerFilter>();
+
+builder.Services.AddRazorPages(options =>
+{
+    // Global page filter to log page loads
+    options.Conventions.ConfigureFilter(new PageLoggerFilterFactory());
+});
+
 builder.Services.AddSingleton<ILayoutService, LayoutService>();
 
 // Login Options
