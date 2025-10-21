@@ -1,4 +1,5 @@
 using digioz.Forum.Data;
+using digioz.Forum.Logging;
 using digioz.Forum.Models;
 using digioz.Forum.Services;
 using digioz.Forum.Services.Interfaces;
@@ -7,6 +8,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Configure DB logger provider from configuration (appsettings.json: DbLogger)
+builder.Services.Configure<DbLoggerOptions>(builder.Configuration.GetSection("DbLogger"));
+builder.Logging.AddDbLogger();
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
@@ -28,6 +33,7 @@ builder.Services.AddScoped<IUserRoleService, UserRoleService>();
 builder.Services.AddScoped<IForumPostService, ForumPostService>();
 builder.Services.AddScoped<IForumPermissionService, ForumPermissionService>();
 builder.Services.AddScoped<IForumTopicService, ForumTopicService>();
+builder.Services.AddScoped<IForumLogService, ForumLogService>();
 
 builder.Services.AddRazorPages();
 builder.Services.AddSingleton<ILayoutService, LayoutService>();

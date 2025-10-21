@@ -379,8 +379,7 @@ public partial class DigiozForumContext : DbContext
 
             entity.Property(e => e.ConfigName)
                 .HasMaxLength(255)
-                .IsUnicode(false)
-                .HasDefaultValue("");
+                .IsUnicode(false);
             entity.Property(e => e.ConfigValue)
                 .HasMaxLength(255)
                 .IsUnicode(false)
@@ -877,7 +876,6 @@ public partial class DigiozForumContext : DbContext
             entity.Property(e => e.SessionId)
                 .HasMaxLength(32)
                 .IsUnicode(false)
-                .HasDefaultValue("")
                 .IsFixedLength();
             entity.Property(e => e.SessionBrowser)
                 .HasMaxLength(150)

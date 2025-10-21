@@ -5,7 +5,7 @@ namespace digioz.Forum.Models;
 
 public partial class ForumLang
 {
-    public byte LangId { get; set; }
+    public short LangId { get; set; }
 
     public string LangIso { get; set; } = null!;
 
